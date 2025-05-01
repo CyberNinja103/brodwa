@@ -3,7 +3,6 @@ if not getgenv()["Animator"] then
 	hookAnimatorFunction()
 end
 local Anim
-game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("CameraModule"):WaitForChild("MouseLockController"):WaitForChild("BoundKeys").Value = "LeftControl"
 local id
 local walk = 118089616039841
 local mouse1 = false
