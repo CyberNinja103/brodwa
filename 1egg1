@@ -1096,6 +1096,8 @@ local mouse = player:GetMouse()
 local idle = true
 local char = game.Players.LocalPlayer.Character
 local hum = char:FindFirstChild("Humanoid")
+hum.Animator:Destroy()
+char.Animate:Destroy()
 Anim = hum:LoadAnimation(i)
 Anim:Play()
 id = i
@@ -1132,7 +1134,7 @@ uis.InputBegan:Connect(function(input)
 		Anim.Looped = false
 		Anim:Play()
         id = rtrid
-        wait(4)
+        wait(3)
         ability = false
         hum.WalkSpeed = 6
         
@@ -1146,7 +1148,7 @@ uis.InputBegan:Connect(function(input)
         wait(.1)    
         entanglement = true
         hum.WalkSpeed = 0
-        wait(.5)
+        wait(1.5)
         entanglement = false
         hum.WalkSpeed = 9
 	end
@@ -1157,7 +1159,7 @@ uis.InputBegan:Connect(function(input)
         wait(.1)    
         pizza = true
         hum.WalkSpeed = 0
-        wait(2.6)
+        wait(3)
         pizza = false
         hum.WalkSpeed = 9
 	end
@@ -1168,7 +1170,7 @@ uis.InputBegan:Connect(function(input)
         ability = true
         eye = true
         hum.WalkSpeed = 0
-        wait(1)
+        wait(3)
         ability = false
         eye = false
         hum.WalkSpeed = 9
@@ -1182,7 +1184,7 @@ local function onButton1Down()
 		Anim.Looped = false
 		Anim:Play()
 		id = m1
-		wait(.5)
+		wait(1)
 		mouse1 = false
 		end
 end
@@ -1298,3 +1300,4 @@ while wait() do
 	end
 
  end
+
