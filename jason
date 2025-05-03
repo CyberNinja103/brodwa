@@ -1031,9 +1031,9 @@ Empyrean = Start({
 	},
 	ApplyDescription = true,
 	BreakJointsDelay = 0.255,
-	ClickFling = false,
+	ClickFling = true,
 	DefaultFlingOptions = {
-		HatFling = false,--{ MeshId="", TextureId = ""},
+		HatFling = true,--{ MeshId="", TextureId = ""},
 		Highlight = false,
 		PredictionFling = true,
 		Timeout = 1,
@@ -1181,6 +1181,7 @@ uis.InputBegan:Connect(function(input)
         sprinting1 = false
         wait(.1)    
         behead = true
+		raged = false
         wait(1.1)
         behead = false
 	end
@@ -1190,6 +1191,7 @@ uis.InputBegan:Connect(function(input)
         sprinting1 = false
         wait(.1)    
         gashing = true
+		raged = false
         hum.WalkSpeed = 0
         wait(5)
         gashing = false
