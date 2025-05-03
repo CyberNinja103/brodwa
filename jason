@@ -1223,17 +1223,27 @@ local function onButton1Down()
         if raged == true then
             raged = false
             ability = false
-            hum.Walkspeed = 9
+            mouse1 = true
+            hum.WalkSpeed = 30
+            Anim:Stop()
+            Anim = hum:LoadAnimation(m1)
+		    Anim.Looped = false
+		    Anim:Play()
+		    id = m1
+            wait(.7)
+		    mouse1 = false
+            hum.WalkSpeed = 9
+         else
+            mouse1 = true
+            Anim:Stop()
+		    Anim = hum:LoadAnimation(m1)
+		    Anim.Looped = false
+		    Anim:Play()
+		    id = m1
+		    wait(.7)
+		    mouse1 = false
         end
-        mouse1 = true
-        Anim:Stop()
-		Anim = hum:LoadAnimation(m1)
-		Anim.Looped = false
-		Anim:Play()
-		id = m1
-		wait(.7)
-		mouse1 = false
-		end
+	end
 end
 
 mouse.Button1Down:Connect(onButton1Down)
