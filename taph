@@ -172,6 +172,7 @@ uis.InputBegan:Connect(function(input)
 		wait(1)
 		ability = false
         raged = false
+		rageend = false
         hum.WalkSpeed = ws
         
 	end
