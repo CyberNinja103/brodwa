@@ -1,2 +1,254 @@
-print("planning on adding taph later")
--- and im actually not gonna scrap this
+if not getgenv()["Animator"] then
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
+	hookAnimatorFunction()
+end
+local Anim
+local id
+local walk = 108018357044094
+local mouse1 = false
+local finish = false
+local i = 131082534135875
+local sprinting1 = false
+local raged = false
+local ragewalk = 123920512025716
+local rageidle = 97339712737072
+local ability = false
+local tripmineid = 134027914413177
+local tripmine = false
+local run = 136252471123500
+local uis = game:GetService("UserInputService")
+local walking = false
+local hwalking = 132377038617766
+local hurt = false
+local hidle = 134624270247120
+local hrun = 115946474977409
+local sprinting = false
+local ws = 12
+local weld
+local taunt = false
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local mouse = player:GetMouse()
+local idle = true
+local char = game.Players.LocalPlayer.Character
+local submine = false
+local hum = char:FindFirstChild("Humanoid")
+-- check for tripmine accessory
+if char:FindFirstChild("Accessory (MeshPart)") then
+local submine = true
+local subspace = char:FindFirstChild("Accessory (MeshPart)")
+subspace.Handle.CanCollide = true
+weld = subspace.Handle.AccessoryWeld
+end
+hum.Animator:Destroy()
+char.Animate:Destroy()
+Anim = hum:LoadAnimation(i)
+Anim:Play()
+id = i
+hum.WalkSpeed = ws
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftShift and raged == false and tripmine == false then
+	sprinting1 = true
+		hum.WalkSpeed = 24
+	end
+	end)
+uis.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftShift and raged == false and tripmine == false then
+	    sprinting1 = false
+	    hum.WalkSpeed = ws
+	end
+	end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.One then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(133160365635320)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Two then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(75420633536507)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Three then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(75802192289302)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Four then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(121768360244671)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Five then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(114206095641235)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Six then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(111309618966926)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Seven then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(134617723143543)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.E and finish == false and raged == false then
+		-- if submine == true then
+		weld.Enabled = true
+        sprinting1 = false
+        wait(.1)
+		hum.WalkSpeed = 5
+		tripmine = true
+        wait(2.5)
+		weld.Enabled = false
+		wait(.5)
+		hum.WalkSpeed = ws
+		tripmine = false
+		-- else
+		-- sprinting1 = false
+        -- wait(.1)
+		-- hum.WalkSpeed = 5
+		-- tripmine = true
+        -- wait(3)
+		-- hum.WalkSpeed = ws
+		-- tripmine = false
+		-- end
+	end
+end)
+
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Q and raged == false then
+        sprinting1 = false
+        ability = true
+        hum.WalkSpeed = 0
+        wait(1)
+        raged = true
+        hum.WalkSpeed = 5
+		elseif input.KeyCode == Enum.KeyCode.Q and raged == true then
+        ability = false
+        raged = false
+        hum.WalkSpeed = ws
+        
+	end
+end)
+local function onButton1Down()
+    if id ~= m1 then 
+            mouse1 = true
+            Anim:Stop()
+		    Anim = hum:LoadAnimation(m1)
+		    Anim.Looped = false
+		    Anim:Play()
+		    id = m1
+		    wait(.7)
+		    mouse1 = false
+        end
+	end
+
+
+mouse.Button1Down:Connect(onButton1Down)
+while wait() do
+	if idle == true and taunt == false and hurt == false and ability == false and tripmine == false and mouse1 == false and finish == false then
+		if id ~= i then 
+	    Anim:Stop()
+		Anim = hum:LoadAnimation(i)
+		Anim.Looped = true
+		Anim:Play()
+		id = i
+		end
+	end
+	if walking == true and taunt == false and ability == false and hurt == false and sprinting1 == false and tripmine == false and finish == false and mouse1 == false then
+		if id ~= walk then
+		Anim:Stop()
+		Anim = hum:LoadAnimation(walk)
+		Anim.Looped = true
+		Anim:Play() 
+		id = walk
+		end
+	end
+	if sprinting == true and taunt == false and ability == false and tripmine == false and hurt == false and mouse1 == false then
+		if id ~= run then
+        Anim:Stop()
+		Anim = hum:LoadAnimation(run)
+		Anim.Looped = true
+		Anim:Play() 
+		id = run
+		end
+	end
+	if hum.MoveDirection ~= Vector3.new(0, 0, 0) and sprinting1 == false then
+		walking = true
+		sprinting = false
+		idle = false
+		taunt = false
+	end
+	if hum.MoveDirection ~= Vector3.new(0, 0, 0) and sprinting1 == true and mouse1 == false and tripmine == false and raged == false then
+		walking = false
+		sprinting = true
+		idle = false
+		taunt = false
+	end
+	if hum.MoveDirection == Vector3.new(0,0,0) then
+		idle = true
+		walking = false
+		sprinting = false
+	end
+	if idle == true and taunt == false and mouse1 == false and raged == true and tripmine == false and finish == false  then
+		if id ~= rageidle then 
+	    Anim:Stop(2)
+		Anim = hum:LoadAnimation(rageidle)
+		Anim.Looped = true
+		Anim:Play()
+		id = rageidle
+		end
+	end
+	if walking == true and taunt == false and mouse1 == false and raged == true and tripmine == false and finish == false  then
+		if id ~= ragewalk then
+		Anim:Stop(2)
+		Anim = hum:LoadAnimation(ragewalk)
+		Anim.Looped = true
+		Anim:Play() 
+		id = ragewalk
+		end
+	end
+	if tripmine == true and taunt == false and raged == false then
+		if id ~= tripmineid then 
+	    Anim:Stop()
+		Anim = hum:LoadAnimation(tripmineid)
+		Anim.Looped = false
+		Anim:Play()
+		id = tripmineid
+		end
+	end
+
+
+ end
+
