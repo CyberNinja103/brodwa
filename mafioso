@@ -1098,17 +1098,17 @@ local hum = char:FindFirstChild("Humanoid")
 Anim = hum:LoadAnimation(i)
 Anim:Play()
 id = i
-hum.WalkSpeed = 6
+hum.WalkSpeed = 7.5
 uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.LeftShift and CN == false and pizza == false then
 	sprinting1 = true
-		hum.WalkSpeed = 30
+		hum.WalkSpeed = 28
 	end
 	end)
 uis.InputEnded:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.LeftShift and CN == false and pizza == false then
 	    sprinting1 = false
-	    hum.WalkSpeed = 6
+	    hum.WalkSpeed = 7.5
 	end
 	end)
 uis.InputBegan:Connect(function(input)
