@@ -1065,7 +1065,7 @@ if not getgenv()["Animator"] then
 end
 local Anim
 local id
-local walk = 18885906143
+local walk = 90878063243908
 local mouse1 = false
 local finish = false
 local i = 139084558762404
