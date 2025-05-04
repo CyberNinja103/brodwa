@@ -9,7 +9,7 @@ local mouse1 = false
 local finish = false
 local i = 131082534135875
 local sprinting1 = false
-local rageend = false
+local rageends = false
 local raged = false
 local ragewalk = 123920512025716
 local rageidle = 97339712737072
@@ -168,11 +168,11 @@ uis.InputBegan:Connect(function(input)
 		Anim.Looped = false
 		Anim:Play()
 		hum.WalkSpeed = 0
-		rageend = true
+		rageends = true
 		wait(1)
 		ability = false
         raged = false
-		rageend = false
+		rageends = false
         hum.WalkSpeed = ws
         
 	end
@@ -222,18 +222,18 @@ while wait() do
 		walking = false
 		sprinting = false
 	end
-	if idle == true and taunt == false and mouse1 == false and raged == true and tripmine == false and rageend == false  then
+	if idle == true and taunt == false and mouse1 == false and raged == true and tripmine == false and rageends == false  then
 		if id ~= rageidle then 
-	    Anim:Stop(2)
+	    Anim:Stop()
 		Anim = hum:LoadAnimation(rageidle)
 		Anim.Looped = true
 		Anim:Play()
 		id = rageidle
 		end
 	end
-	if walking == true and taunt == false and mouse1 == false and raged == true and tripmine == false and rageend == false  then
+	if walking == true and taunt == false and mouse1 == false and raged == true and tripmine == false and rageends == false  then
 		if id ~= ragewalk then
-		Anim:Stop(2)
+		Anim:Stop()
 		Anim = hum:LoadAnimation(ragewalk)
 		Anim.Looped = true
 		Anim:Play() 
