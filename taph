@@ -12,6 +12,7 @@ local sprinting1 = false
 local raged = false
 local ragewalk = 123920512025716
 local rageidle = 97339712737072
+local rageend = 122093265676661
 local ability = false
 local tripmineid = 134027914413177
 local tripmine = false
@@ -129,9 +130,9 @@ uis.InputBegan:Connect(function(input)
         wait(.1)
 		hum.WalkSpeed = 5
 		tripmine = true
-        wait(2.5)
+        wait(2)
 		weld.Enabled = false
-		wait(.5)
+		wait(1)
 		hum.WalkSpeed = ws
 		tripmine = false
 		-- else
@@ -157,22 +158,14 @@ uis.InputBegan:Connect(function(input)
 		elseif input.KeyCode == Enum.KeyCode.Q and raged == true then
         ability = false
         raged = false
+		Anim = hum:LoadAnimation(rageend)
+		Anim.Looped = false
+		Anim:Play()
         hum.WalkSpeed = ws
         
 	end
 end)
-local function onButton1Down()
-    if id ~= m1 then 
-            mouse1 = true
-            Anim:Stop()
-		    Anim = hum:LoadAnimation(m1)
-		    Anim.Looped = false
-		    Anim:Play()
-		    id = m1
-		    wait(.7)
-		    mouse1 = false
-        end
-	end
+
 
 
 mouse.Button1Down:Connect(onButton1Down)
