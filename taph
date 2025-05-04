@@ -36,10 +36,15 @@ local submine = false
 local hum = char:FindFirstChild("Humanoid")
 -- check for tripmine accessory
 if char:FindFirstChild("Accessory (MeshPart)") then
-local submine = true
+submine = true
 local subspace = char:FindFirstChild("Accessory (MeshPart)")
 subspace.Handle.CanCollide = true
 weld = subspace.Handle.AccessoryWeld
+velocity = Instance.new("VectorForce")
+velocity.Attachment0 = subspace.Handle.RightShoulderAttachment
+velocity.Force = Vector3.new(0,0,-200)
+velocity.Parent = subspace.Handle
+velocity.Enabled = false
 end
 hum.Animator:Destroy()
 char.Animate:Destroy()
@@ -130,9 +135,12 @@ uis.InputBegan:Connect(function(input)
         wait(.1)
 		hum.WalkSpeed = 5
 		tripmine = true
+		velocity.Enabled = true
         wait(2)
 		weld.Enabled = false
-		wait(1)
+		wait(.3)
+		velocity.Enabled = false
+		wait(.7)
 		hum.WalkSpeed = ws
 		tripmine = false
 		-- else
@@ -151,24 +159,21 @@ uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.Q and raged == false then
         sprinting1 = false
         ability = true
-        hum.WalkSpeed = 0
-        wait(1)
         raged = true
         hum.WalkSpeed = 5
 		elseif input.KeyCode == Enum.KeyCode.Q and raged == true then
-        ability = false
-        raged = false
+		Anim:Stop()
 		Anim = hum:LoadAnimation(rageend)
 		Anim.Looped = false
 		Anim:Play()
+		hum.WalkSpeed = 0
+		wait(1)
+		ability = false
+        raged = false
         hum.WalkSpeed = ws
         
 	end
 end)
-
-
-
-mouse.Button1Down:Connect(onButton1Down)
 while wait() do
 	if idle == true and taunt == false and hurt == false and ability == false and tripmine == false and mouse1 == false and finish == false then
 		if id ~= i then 
