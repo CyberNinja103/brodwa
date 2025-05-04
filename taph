@@ -9,6 +9,7 @@ local mouse1 = false
 local finish = false
 local i = 131082534135875
 local sprinting1 = false
+local rageend = false
 local raged = false
 local ragewalk = 123920512025716
 local rageidle = 97339712737072
@@ -129,7 +130,7 @@ uis.InputBegan:Connect(function(input)
 end)
 uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.E and finish == false and raged == false then
-		-- if submine == true then
+		if submine == true then
 		weld.Enabled = true
         sprinting1 = false
         wait(.1)
@@ -143,15 +144,15 @@ uis.InputBegan:Connect(function(input)
 		wait(.7)
 		hum.WalkSpeed = ws
 		tripmine = false
-		-- else
-		-- sprinting1 = false
-        -- wait(.1)
-		-- hum.WalkSpeed = 5
-		-- tripmine = true
-        -- wait(3)
-		-- hum.WalkSpeed = ws
-		-- tripmine = false
-		-- end
+		else
+		sprinting1 = false
+        wait(.1)
+		hum.WalkSpeed = 5
+		tripmine = true
+        wait(3)
+		hum.WalkSpeed = ws
+		tripmine = false
+		end
 	end
 end)
 
@@ -167,6 +168,7 @@ uis.InputBegan:Connect(function(input)
 		Anim.Looped = false
 		Anim:Play()
 		hum.WalkSpeed = 0
+		rageend = true
 		wait(1)
 		ability = false
         raged = false
@@ -219,7 +221,7 @@ while wait() do
 		walking = false
 		sprinting = false
 	end
-	if idle == true and taunt == false and mouse1 == false and raged == true and tripmine == false and finish == false  then
+	if idle == true and taunt == false and mouse1 == false and raged == true and tripmine == false and rageend == false  then
 		if id ~= rageidle then 
 	    Anim:Stop(2)
 		Anim = hum:LoadAnimation(rageidle)
@@ -228,7 +230,7 @@ while wait() do
 		id = rageidle
 		end
 	end
-	if walking == true and taunt == false and mouse1 == false and raged == true and tripmine == false and finish == false  then
+	if walking == true and taunt == false and mouse1 == false and raged == true and tripmine == false and rageend == false  then
 		if id ~= ragewalk then
 		Anim:Stop(2)
 		Anim = hum:LoadAnimation(ragewalk)
