@@ -37,12 +37,12 @@ local punchvel = Instance.new("VectorForce")
 punchvel.Parent = char.HumanoidRootPart
 punchvel.Attachment0 = char.HumanoidRootPart.RootAttachment
 punchvel.Enabled = false
-punchvel.Force = vector3.new(0, 0, -10000)
+punchvel.Force = Vector3.new(0, 0, -10000)
 local chargevel = Instance.new("VectorForce")
 chargevel.Parent = char.HumanoidRootPart
 chargevel.Attachment0 = char.HumanoidRootPart.RootAttachment
 chargevel.Enabled = false
-chargevel.Force = vector3.new(0, 0, -1000)
+chargevel.Force = Vector3.new(0, 0, -1000)
 hum.Animator:Destroy()
 char.Animate:Destroy()
 Anim = hum:LoadAnimation(i)
@@ -162,7 +162,7 @@ uis.InputBegan:Connect(function(input)
 	end
 end)
 while wait() do
-	if idle == true and taunt == false and hurt == false and ability == false and tripmine == false and mouse1 == false and finish == false then
+	if idle == true and taunt == false and hurt == false and ability == false and mouse1 == false and finish == false then
 		if id ~= i then 
 	    Anim:Stop()
 		Anim = hum:LoadAnimation(i)
@@ -171,7 +171,7 @@ while wait() do
 		id = i
 		end
 	end
-	if walking == true and taunt == false and ability == false and hurt == false and sprinting1 == false and tripmine == false and finish == false and mouse1 == false then
+	if walking == true and taunt == false and ability == false and hurt == false and sprinting1 == false and finish == false and mouse1 == false then
 		if id ~= walk then
 		Anim:Stop()
 		Anim = hum:LoadAnimation(walk)
@@ -180,7 +180,7 @@ while wait() do
 		id = walk
 		end
 	end
-	if sprinting == true and taunt == false and ability == false and tripmine == false and hurt == false and mouse1 == false then
+	if sprinting == true and taunt == false and ability == false and hurt == false and mouse1 == false then
 		if id ~= run then
         Anim:Stop()
 		Anim = hum:LoadAnimation(run)
@@ -195,7 +195,7 @@ while wait() do
 		idle = false
 		taunt = false
 	end
-	if hum.MoveDirection ~= Vector3.new(0, 0, 0) and sprinting1 == true and mouse1 == false and tripmine == false and raged == false then
+	if hum.MoveDirection ~= Vector3.new(0, 0, 0) and sprinting1 == true and mouse1 == false and raged == false then
 		walking = false
 		sprinting = true
 		idle = false
