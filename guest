@@ -42,7 +42,7 @@ local chargevel = Instance.new("VectorForce")
 chargevel.Parent = char.HumanoidRootPart
 chargevel.Attachment0 = char.HumanoidRootPart.RootAttachment
 chargevel.Enabled = false
-chargevel.Force = Vector3.new(0, 0, -1000)
+chargevel.Force = Vector3.new(0, 0, -7590)
 hum.Animator:Destroy()
 char.Animate:Destroy()
 Anim = hum:LoadAnimation(i)
@@ -130,7 +130,8 @@ uis.InputBegan:Connect(function(input)
 		charging = true
 		hum.WalkSpeed = 0
 		chargevel.Enabled = true
-		wait(3)
+		wait(4)
+		chargevel.Enabled = false
 		charging = false
 		ability = false
 		hum.WalkSpeed = ws
@@ -142,7 +143,7 @@ uis.InputBegan:Connect(function(input)
         blocking = true
         ability = true
 		hum.WalkSpeed = 5
-		wait(2)
+		wait(4)
 		ability = false
 		blocking = false
 		hum.WalkSpeed = ws
@@ -153,10 +154,11 @@ uis.InputBegan:Connect(function(input)
         punching = true
         ability = true
 		hum.WalkSpeed = 3
-		wait(2)
+		wait(.8)
 		punchvel.Enabled = true
 		wait(.6)
 		punchvel.Enabled = false
+		hum.WalkSpeed = ws
 		ability = false
 		punching = false
 	end
@@ -206,7 +208,7 @@ while wait() do
 		walking = false
 		sprinting = false
 	end
-	if taunt == false and mouse1 == false and punhcing == true and blocking == false and charging == false  then
+	if taunt == false and mouse1 == false and punching == true and blocking == false and charging == false  then
 		if id ~= punchid then 
 	    Anim:Stop()
 		Anim = hum:LoadAnimation(punchid)
@@ -219,7 +221,7 @@ while wait() do
 		if id ~= chargeid then
 		Anim:Stop()
 		Anim = hum:LoadAnimation(chargeid)
-		Anim.Looped = false
+		Anim.Looped = true
 		Anim:Play() 
 		id = chargeid
 		end
