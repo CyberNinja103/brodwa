@@ -50,13 +50,13 @@ Anim:Play()
 id = i
 hum.WalkSpeed = ws
 uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.LeftShift and raged == false and tripmine == false then
+	if input.KeyCode == Enum.KeyCode.LeftShift and charging == false and blocking == false and punching == false then
 	sprinting1 = true
 		hum.WalkSpeed = 24
 	end
 	end)
 uis.InputEnded:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.LeftShift and raged == false and tripmine == false then
+	if input.KeyCode == Enum.KeyCode.LeftShift and charging == false and blocking == false and punching == false then
 	    sprinting1 = false
 	    hum.WalkSpeed = ws
 	end
@@ -195,7 +195,7 @@ while wait() do
 		idle = false
 		taunt = false
 	end
-	if hum.MoveDirection ~= Vector3.new(0, 0, 0) and sprinting1 == true and mouse1 == false and raged == false then
+	if hum.MoveDirection ~= Vector3.new(0, 0, 0) and sprinting1 == true and mouse1 == false then
 		walking = false
 		sprinting = true
 		idle = false
