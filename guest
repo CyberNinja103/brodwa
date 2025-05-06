@@ -37,12 +37,12 @@ local punchvel = Instance.new("VectorForce")
 punchvel.Parent = char.HumanoidRootPart
 punchvel.Attachment0 = char.HumanoidRootPart.RootAttachment
 punchvel.Enabled = false
-punchvel.Force = Vector3.new(0, 0, -10000)
+punchvel.Force = Vector3.new(0, 0, -20000)
 local chargevel = Instance.new("VectorForce")
 chargevel.Parent = char.HumanoidRootPart
 chargevel.Attachment0 = char.HumanoidRootPart.RootAttachment
 chargevel.Enabled = false
-chargevel.Force = Vector3.new(0, 0, -7590)
+chargevel.Force = Vector3.new(0, 0, -9990)
 hum.Animator:Destroy()
 char.Animate:Destroy()
 Anim = hum:LoadAnimation(i)
@@ -50,15 +50,21 @@ Anim:Play()
 id = i
 hum.WalkSpeed = ws
 uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.LeftShift and charging == false and blocking == false and punching == false then
+	if input.KeyCode == Enum.KeyCode.LeftShift then
 	sprinting1 = true
+	ws = 24
+		if charging == false and blocking == false and punching == false then
 		hum.WalkSpeed = 24
+		end
 	end
 	end)
 uis.InputEnded:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.LeftShift and charging == false and blocking == false and punching == false then
+	if input.KeyCode == Enum.KeyCode.LeftShift then
 	    sprinting1 = false
-	    hum.WalkSpeed = ws
+		ws = 12
+	    if charging == false and blocking == false and punching == false then
+		hum.WalkSpeed = 12
+		end
 	end
 	end)
 uis.InputBegan:Connect(function(input)
@@ -125,10 +131,10 @@ uis.InputBegan:Connect(function(input)
 	end
 end)
 uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.E and blocking == false and punching == false then
+	if input.KeyCode == Enum.KeyCode.E and ability == false then
 		ability = true
 		charging = true
-		hum.WalkSpeed = 0
+		hum.WalkSpeed = .1
 		chargevel.Enabled = true
 		wait(4)
 		chargevel.Enabled = false
@@ -139,25 +145,26 @@ uis.InputBegan:Connect(function(input)
 end)
 
 uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Q and charging == false and punching == false then
+	if input.KeyCode == Enum.KeyCode.Q and ability == false then
         blocking = true
         ability = true
 		hum.WalkSpeed = 5
-		wait(4)
+		wait(1.5)
 		ability = false
 		blocking = false
 		hum.WalkSpeed = ws
 	end
 end)
 uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.R and charging == false and blocking == false then
+	if input.KeyCode == Enum.KeyCode.R and ability == false then
         punching = true
         ability = true
 		hum.WalkSpeed = 3
 		wait(.8)
 		punchvel.Enabled = true
-		wait(.6)
+		wait(.1)
 		punchvel.Enabled = false
+		wait(.5)
 		hum.WalkSpeed = ws
 		ability = false
 		punching = false
