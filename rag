@@ -210,17 +210,7 @@ wait(3) -- idk so it wont break
 getgenv().options = { -- SCRIPT OPTIONS
     RagdollGravity = 196.2 -- change to any number above 0 (196.2 is default grav)
 }
-local OxideApi = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/Utils/refs/heads/main/OxideApi"))()
-local ContextActionService = game:GetService("ContextActionService")
-ContextActionService:BindAction("RagdollNoPush", function() OxideApi.Input.Press(Enum.KeyCode.T) end, true, Enum.KeyCode.ButtonY, Enum.KeyCode.ButtonY)
-ContextActionService:SetTitle("RagdollNoPush", "RDoll No Push")
-ContextActionService:BindAction("Ragdoll", function() OxideApi.Input.Press(Enum.KeyCode.R) end, true, Enum.KeyCode.ButtonY, Enum.KeyCode.ButtonY)
-ContextActionService:SetTitle("Ragdoll", "Ragdoll")
-ContextActionService:BindAction("fix", function() print("Esc Pressed") end, true, Enum.KeyCode.ButtonY, Enum.KeyCode.ButtonY)
-ContextActionService:SetTitle("fix", "")
-ContextActionService:SetPosition("Ragdoll",UDim2.new(-1.8, 0, 0.4, 0))
-ContextActionService:SetPosition("RagdollNoPush",UDim2.new(-1.8, 0, 0.1, 0))
-ContextActionService:SetPosition("fix",UDim2.new(6.06, 0, 0.1, 0))
+
 local ograv = workspace.Gravity
 local Character: Model = game.Players.LocalPlayer.Character
 local Torso: BasePart = Character:WaitForChild("Torso")
