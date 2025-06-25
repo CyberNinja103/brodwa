@@ -1,0 +1,119 @@
+if not getgenv()["Animator"] then
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
+
+end
+hookAnimatorFunction()
+local Anim
+local id
+local walk = 139272818283983
+local i = 83875622740137
+local eat = false
+local eatid = 121781457295101
+local sprinting1 = false
+local attack = false
+local attackid = 131257799030455
+local run = 107603305929255
+local uis = game:GetService("UserInputService")
+local walking = false
+local hwalking = 132377038617766
+local hurt = false
+local hidle = 134624270247120
+local hrun = 115946474977409
+local sprinting = false
+local taunt = false
+local idle = true
+local char = game.Players.LocalPlayer.Character
+local hum = char:FindFirstChild("Humanoid")
+hum.Animator:Destroy()
+char.Animate:Destroy()
+Anim = hum:LoadAnimation(i)
+Anim:Play()
+id = i
+hum.WalkSpeed = 30
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.One then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(133160365635320)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Two then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(107716765704359)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Three then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(75802192289302)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Four then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(76148053209080)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Five then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(17320168672)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Six then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(102498054330233)
+        taunt = true
+        Anim:Play()
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Seven then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(139400505188520)
+        taunt = true
+        Anim:Play()
+	end
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Eight then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(5025546871)
+        taunt = true
+        Anim:Play()
+	end
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Nine then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(110926505486019)
+        taunt = true
+        Anim:Play()
+	end
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Zero then
+        Anim:Stop()
+        id = "taunt"
+        Anim = hum:LoadAnimation(103719006556178)
+        taunt = true
+        Anim:Play()
+	end
+end)
