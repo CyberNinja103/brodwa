@@ -207,13 +207,13 @@ do
 	end))
 end
 wait(3) -- idk so it wont break
-
+local char = game.Players.LocalPlayer.Character
+local hum = char:FindFirstChild("Humanoid")
 if not getgenv()["Animator"] then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
 	hookAnimatorFunction()
 end
 local Anim
-game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("CameraModule"):WaitForChild("MouseLockController"):WaitForChild("BoundKeys").Value = "LeftControl"
 local id
 local walk = 139272818283983
 local i = 83875622740137
@@ -232,8 +232,7 @@ local hrun = 115946474977409
 local sprinting = false
 local taunt = false
 local idle = true
-local char = game.Players.LocalPlayer.Character
-local hum = char:FindFirstChild("Humanoid")
+
 hum.Animator:Destroy()
 char.Animate:Destroy()
 Anim = hum:LoadAnimation(i)
