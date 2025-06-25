@@ -211,8 +211,9 @@ local char = game.Players.LocalPlayer.Character
 local hum = char:FindFirstChild("Humanoid")
 if not getgenv()["Animator"] then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
-	hookAnimatorFunction()
+	
 end
+hookAnimatorFunction()
 local Anim
 local id
 local walk = 139272818283983
