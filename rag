@@ -210,7 +210,6 @@ wait(3) -- idk so it wont break
 getgenv().options = { -- SCRIPT OPTIONS
     RagdollGravity = 196.2 -- change to any number above 0 (196.2 is default grav)
 }
-
 local ograv = workspace.Gravity
 local Character: Model = game.Players.LocalPlayer.Character
 local Torso: BasePart = Character:WaitForChild("Torso")
