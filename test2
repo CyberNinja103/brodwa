@@ -232,9 +232,6 @@ local hrun = 115946474977409
 local sprinting = false
 local taunt = false
 local idle = true
-
-hum.Animator:Destroy()
-char.Animate:Destroy()
 Anim = hum:LoadAnimation(i)
 Anim:Play()
 id = i
