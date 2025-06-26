@@ -35,7 +35,7 @@ have fun skids, while you still can,,, :smiling_imp:
 do
 	-- Settings:
 	
-	local DefaultAnimations = true -- doesnt work in velocity because it doesnt allow u to run localscripts
+	local DefaultAnimations = false -- doesnt work in velocity because it doesnt allow u to run localscripts
 	local DisableCharacterCollisions = false
 	local InstantRespawn = true
 	local ParentCharacterToRig = false
@@ -96,9 +96,9 @@ do
 	local Vector3new = Vector3.new
 	local Vector3zero = Vector3.zero
 	
-	RigAnimate.Enabled = false	
+	RigAnimate.Enabled = true	
 	
-	Rig.Name = LocalPlayer.Name
+	Rig.Name = "robloxdestroyer10343"
 	RigHumanoid.DisplayName = LocalPlayer.DisplayName -- if theres no display it will be just name so this is fine
 	
 	if Character then
@@ -213,6 +213,12 @@ wait(0) -- idk so it wont break
 --> Perfect R6 Ragdoll by CompletedLoop
 --> Created June 6, 2023
 --> Modified June 26, 2025
+game.Players.LocalPlayer.Character.Animate:Destroy()
+game.workspace.Theonewhoknockee.Animate.Parent = game.Players.LocalPlayer.Character
+task.wait()
+game.Players.LocalPlayer.Character.Animate.Enabled = false
+task.wait()
+game.Players.LocalPlayer.Character.Animate.Enabled = true
 local Character: Model = game.Players.LocalPlayer.Character
 local Torso = Character.Torso
 local Humanoid = Character.Humanoid
