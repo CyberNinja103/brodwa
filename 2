@@ -30,31 +30,6 @@ have fun skids, while you still can,,, :smiling_imp:
 -- not done in loops
 -- but ill be doing it anyway since thats what they were trying to do
 
--- Turn off player collisions script by @Omnoms_Forever
--- (With some help from an answer at https://devforum.roblox.com/t/how-to-disable-collisions-on-players/1325026/3)
-
--- This script is compatible with the new collision group updates as of 2023. (However, this script does NOT work before late 2022, since it uses methods featured in a 2023 update)
-
--- I hope this helps you in your Roblox game developing journey! You can delete all these comments EXCEPT the first and second one at the top.
-
--- The comments below explain what the code does, so that you can have a better understanding about exactly how it works.
-
-plrs = game:GetService("Players") -- Get Players; this service allows us to know when a player joins the game and other player-related things
-ps = game:GetService("PhysicsService") -- Get PhysicsService; this service allows us to manage collision groups
-
-ps:RegisterCollisionGroup("plrs") -- Create collision group for players only
-ps:CollisionGroupSetCollidable("plrs","plrs",false) -- Make the group not collide with other parts in that same group (This is why we create a new, seperate collision group for players; if we did this with the normal collision group, the players would fall through the world!)
-
-plrs.PlayerAdded:Connect(function(plr) -- When a player joins,
-	plr.CharacterAdded:Connect(function(chr) -- wait for their character to load. Once it does,
-		for key,value in pairs(chr:GetDescendants()) do -- loop through the character's descendants/parts.
-			if value:IsA("BasePart") then -- If a descendant is found to be eligable for collision groups (If this part of the character is a body part),
-				value.CollisionGroup = "plrs" -- set its collision group to the players only group
-			end
-		end
-	end)
-end)
-
 do
 	-- Settings:
 	
