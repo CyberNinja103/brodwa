@@ -30,14 +30,6 @@ have fun skids, while you still can,,, :smiling_imp:
 -- not done in loops
 -- but ill be doing it anyway since thats what they were trying to do
 
--- Turn off player collisions script by @Omnoms_Forever
--- (With some help from an answer at https://devforum.roblox.com/t/how-to-disable-collisions-on-players/1325026/3)
-
--- This script is compatible with the new collision group updates as of 2023. (However, this script does NOT work before late 2022, since it uses methods featured in a 2023 update)
-
--- I hope this helps you in your Roblox game developing journey! You can delete all these comments EXCEPT the first and second one at the top.
-
--- The comments below explain what the code does, so that you can have a better understanding about exactly how it works.
 
 
 do
@@ -209,9 +201,9 @@ do
 		
 		if DisableCharacterCollisions == false then
 			for Index, BasePart in next, GetDescendants(Character) do
-				if IsA(BasePart, "BasePart") and BasePart.Name ~= 'HumanoidRootPart' then
+				if IsA(BasePart, "BasePart") then
 					
-					BasePart.CanCollide = false
+					
 				end
 			end
 		end
