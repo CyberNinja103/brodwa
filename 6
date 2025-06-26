@@ -96,7 +96,7 @@ do
 	local Vector3new = Vector3.new
 	local Vector3zero = Vector3.zero
 	
-	RigAnimate.Enabled = false	
+	RigAnimate.Enabled = true	
 	
 	Rig.Name = LocalPlayer.Name
 	RigHumanoid.DisplayName = LocalPlayer.DisplayName -- if theres no display it will be just name so this is fine
@@ -123,7 +123,7 @@ do
 	Character = Wait(CharacterAdded)
 	
 	local Animate = WaitForChild(Character, "Animate")
-	Animate.Enabled = false
+	Animate.Enabled = true
 
 	local RootPart = WaitForChild(Character, "HumanoidRootPart")
 	RigRootPart.CFrame = RootPartCFrame or RootPart.CFrame
