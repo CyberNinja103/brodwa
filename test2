@@ -33,7 +33,7 @@ have fun skids, while you still can,,, :smiling_imp:
 do
 	-- Settings:
 	
-	local DefaultAnimations = false -- doesnt work in velocity because it doesnt allow u to run localscripts
+	local DefaultAnimations = true -- doesnt work in velocity because it doesnt allow u to run localscripts
 	local DisableCharacterCollisions = false
 	local InstantRespawn = true
 	local ParentCharacterToRig = false
