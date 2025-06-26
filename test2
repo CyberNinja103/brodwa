@@ -206,230 +206,180 @@ do
 		end
 	end))
 end
-wait(3) -- idk so it wont break
-local char = game.Players.LocalPlayer.Character
-local hum = char:FindFirstChild("Humanoid")
-if not getgenv()["Animator"] then
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
-	
+wait(0) -- idk so it wont break
+--> Perfect R6 Ragdoll by CompletedLoop
+--> Created June 6, 2023
+--> Modified June 26, 2025
+local Character: Model = game.Players.LocalPlayer.Character
+local Torso = Character.Torso
+local Humanoid = Character.Humanoid
+
+--> Necessary for Ragdolling to function properly
+Character.Humanoid.BreakJointsOnDeath = false
+Character.Humanoid.RequiresNeck = true --> If your are having issues with your character randomly dying then set this to false
+
+--> Specific CFrame's I made for the best looking Ragdoll
+local attachmentCFrames = {
+	["Neck"] = {CFrame.new(0, 1, 0, 0, -1, 0, 1, 0, -0, 0, 0, 1), CFrame.new(0, -0.5, 0, 0, -1, 0, 1, 0, -0, 0, 0, 1)},
+	["Left Shoulder"] = {CFrame.new(-1.3, 0.75, 0, -1, 0, 0, 0, -1, 0, 0, 0, 1), CFrame.new(0.2, 0.75, 0, -1, 0, 0, 0, -1, 0, 0, 0, 1)},
+	["Right Shoulder"] = {CFrame.new(1.3, 0.75, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), CFrame.new(-0.2, 0.75, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)},
+	["Left Hip"] = {CFrame.new(-0.5, -1, 0, 0, 1, -0, -1, 0, 0, 0, 0, 1), CFrame.new(0, 1, 0, 0, 1, -0, -1, 0, 0, 0, 0, 1)},
+	["Right Hip"] = {CFrame.new(0.5, -1, 0, 0, 1, -0, -1, 0, 0, 0, 0, 1), CFrame.new(0, 1, 0, 0, 1, -0, -1, 0, 0, 0, 0, 1)},
+}
+
+local ragdollInstanceNames = { 
+	["RagdollAttachment"] = true,
+	["RagdollConstraint"] = true,
+	["ColliderPart"] = true,
+}
+
+--> Welds the Torso and HumanoidRootPart together when ragdolled thanks to Frowning_Loser606
+local RootWeld = Instance.new("WeldConstraint")
+RootWeld.Part0 = Character:WaitForChild("HumanoidRootPart")
+RootWeld.Part1 = Character:WaitForChild("Torso")
+RootWeld.Name = "HRPWeld"
+RootWeld.Enabled = false
+RootWeld.Parent = Character:WaitForChild("Torso")
+
+--> Used to trigger Ragdoll
+Character:SetAttribute("Ragdoll", false)
+
+--> Used for anticheats to prevent flying Ragdolls from getting flagged, might be useful for you.
+Character:SetAttribute("LastRag")
+-------------------------------------------------------------------------------------------------
+
+--> Allows for proper limb collisions
+local function createColliderPart(part: BasePart) 
+	if not part then return end
+	local rp = Instance.new("Part")
+	rp.Name = "ColliderPart"
+	rp.Size = part.Size/1.7
+	rp.Massless = true			
+	rp.CFrame = part.CFrame
+	rp.Transparency = 1
+
+	local wc = Instance.new("WeldConstraint")
+	wc.Part0 = rp
+	wc.Part1 = part
+
+	wc.Parent = rp
+	rp.Parent = part
 end
-hookAnimatorFunction()
-local Anim
-local id
-local walk = 139272818283983
-local i = 83875622740137
-local eat = false
-local eatid = 121781457295101
-local sprinting1 = false
-local attack = false
-local attackid = 131257799030455
-local run = 107603305929255
-local uis = game:GetService("UserInputService")
-local walking = false
-local hwalking = 132377038617766
-local hurt = false
-local hidle = 134624270247120
-local hrun = 115946474977409
-local sprinting = false
-local taunt = false
-local idle = true
-Anim = hum:LoadAnimation(i)
-Anim:Play()
-id = i
-hum.WalkSpeed = 9
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.LeftShift and attack == false and eat == false then
-	sprinting1 = true
-		hum.WalkSpeed = 30
+
+--> Converts Motor6D's into BallSocketConstraints
+function replaceJoints()
+	Humanoid.AutoRotate = false --> Disabling AutoRotate prevents the Character rotating in first person or Shift-Lock
+	RootWeld.Enabled = true
+	Character:SetAttribute("LastRag", tick())
+
+	for _, motor in pairs(Character:GetDescendants()) do
+		if motor:IsA("Motor6D") then
+			if motor.Name == "RootJoint" then motor.Enabled = false continue end
+			if not attachmentCFrames[motor.Name] then return end
+
+			motor.Enabled = false
+			local a0, a1 = Instance.new("Attachment"), Instance.new("Attachment")
+			a0.CFrame = attachmentCFrames[motor.Name][1]
+			a1.CFrame = attachmentCFrames[motor.Name][2]
+
+			a0.Name = "RagdollAttachment"
+			a1.Name = "RagdollAttachment"
+
+			createColliderPart(motor.Part1)
+
+			local b = Instance.new("BallSocketConstraint")
+			b.Attachment0 = a0
+			b.Attachment1 = a1
+			b.Name = "RagdollConstraint"
+
+			b.Radius = 0.15
+			b.LimitsEnabled = true
+			b.TwistLimitsEnabled = false
+			b.MaxFrictionTorque = 0
+			b.Restitution = 0
+			b.UpperAngle = 90
+			b.TwistLowerAngle = -45
+			b.TwistUpperAngle = 45
+
+			if motor.Name == "Neck" then
+				b.TwistLimitsEnabled = true
+				b.UpperAngle = 45
+				b.TwistLowerAngle = -70
+				b.TwistUpperAngle = 70
+			end
+
+			a0.Parent = motor.Part0
+			a1.Parent = motor.Part1
+			b.Parent = motor.Parent
+		end
+	end
+end
+
+--> Destroys all Ragdoll made instances and re-enables the Motor6D's
+function resetJoints()
+	if Humanoid.Health < 1 then return end
+	for _, instance in pairs(Character:GetDescendants()) do
+		if ragdollInstanceNames[instance.Name] then
+			instance:Destroy()
+		end
+
+		if instance:IsA("Motor6D") then 
+			instance.Enabled = true;
+		end
+
+	end
+
+	Humanoid.AutoRotate = true
+	RootWeld.Enabled = false
+end
+
+function Ragdoll(value: boolean) 
+	if value then replaceJoints() else resetJoints() end
+end
+
+-------------------------------------------------------------------------------------------------
+--> React when Ragdoll Attribute is changed
+Character:GetAttributeChangedSignal("Ragdoll"):Connect(function()
+	Ragdoll(Character:GetAttribute("Ragdoll"))
+end)
+
+--> Ragdoll Character when the Humanoid dies
+Humanoid.Died:Once(function()
+	Character:SetAttribute("Ragdoll", true)
+end)
+
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.R then
+		Character:SetAttribute("Ragdoll", true)
 	end
 	end)
-uis.InputEnded:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.LeftShift and attack == false and eat == false then
-	    sprinting1 = false
-	    hum.WalkSpeed = 9
-	end
-	end)
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.One then
-        Anim:Stop()
-        id = "taunt"
-        Anim = hum:LoadAnimation(133160365635320)
-        taunt = true
-        Anim:Play()
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.G then
+		Character:SetAttribute("Ragdoll", false)
 	end
 end)
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Two then
-        Anim:Stop()
-        id = "taunt"
-        Anim = hum:LoadAnimation(107716765704359)
-        taunt = true
-        Anim:Play()
+
+local function push()
+	Torso:ApplyImpulse(Torso.CFrame.LookVector * -100)
+end
+
+local function GetRagdollState() return Character:GetAttribute("Ragdoll") end
+
+Character:GetAttributeChangedSignal("Ragdoll"):Connect(function()
+	if (Humanoid.Health == 0) then --> Prevents OOF sound from playing twice thanks to @robloxdestroyer1035
+		Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp, false)
+		push()
+		return
+	end
+
+	if GetRagdollState() then
+		Humanoid:ChangeState(Enum.HumanoidStateType.Ragdoll)
+		Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp, false)
+		push()
+	elseif not GetRagdollState() then
+		Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
 	end
 end)
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Three then
-        Anim:Stop()
-        id = "taunt"
-        Anim = hum:LoadAnimation(75802192289302)
-        taunt = true
-        Anim:Play()
-	end
-end)
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Four then
-        Anim:Stop()
-        id = "taunt"
-        Anim = hum:LoadAnimation(121768360244671)
-        taunt = true
-        Anim:Play()
-	end
-end)
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Five then
-        Anim:Stop()
-        id = "taunt"
-        Anim = hum:LoadAnimation(83225211078144)
-        taunt = true
-        Anim:Play()
-	end
-end)
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Six then
-        Anim:Stop()
-        id = "taunt"
-        Anim = hum:LoadAnimation(111309618966926)
-        taunt = true
-        Anim:Play()
-	end
-end)
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Seven then
-        Anim:Stop()
-        id = "taunt"
-        Anim = hum:LoadAnimation(134617723143543)
-        taunt = true
-        Anim:Play()
-	end
-end)
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.T and hurt == false then
-        hurt = true
-        elseif input.KeyCode == Enum.KeyCode.T and hurt == true then
-        hurt = false
-	end
-end)
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Q and eat == false then
-        sprinting1 = false
-        wait(.1)    
-        attack = true
-        hum.WalkSpeed = 3
-        wait(1)
-        attack = false
-        hum.WalkSpeed = 9
-	end
-end)
--- uis.InputBegan:Connect(function(input)
--- 	if input.KeyCode == Enum.KeyCode.E and attack == false then
---         sprinting1 = false
---         wait(.1)    
---         eat = true
---         hum.WalkSpeed = 3
---         wait(5)
---         eat = false
---         hum.WalkSpeed = 9
--- 	end
--- end)
-while wait() do
-	if idle == true and taunt == false and hurt == false and attack == false then
-		if id ~= i then 
-	    Anim:Stop(2)
-		Anim = hum:LoadAnimation(i)
-		Anim.Looped = true
-		Anim:Play()
-		id = i
-		end
-	end
-	if walking == true and taunt == false and hurt == false and sprinting1 == false and attack == false then
-		if id ~= walk then
-		Anim:Stop(2)
-		Anim = hum:LoadAnimation(walk)
-		Anim.Looped = true
-		Anim:Play() 
-		id = walk
-		end
-	end
-	if sprinting == true and taunt == false and hurt == false then
-		if id ~= run then
-        Anim:Stop(2)
-		Anim = hum:LoadAnimation(run)
-		Anim.Looped = true
-		Anim:Play() 
-		id = run
-		end
-	end
-	if hum.MoveDirection ~= Vector3.new(0, 0, 0) and sprinting1 == false then
-		walking = true
-		sprinting = false
-		idle = false
-		taunt = false
-	end
-	if hum.MoveDirection ~= Vector3.new(0, 0, 0) and sprinting1 == true then
-		walking = false
-		sprinting = true
-		idle = false
-		taunt = false
-	end
-	if hum.MoveDirection == Vector3.new(0,0,0) then
-		idle = true
-		walking = false
-		sprinting = false
-	end
-	if idle == true and taunt == false and hurt == true then
-		if id ~= hidle then 
-	    Anim:Stop(2)
-		Anim = hum:LoadAnimation(hidle)
-		Anim.Looped = true
-		Anim:Play()
-		id = hidle
-		end
-	end
-	if walking == true and taunt == false and hurt == true and sprinting1 == false then
-		if id ~= hwalking then
-		Anim:Stop(2)
-		Anim = hum:LoadAnimation(hwalking)
-		Anim.Looped = true
-		Anim:Play() 
-		id = hwalking
-		end
-	end
-	if sprinting == true and taunt == false and hurt == true then
-		if id ~= hrun then
-        Anim:Stop(2)
-		Anim = hum:LoadAnimation(hrun)
-		Anim.Looped = true
-		Anim:Play() 
-		id = hrun
-		end
-	end
-	if attack == true and taunt == false then
-		if id ~= attackid then 
-	    Anim:Stop()
-		Anim = hum:LoadAnimation(attackid)
-		Anim.Looped = false
-		Anim:Play()
-		id = attackid
-		end
-	end
--- 	if eat == true and taunt == false then
--- 		if id ~= eatid then 
--- 	    Anim:Stop()
--- 		Anim = hum:LoadAnimation(eatid)
--- 		Anim.Looped = false
--- 		Anim:Play(1)
--- 		id = eatid
--- 		end
--- 	end
- end
+
+Humanoid.Died:Connect(push)
 
