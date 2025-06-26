@@ -195,7 +195,7 @@ do
 	tableinsert(Connections, Connect(RunService.PreSimulation, function()
 		for Index, BasePart in next, GetDescendants(Rig) do
 			if IsA(BasePart, "BasePart") then
-				BasePart.CanCollide = false
+				
 			end
 		end
 		
@@ -203,7 +203,7 @@ do
 			for Index, BasePart in next, GetDescendants(Character) do
 				if IsA(BasePart, "BasePart") then
 					
-					
+					BasePart.CanCollide = false
 				end
 			end
 		end
