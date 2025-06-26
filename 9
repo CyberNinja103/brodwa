@@ -29,7 +29,7 @@ have fun skids, while you still can,,, :smiling_imp:
 -- although you dont really need to optimize stuff thats
 -- not done in loops
 -- but ill be doing it anyway since thats what they were trying to do
-
+local User = game.Players.LocalPlayer.Character
 
 
 do
@@ -96,9 +96,9 @@ do
 	local Vector3new = Vector3.new
 	local Vector3zero = Vector3.zero
 	
-	RigAnimate.Enabled = true	
+	RigAnimate.Enabled = false	
 	
-	Rig.Name = "robloxdestroyer10343"
+	Rig.Name = "LocalPlayer.Name"
 	RigHumanoid.DisplayName = LocalPlayer.DisplayName -- if theres no display it will be just name so this is fine
 	
 	if Character then
@@ -123,7 +123,7 @@ do
 	Character = Wait(CharacterAdded)
 	
 	local Animate = WaitForChild(Character, "Animate")
-	Animate.Enabled = true
+	Animate.Enabled = false
 
 	local RootPart = WaitForChild(Character, "HumanoidRootPart")
 	RigRootPart.CFrame = RootPartCFrame or RootPart.CFrame
@@ -214,7 +214,7 @@ wait(0) -- idk so it wont break
 --> Created June 6, 2023
 --> Modified June 26, 2025
 game.Players.LocalPlayer.Character.Animate:Destroy()
-game.workspace.Theonewhoknockee.Animate.Parent = game.Players.LocalPlayer.Character
+User.Animate.Parent = game.Players.LocalPlayer.Character
 task.wait()
 game.Players.LocalPlayer.Character.Animate.Enabled = false
 task.wait()
