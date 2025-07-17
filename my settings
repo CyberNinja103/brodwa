@@ -1058,5 +1058,5 @@ Empyrean = Start({
 	SetCollisionGroup = true,
 	SimulationRadius = 2147483647,
 	TeleportRadius = 12,
-	UseServerBreakJoints = true,
+	UseServerBreakJoints = false,
 })
