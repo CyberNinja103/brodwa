@@ -44,10 +44,10 @@ chargevel.Enabled = false
 chargevel.Force = Vector3.new(0, 0, -9990)
 hum.Animator:Destroy()
 char.Animate:Destroy()
-local animation = game:GetObjects("rbxassetid://" .. ANIMATION_ID)[1]
+local animation = game:GetObjects("rbxassetid://" .. i)[1]
 animation.Parent = char
 id = i
-Anim = AnimHandler.new(char, i)
+Anim = AnimHandler.new(char, animation)
 Anim:Play()
 hum.WalkSpeed = ws
 uis.InputBegan:Connect(function(input)
@@ -72,7 +72,8 @@ uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.One then
         Anim:Stop()
         id = "taunt"
-        Anim = AnimHandler.new(char, 133160365635320)
+		local animation = game:GetObjects("rbxassetid://" .. 133160365635320)[1]
+        Anim = AnimHandler.new(char, animation)
         taunt = true
         Anim:Play()
 	end
@@ -81,7 +82,8 @@ uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.Two then
         Anim:Stop()
         id = "taunt"
-        Anim = AnimHandler.new(char, 75420633536507)
+		local animation = game:GetObjects("rbxassetid://" .. 75420633536507)[1]
+        Anim = AnimHandler.new(char, animation)
         taunt = true
         Anim:Play()
 	end
@@ -90,7 +92,8 @@ uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.Three then
         Anim:Stop()
         id = "taunt"
-        Anim = AnimHandler.new(char, 75802192289302)
+		local animation = game:GetObjects("rbxassetid://" .. 75802192289302)[1]
+        Anim = AnimHandler.new(char, animation)
         taunt = true
         Anim:Play()
 	end
@@ -99,7 +102,8 @@ uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.Four then
         Anim:Stop()
         id = "taunt"
-        Anim = AnimHandler.new(char, 121768360244671)
+		local animation = game:GetObjects("rbxassetid://" .. 121768360244671)[1]
+        Anim = AnimHandler.new(char, animation)
         taunt = true
         Anim:Play()
 	end
@@ -108,7 +112,8 @@ uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.Five then
         Anim:Stop()
         id = "taunt"
-        Anim = AnimHandler.new(char, 114206095641235)
+		local animation = game:GetObjects("rbxassetid://" .. 114206095641235)[1]
+        Anim = AnimHandler.new(char, animation)
         taunt = true
         Anim:Play()
 	end
@@ -117,7 +122,8 @@ uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.Six then
         Anim:Stop()
         id = "taunt"
-        Anim = AnimHandler.new(char, 111309618966926)
+		local animation = game:GetObjects("rbxassetid://" .. 111309618966926)[1]
+        Anim = AnimHandler.new(char, animation)
         taunt = true
         Anim:Play()
 	end
@@ -126,7 +132,8 @@ uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.Seven then
         Anim:Stop()
         id = "taunt"
-        Anim = AnimHandler.new(char, 134617723143543)
+		local animation = game:GetObjects("rbxassetid://" .. 134617723143543)[1]
+        Anim = AnimHandler.new(char, animation)
         taunt = true
         Anim:Play()
 	end
@@ -180,7 +187,8 @@ while wait() do
 	if idle == true and taunt == false and hurt == false and ability == false and mouse1 == false and finish == false then
 		if id ~= i then 
 	    Anim:Stop()
-		Anim = AnimHandler.new(char, i)
+		animation = game:GetObjects("rbxassetid://" .. i)[1]
+        Anim = AnimHandler.new(char, animation)
 		Anim.Looped = true
 		Anim:Play()
 		id = i
@@ -189,7 +197,8 @@ while wait() do
 	if walking == true and taunt == false and ability == false and hurt == false and sprinting1 == false and finish == false and mouse1 == false then
 		if id ~= walk then
 		Anim:Stop()
-		Anim = AnimHandler.new(char, walk)
+				animation = game:GetObjects("rbxassetid://" .. walk)[1]
+        Anim = AnimHandler.new(char, animation)
 		Anim.Looped = true
 		Anim:Play() 
 		id = walk
@@ -198,7 +207,8 @@ while wait() do
 	if sprinting == true and taunt == false and ability == false and hurt == false and mouse1 == false then
 		if id ~= run then
         Anim:Stop()
-		Anim = AnimHandler.new(char, run)
+		animation = game:GetObjects("rbxassetid://" .. run)[1]
+        Anim = AnimHandler.new(char, animation)
 		Anim.Looped = true
 		Anim:Play() 
 		id = run
@@ -224,7 +234,8 @@ while wait() do
 	if taunt == false and mouse1 == false and punching == true and blocking == false and charging == false  then
 		if id ~= punchid then 
 	    Anim:Stop()
-		Anim = AnimHandler.new(char, punchid)
+		animation = game:GetObjects("rbxassetid://" .. punchid)[1]
+        Anim = AnimHandler.new(char, animation)
 		Anim.Looped = false
 		Anim:Play()
 		id = punchid
@@ -233,7 +244,8 @@ while wait() do
 	if taunt == false and mouse1 == false and charging == true and blocking == false and punching == false  then
 		if id ~= chargeid then
 		Anim:Stop()
-		Anim = AnimHandler.new(char, chargeid)
+		animation = game:GetObjects("rbxassetid://" .. chargeid)[1]
+        Anim = AnimHandler.new(char, animation)
 		Anim.Looped = true
 		Anim:Play() 
 		id = chargeid
@@ -242,7 +254,8 @@ while wait() do
 	if blocking == true and taunt == false and charging == false and punching == false then
 		if id ~= blockid then 
 	    Anim:Stop()
-		Anim = AnimHandler.new(char, blockid)
+		animation = game:GetObjects("rbxassetid://" .. blockid)[1]
+        Anim = AnimHandler.new(char, animation)
 		Anim.Looped = false
 		Anim:Play()
 		id = blockid
