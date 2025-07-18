@@ -1,6 +1,6 @@
-
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/CyberNinja103/brodwa/refs/heads/main/mysettings6"))()
 -- thanks @yohan_moon for finding this animator module
+wait()
 local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
 local Anim
 local id
