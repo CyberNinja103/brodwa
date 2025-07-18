@@ -173,8 +173,8 @@ do
 
 	local Vector3 = Vector3
 	local Vector3new = Vector3.new
-	local FlingVelocity = Vector3new(16384, 16384, 16384)
-	local HatDropLinearVelocity = Vector3new(0, 27, 0)
+	local FlingVelocity = Vector3new(16385, 16385, 16385)
+	local HatDropLinearVelocity = Vector3new(0, 30, 0)
 	local HideCharacterOffset = Vector3new(0, - 30, 0)
 	local Vector3one = Vector3.one
 	local Vector3xzAxis = Vector3new(1, 0, 1)
