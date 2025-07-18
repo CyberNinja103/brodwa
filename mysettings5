@@ -1060,6 +1060,7 @@ Empyrean = Start({
 	TeleportRadius = 12,
 	UseServerBreakJoints = false,
 })
+wait(1)
 game.Players.LocalPlayer.Character = game.Players.LocalPlayer.Character.Parent
 if not getgenv()["Animator"] then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/xhayper/Animator/main/Source/Main.lua"))()
