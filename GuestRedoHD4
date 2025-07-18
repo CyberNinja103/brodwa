@@ -184,6 +184,9 @@ uis.InputBegan:Connect(function(input)
 	end
 end)
 while wait() do
+if not hum then
+break
+end
 	if idle == true and taunt == false and hurt == false and ability == false and mouse1 == false and finish == false then
 		if id ~= i then 
 	    Anim:Stop()
