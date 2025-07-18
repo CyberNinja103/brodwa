@@ -1,5 +1,4 @@
-hum.Animator:Destroy()
-char.Animate:Destroy()
+
 -- thanks @yohan_moon for finding this animator module
 -- Reanimation was made by @emperrrr (Discord)
 -- Discord server for empers reanimate: https://discord.gg/UJ7YtqadPJ
@@ -47,6 +46,8 @@ chargevel.Parent = char.HumanoidRootPart
 chargevel.Attachment0 = char.HumanoidRootPart.RootAttachment
 chargevel.Enabled = false
 chargevel.Force = Vector3.new(0, 0, -9990)
+hum.Animator:Destroy()
+char.Animate:Destroy()
 local animation = game:GetObjects("rbxassetid://" .. i)[1]
 animation.Parent = char
 id = i
