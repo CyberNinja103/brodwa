@@ -1,4 +1,4 @@
-print("test")
+
 -- thanks @yohan_moon for finding this animator module
 -- Forsakation discord server: https://discord.gg/9XHYkWybxR
 -- Reanimation was made by @emperrrr (Discord)
@@ -13,6 +13,11 @@ Mobile.Enabled = false
 local Controls: ScreenGui = game:GetObjects("rbxassetid://102160674504380")[1]
 Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
+game.StarterGui:SetCore("SendNotification", {
+Title = "Join our discord!";
+Text = "discord.gg/9XHYkWybxR;
+Duration = 5;
+})
 do
 	local Accessories = {}
 
