@@ -972,7 +972,7 @@ end
 Empyrean = Start({
 	Accessories = {
 		--{ MeshId = "", Name = "", Offset = CFrame.identity, TextureId = "" },
-
+		{ MeshId = "126825022897778", Name = "Torso", Offset = CFrame.identity, TextureId = "130689541138804" },--128948172708607
 		{ MeshId = "105263225400272", Names = { "Left Arm", "Right Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "111402858657243" },--84451219120140
 		{ MeshId = "105263225400272", Names = { "Left Arm", "Right Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "111402858657243" },--72292903231768
 
