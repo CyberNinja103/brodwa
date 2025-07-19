@@ -1,4 +1,4 @@
-
+print("test")
 -- thanks @yohan_moon for finding this animator module
 -- Forsakation discord server: https://discord.gg/9XHYkWybxR
 -- Reanimation was made by @emperrrr (Discord)
@@ -10,6 +10,9 @@ local Destroyed = false
 local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
 Mobile.Parent = game.Players.LocalPlayer.PlayerGui
 Mobile.Enabled = false
+local Controls: ScreenGui = game:GetObjects("rbxassetid://102160674504380")[1]
+Controls.Parent = game.Players.LocalPlayer.PlayerGui
+Controls.Enabled = true
 do
 	local Accessories = {}
 
@@ -963,6 +966,7 @@ do
 			game.Players.LocalPlayer.PlayerGui.EmoteMenu.Enabled = false
 			Mobile:Destroy()
 			EmoteGui:Destroy()
+			Controls:Destroy()
 			Destroyed = true
 			if OptionsPermanentDeath and replicatesignal then
 				replicatesignal(ConnectDiedSignalBackend)
@@ -984,7 +988,7 @@ end
 Empyrean = Start({
 	Accessories = {
 		--{ MeshId = "", Name = "", Offset = CFrame.identity, TextureId = "" },
-		{ MeshId = "126825022897778", Name = "Torso", Offset = CFrame.identity, TextureId = "130689541138804" },--128948172708607
+
 		{ MeshId = "137702817952968", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "135650240593878" },--84451219120140
 		{ MeshId = "137702817952968", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "135650240593878" },--72292903231768
 
@@ -1060,7 +1064,7 @@ Empyrean = Start({
 	HideCharacter = Vector3.new(0, - 30, 0),
 	ParentCharacter = true,
 	PermanentDeath = true,
-	Refit = true,
+	Refit = false,
 	RigSize = 1,
 	RigTransparency = 1,
 	R15 = false,
@@ -1133,13 +1137,23 @@ Anim:Play()
 hum.WalkSpeed = ws
 if uis.TouchEnabled == true then
 	Mobile.Enabled = true
+	Controls.MobileContainer.Visible = true
+	Controls.SprintingButton.Visible = true
+	Controls.DesktopContainer.Visible = false
+	elseif uis.TouchEnabled == false then
+	Mobile.Enabled = false
+	Controls.MobileContainer.Visible = false
+	Controls.SprintingButton.Visible = false
+	Controls.DesktopContainer.Visible = true
 end
 uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.LeftShift then
 		sprinting1 = true
 		ws = 24
 		if charging == false and blocking == false and punching == false then
+		
 			hum.WalkSpeed = 24
+			
 		end
 	end
 end)
@@ -1467,6 +1481,76 @@ end)
 Last.Activated:Connect(function()
 	if page > 1 then
 		page -= 1
+	end
+end)
+-- mobile Gui
+local Gui = game.Players.LocalPlayer.PlayerGui.ControlsUI
+local SprintButton = Gui.SprintingButton
+local BlockButton = Gui.MobileContainer.Block
+local ChargeButton = Gui.MobileContainer.Charge
+local PunchButton = Gui.MobileContainer.Punch
+-- Toggle Sprint
+SprintButton.Activated:Connect(function()
+	if sprinting1 == false then
+		sprinting1 = true
+		ws = 24
+		if charging == false and blocking == false and punching == false then
+			hum.WalkSpeed = 24
+		end
+	elseif sprinting1 == true then
+		sprinting1 = false
+		ws = 12
+		if charging == false and blocking == false and punching == false then
+			hum.WalkSpeed = 12
+		end
+	end
+end)
+
+-- Block
+BlockButton.Activated:Connect(function()
+	if blocking == false and ability == false then
+	blocking = true
+	ability = true
+	hum.WalkSpeed = 5
+	wait(1.5)
+	ability = false
+	blocking = false
+	hum.WalkSpeed = ws
+	end
+end)
+-- Charge
+ChargeButton.Activated:Connect(function()
+	if charging == false and ability == false then
+		ability = true
+		charging = true
+		hum.WalkSpeed = .1
+		chargevel.Enabled = true
+		local scream = Instance.new("Sound")
+		scream.Parent = char.HumanoidRootPart
+		scream.SoundId = "rbxassetid://111896685"
+		scream.Playing = true
+		wait(3)
+		chargevel.Enabled = false
+		scream:Destroy()
+		charging = false
+		ability = false
+		hum.WalkSpeed = ws
+	end
+end)
+-- Punch
+PunchButton.Activated:Connect(function()
+	if punching == false and ability == false then
+		punching = true
+		ability = true
+		hum.WalkSpeed = 3
+		wait(.8)
+		punchvel.Enabled = true
+		wait(.1)
+		punchvel.Enabled = false
+		wait(.5)
+		hum.WalkSpeed = ws
+		ability = false
+		punching = false
 	end
 end)
 -- Emote hover
