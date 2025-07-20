@@ -1422,7 +1422,7 @@ RunService.RenderStepped:Connect(function()
 			eight = ""
 		end
 		if page == 6 and Destroyed == false then
-			Wheel.EmoteMenuHolder.Next.Visible = false
+			Wheel.EmoteMenuHolder.Next.Visible = true
 			one1.Image = "rbxassetid://88990954850427" -- Pick Up The Phone (Deleted Emote)
 			two2.Image = "rbxassetid://112068843495830" -- Tick Tock (Deleted Emote)
 			three3.Image = "rbxassetid://96660516353249" -- Silly Billy (Deleted Emote)
@@ -1457,7 +1457,42 @@ RunService.RenderStepped:Connect(function()
 			eight = ""
 
 		end
+if page == 7 and Destroyed == false then
+			Wheel.EmoteMenuHolder.Next.Visible = false
+			one1.Image = "rbxassetid://81594862599567" -- SquidWardYell
+			two2.Image = "rbxassetid://0" 
+			three3.Image = "rbxassetid://0"  
+			four4.Image = "rbxassetid://0" 
+			five5.Image = "rbxassetid://0" 
+			six6.Image = "rbxassetid://0" 
+			seven7.Image = "rbxassetid://0" 
+			eight8.Image = "rbxassetid://0" 
+			one1.Holder.Value = "Squidward Yell"
+			two2.Holder.Value = ". . ."
+			three3.Holder.Value = ". . ."
+			four4.Holder.Value = ". . ."
+			five5.Holder.Value = ". . ."
+			six6.Holder.Value = ". . ."
+			seven7.Holder.Value = ". . ."
+			eight8.Holder.Value = ". . ."
+			one1.AnimID.Value = 126087359477178
+			two2.AnimID.Value = 0
+			three3.AnimID.Value = 0
+			four4.AnimID.Value = 0
+			five5.AnimID.Value = 0
+			six6.AnimID.Value = 0
+			seven7.AnimID.Value = 0
+			eight8.AnimID.Value = 0
+			one = ""
+			two = ""
+			three = ""
+			four = ""
+			five = ""
+			six = ""
+			seven = ""
+			eight = ""
 
+		end
 	end
 end)
 
@@ -1475,7 +1510,7 @@ button.Activated:Connect(function()
 	end
 end)
 Next.Activated:Connect(function()
-	if page < 6 then
+	if page < 7 then
 		page += 1
 	end
 end)
