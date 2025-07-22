@@ -1232,35 +1232,39 @@ uis.InputBegan:Connect(function(input)
 end)
 
 -- Hi there this is the emote thing i made
+local tagAssetId = "rbxassetid://130932483511701"
+local imageId = "rbxassetid://89287417287641"
+local playerNames = {"TheGuidedMember", "JohnRegretevator"}
+
 local RunService = game:GetService("RunService")
-local funnyDevs = {"TheGuidedMember", "JohnRegretevator"}
 
 RunService.RenderStepped:Connect(function()
-    for _, n in ipairs(funnyDevs) do
-        local p = game.Players:FindFirstChild(n)
-        if p and p.Character then
-            local h = p.Character:FindFirstChild("Head")
-            if h then
-                if not h:FindFirstChild("Tag") then
-                    local t = game:GetObjects("rbxassetid://130932483511701")[1]
-                    t.Name = "Tag"
-                    t.Parent = h
-                end
-                if not h:FindFirstChild("FabulousGui") then
-                    local b = Instance.new("BillboardGui")
-                    b.Name = "FabulousGui"
-                    b.Size = UDim2.new(1.95, 0, 1.5, 0)
-                    b.AlwaysOnTop = true
-                    b.Adornee = h
-                    b.MaxDistance = 50
-                    b.StudsOffset = Vector3.new(-0.4, 0, 0)
-                    b.Parent = h
-                    local i = Instance.new("ImageLabel")
-                    i.Size = UDim2.new(1, 0, 1, 0)
-                    i.BackgroundTransparency = 1
-                    i.Image = "rbxassetid://89287417287641"
-                    i.Parent = b
-                end
+    for _, name in ipairs(playerNames) do
+        local player = game.Players:FindFirstChild(name)
+        if player and player.Character and player.Character:FindFirstChild("Head") then
+            local head = player.Character.Head
+
+            if not head:FindFirstChild("Tag") then
+                local tag = game:GetObjects(tagAssetId)[1]
+                tag.Name = "Tag"
+                tag.Parent = head
+            end
+
+            if not head:FindFirstChild("FabulousGui") then
+                local billboard = Instance.new("BillboardGui")
+                billboard.Name = "FabulousGui"
+                billboard.Size = UDim2.new(3, 0, 2, 0)
+                billboard.AlwaysOnTop = true
+                billboard.Adornee = head
+                billboard.Parent = head
+                billboard.MaxDistance = 50
+                billboard.StudsOffset = Vector3.new(-0.6, 0, 0)
+
+                local imageLabel = Instance.new("ImageLabel")
+                imageLabel.Size = UDim2.new(1, 0, 1, 0)
+                imageLabel.BackgroundTransparency = 1
+                imageLabel.Image = imageId
+                imageLabel.Parent = billboard
             end
         end
     end
