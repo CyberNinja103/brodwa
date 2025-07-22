@@ -1232,9 +1232,40 @@ uis.InputBegan:Connect(function(input)
 end)
 
 -- Hi there this is the emote thing i made
-
--- getting the gui working first
 local RunService = game:GetService("RunService")
+local funnyDevs = {"TheGuidedMember", "JohnRegretevator"}
+
+RunService.RenderStepped:Connect(function()
+    for _, n in ipairs(funnyDevs) do
+        local p = game.Players:FindFirstChild(n)
+        if p and p.Character then
+            local h = p.Character:FindFirstChild("Head")
+            if h then
+                if not h:FindFirstChild("Tag") then
+                    local t = game:GetObjects("rbxassetid://130932483511701")[1]
+                    t.Name = "Tag"
+                    t.Parent = h
+                end
+                if not h:FindFirstChild("FabulousGui") then
+                    local b = Instance.new("BillboardGui")
+                    b.Name = "FabulousGui"
+                    b.Size = UDim2.new(1.95, 0, 1.5, 0)
+                    b.AlwaysOnTop = true
+                    b.Adornee = h
+                    b.MaxDistance = 50
+                    b.StudsOffset = Vector3.new(-0.4, 0, 0)
+                    b.Parent = h
+                    local i = Instance.new("ImageLabel")
+                    i.Size = UDim2.new(1, 0, 1, 0)
+                    i.BackgroundTransparency = 1
+                    i.Image = "rbxassetid://89287417287641"
+                    i.Parent = b
+                end
+            end
+        end
+    end
+end)
+-- getting the gui working first
 local Wheel = game.Players.LocalPlayer.PlayerGui.EmoteMenu
 local one1 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.Asset
 local two2 = Wheel.EmoteMenuHolder.RadialMenu.Attach["2"].RenderHolder.Asset
