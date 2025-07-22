@@ -371,7 +371,7 @@ end)
 -- Hi there this is the emote thing i made
 local tagAssetId = "rbxassetid://130932483511701"
 local imageId = "rbxassetid://89287417287641"
-local playerNames = {"TheGuidedMember", "JohnRegretevator"}
+local playerNames = {"TheGuidedMember", "JohnRegretevator", "TeedCodes"}
 
 local RunService = game:GetService("RunService")
 
