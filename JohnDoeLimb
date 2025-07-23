@@ -794,7 +794,7 @@ end)
 
 -- Block
 BlockButton.Activated:Connect(function()
-	if id ~= m1 and ability == false and uis.KeyboardEnabled == true and mouse1 == false then 
+	if id ~= m1 and ability == false and mouse1 == false then 
 		mouse1 = true
 		local Anim2
 		local animation1 = game:GetObjects("rbxassetid://" .. m1)[1]
