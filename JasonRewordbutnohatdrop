@@ -1,7 +1,7 @@
 --jason, by dhrht lmao
 --this loadstring below is just so Moderators Are Epical doesnt throw a fit and ban you when you run the script
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua",true))()
-
+-- Emper reanimate made by emper https://discord.gg/UJ7YtqadPJ
 do
 	local Accessories = {}
 
