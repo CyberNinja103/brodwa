@@ -878,7 +878,7 @@ AbilityOne.Activated:Connect(function()
 	end
 end)
 
-AbilityTwo.Activated:Connect(function()
+AbilityThree.Activated:Connect(function()
 	if ability == false and mouse1 == false then
 		ability = true
 		hum.WalkSpeed = 0.1
@@ -894,7 +894,7 @@ AbilityTwo.Activated:Connect(function()
 	end
 end)
 
-AbilityThree.Activated:Connect(function()
+AbilityTwo.Activated:Connect(function()
 	if ability == false and mouse1 == false then
 		ability = true
 		hum.WalkSpeed = 0.1
