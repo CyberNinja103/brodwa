@@ -1613,29 +1613,29 @@ RunService.RenderStepped:Connect(function()
 		if page == 7 and Destroyed == false then
 			Wheel.EmoteMenuHolder.Next.Visible = true
 			one1.Image = "rbxassetid://81594862599567" -- SquidWardYell
-			two2.Image = "rbxassetid://93387041641721" -- _chicken
+			two2.Image = "rbxassetid://124186162960822" -- Carried
 			three3.Image = "rbxassetid://132583909518061" -- virtual insanity
 			four4.Image = "rbxassetid://114687172329033" -- Tenna / ill add the multiple emote feature later
 			five5.Image = "rbxassetid://80669217430800" -- TUFF
 			six6.Image = "rbxassetid://75414967011351" -- static
 			seven7.Image = "rbxassetid://131039110819633" -- macerina
-			eight8.Image = "rbxassetid://11769283964" -- Cinderella
+			eight8.Image = "rbxassetid://93387041641721" -- AICatDance
 			one1.Holder.Value = "Squidward Yell"
-			two2.Holder.Value = "Chicken"
+			two2.Holder.Value = "Best Survivor"
 			three3.Holder.Value = "Virtual Insanity"
 			four4.Holder.Value = "Tenna"
 			five5.Holder.Value = "Who Wins"
 			six6.Holder.Value = "static"
 			seven7.Holder.Value = "Macerina"
-			eight8.Holder.Value = "Cinderella"
+			eight8.Holder.Value = "Cat Dance"
 			one1.AnimID.Value = 126087359477178
-			two2.AnimID.Value = 95127225490093
+			two2.AnimID.Value = 125085338946162
 			three3.AnimID.Value = 103333882912121
 			four4.AnimID.Value = 114687172329033
 			five5.AnimID.Value = 115378790472408
 			six6.AnimID.Value = 122513338460483
 			seven7.AnimID.Value = 99366472605758
-			eight8.AnimID.Value = 92131061687307
+			eight8.AnimID.Value = 133145243088885
 			one = ""
 			two = ""
 			three = ""
@@ -1647,63 +1647,27 @@ RunService.RenderStepped:Connect(function()
 
 		end
 		if page == 8 and Destroyed == false then
-			Wheel.EmoteMenuHolder.Next.Visible = true
-			one1.Image = "rbxassetid://124186162960822" -- Carried
-			two2.Image = "rbxassetid://91183099073835" -- ByeBye
-			three3.Image = "rbxassetid://106270433212018" -- Penguin
-			four4.Image = "rbxassetid://93387041641721" -- AICatDance
-			five5.Image = "rbxassetid://94349587695619" -- Fly
-			six6.Image = "rbxassetid://99019426225118" -- Mesmerizer
-			seven7.Image = "rbxassetid://0" -- pretty dance
-			eight8.Image = "rbxassetid://83576021763587" -- Schadenfreude
-			one1.Holder.Value = "Best Survivor"
-			two2.Holder.Value = "Bye Bye"
-			three3.Holder.Value = "Penguin"
-			four4.Holder.Value = "Cat Dance"
-			five5.Holder.Value = "House Fly"
-			six6.Holder.Value = "Mesmerizer"
-			seven7.Holder.Value = "pretty dance"
-			eight8.Holder.Value = "Schadenfreude"
-			one1.AnimID.Value = 82611693893508
-			two2.AnimID.Value = 125085338946162
-			three3.AnimID.Value = 140473893442758
-			four4.AnimID.Value = 133145243088885
-			five5.AnimID.Value = 121751474249467
-			six6.AnimID.Value = "86354010490364"
-			seven7.AnimID.Value = "85315044663872"
-			eight8.AnimID.Value = "75798689481181"
-			one = ""
-			two = ""
-			three = ""
-			four = ""
-			five = ""
-			six = ""
-			seven = ""
-			eight = ""
-
-		end
-		if page == 9 and Destroyed == false then
 			Wheel.EmoteMenuHolder.Next.Visible = false
 			one1.Image = "rbxassetid://98861649534706" -- Guitar
-			two2.Image = "rbxassetid://0" -- DOD
-			three3.Image = "rbxassetid://0" -- DOD
-			four4.Image = "rbxassetid://0" -- DOD
+			two2.Image = "rbxassetid://0" -- 
+			three3.Image = "rbxassetid://0" -- 
+			four4.Image = "rbxassetid://0" -- 
 			five5.Image = "rbxassetid://0" -- 
 			six6.Image = "rbxassetid://0" -- 
 			seven7.Image = "rbxassetid://0" --
 			eight8.Image = "rbxassetid://0" -- 
 			one1.Holder.Value = "GuitarGuitar"
-			two2.Holder.Value = "Dance (DOD)"
-			three3.Holder.Value = "MyEmoteIdea (DOD)"
-			four4.Holder.Value = "Squingle (DOD)"
+			two2.Holder.Value = ". . ."
+			three3.Holder.Value = ". . ."
+			four4.Holder.Value = ". . ."
 			five5.Holder.Value = ". . ."
 			six6.Holder.Value = ". . ."
 			seven7.Holder.Value = ". . ."
 			eight8.Holder.Value = ". . ."
 			one1.AnimID.Value = 77434400165211
-			two2.AnimID.Value = 81883187469620
-			three3.AnimID.Value = 111167841365705
-			four4.AnimID.Value = 75581661112703
+			two2.AnimID.Value = 0
+			three3.AnimID.Value = 0
+			four4.AnimID.Value = 0
 			five5.AnimID.Value = 0
 			six6.AnimID.Value = 0
 			seven7.AnimID.Value = 0
@@ -1724,7 +1688,6 @@ RunService.RenderStepped:Connect(function()
 end)
 
 
-
 -- Pages
 local Last = Wheel.EmoteMenuHolder.Last
 local Next = Wheel.EmoteMenuHolder.Next
@@ -1737,7 +1700,7 @@ button.Activated:Connect(function()
 	end
 end)
 Next.Activated:Connect(function()
-	if page < 9 then
+	if page < 8 then
 		page += 1
 	end
 end)
