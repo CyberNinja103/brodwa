@@ -1,0 +1,2035 @@
+
+-- thanks @yohan_moon for finding this animator module
+-- Forsakation discord server: https://discord.gg/9XHYkWybxR
+-- Reanimation was made by @emperrrr (Discord)
+-- Discord server for empers reanimate: https://discord.gg/UJ7YtqadPJ
+local EmoteGui: ScreenGui = game:GetObjects("rbxassetid://70965231817963")[1]
+EmoteGui.Parent = game.Players.LocalPlayer.PlayerGui
+EmoteGui.Enabled = false
+local Destroyed = false
+local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
+Mobile.Parent = game.Players.LocalPlayer.PlayerGui
+Mobile.Enabled = false
+local Controls: ScreenGui = game:GetObjects("rbxassetid://85172975543013")[1]
+Controls.Parent = game.Players.LocalPlayer.PlayerGui
+Controls.Enabled = true
+Controls.MobileContainer.Visible = false
+Controls.Version.Text = "Version: 1x1x1x1 1.0"
+
+do
+	local Accessories = {}
+
+	local Aligns = {}
+
+	local Attachments = {}
+
+	local BindableEvent = nil
+
+	local Blacklist = {}
+
+	local CFrame = CFrame
+	local CFrameidentity = CFrame.identity
+	local CFramelookAt = CFrame.lookAt
+	local CFramenew = CFrame.new
+
+	local Character = nil
+
+	local CurrentCamera = nil
+
+	local Enum = Enum
+	local Custom = Enum.CameraType.Custom
+	local Health = Enum.CoreGuiType.Health
+	local HumanoidRigType = Enum.HumanoidRigType
+	local R6 = HumanoidRigType.R6
+	local Dead = Enum.HumanoidStateType.Dead
+	local LockCenter = Enum.MouseBehavior.LockCenter
+	local MouseButton1 = Enum.UserInputType.MouseButton1
+
+	local Exceptions = {}
+
+	local game = game
+	local Clone = game.Clone
+	local Close = game.Close
+	local Connect = Close.Connect
+	local Disconnect = Connect(Close, function() end).Disconnect
+	local Wait = Close.Wait
+	local Destroy = game.Destroy
+	local FindFirstAncestorOfClass = game.FindFirstAncestorOfClass
+	local FindFirstAncestorWhichIsA = game.FindFirstAncestorWhichIsA
+	local FindFirstChild = game.FindFirstChild
+	local FindFirstChildOfClass = game.FindFirstChildOfClass
+	local Players = FindFirstChildOfClass(game, "Players")
+	local CreateHumanoidModelFromDescription = Players.CreateHumanoidModelFromDescription
+	local GetPlayers = Players.GetPlayers
+	local LocalPlayer = Players.LocalPlayer
+	local CharacterAdded = LocalPlayer.CharacterAdded
+	local ConnectDiedSignalBackend = LocalPlayer.ConnectDiedSignalBackend
+	local Mouse = LocalPlayer:GetMouse()
+	local Kill = LocalPlayer.Kill
+	local RunService = FindFirstChildOfClass(game, "RunService")
+	local PostSimulation = RunService.PostSimulation
+	local PreRender = RunService.PreRender
+	local PreSimulation = RunService.PreSimulation
+	local StarterGui = FindFirstChildOfClass(game, "StarterGui")
+	local GetCoreGuiEnabled = StarterGui.GetCoreGuiEnabled
+	local SetCore = StarterGui.SetCore
+	local SetCoreGuiEnabled = StarterGui.SetCoreGuiEnabled
+	local Workspace = FindFirstChildOfClass(game, "Workspace")
+	local FallenPartsDestroyHeight = Workspace.FallenPartsDestroyHeight
+	local HatDropY = FallenPartsDestroyHeight - 0.7
+	local FindFirstChildWhichIsA = game.FindFirstChildWhichIsA
+	local UserInputService = FindFirstChildOfClass(game, "UserInputService")
+	local InputBegan = UserInputService.InputBegan
+	local IsMouseButtonPressed = UserInputService.IsMouseButtonPressed
+	local GetChildren = game.GetChildren
+	local GetDescendants = game.GetDescendants
+	local GetPropertyChangedSignal = game.GetPropertyChangedSignal
+	local CurrentCameraChanged = GetPropertyChangedSignal(Workspace, "CurrentCamera")
+	local MouseBehaviorChanged = GetPropertyChangedSignal(UserInputService, "MouseBehavior")
+	local IsA = game.IsA
+	local IsDescendantOf = game.IsDescendantOf
+
+	local Highlights = {}
+
+	local Instancenew = Instance.new
+	local R15Animation = Instancenew("Animation")
+	local R6Animation = Instancenew("Animation")
+	local HumanoidDescription = Instancenew("HumanoidDescription")
+	local HumanoidModel = CreateHumanoidModelFromDescription(Players, HumanoidDescription, R6)
+	local R15HumanoidModel = CreateHumanoidModelFromDescription(Players, HumanoidDescription, HumanoidRigType.R15)
+	local SetAccessories = HumanoidDescription.SetAccessories
+	local ModelBreakJoints = HumanoidModel.BreakJoints
+	local Head = HumanoidModel.Head
+	local BasePartBreakJoints = Head.BreakJoints
+	local GetJoints = Head.GetJoints
+	local IsGrounded = Head.IsGrounded
+	local Humanoid = HumanoidModel.Humanoid
+	local ApplyDescription = Humanoid.ApplyDescription
+	local ChangeState = Humanoid.ChangeState
+	local EquipTool = Humanoid.EquipTool
+	local GetAppliedDescription = Humanoid.GetAppliedDescription
+	local GetPlayingAnimationTracks = Humanoid.GetPlayingAnimationTracks
+	local LoadAnimation = Humanoid.LoadAnimation
+	local Move = Humanoid.Move
+	local UnequipTools = Humanoid.UnequipTools
+	local ScaleTo = HumanoidModel.ScaleTo
+
+	local IsFirst = false
+	local IsHealthEnabled = nil
+	local IsLockCenter = false
+	local IsRegistered = false
+	local IsRunning = false
+
+	local LastTime = nil
+
+	local math = math
+	local mathrandom = math.random
+	local mathsin = math.sin
+
+	local nan = 0 / 0
+
+	local next = next
+
+	local OptionsAccessories = nil
+	local OptionsApplyDescription = nil
+	local OptionsBreakJointsDelay = nil
+	local OptionsClickFling = nil
+	local OptionsDisableCharacterCollisions = nil
+	local OptionsDisableHealthBar = nil
+	local OptionsDisableRigCollisions = nil
+	local OptionsDefaultFlingOptions = nil
+	local OptionsHatDrop = nil
+	local OptionsHideCharacter = nil
+	local OptionsParentCharacter = nil
+	local OptionsPermanentDeath = nil
+	local OptionsRefit = nil
+	local OptionsRigTransparency = nil
+	local OptionsSetCameraSubject = nil
+	local OptionsSetCameraType = nil
+	local OptionsSetCharacter = nil
+	local OptionsSetCollisionGroup = nil
+	local OptionsSimulationRadius = nil
+	local OptionsTeleportRadius = nil
+	local OptionsUseServerBreakJoints
+
+	local osclock = os.clock
+
+	local PreRenderConnection = nil
+
+	local RBXScriptConnections = {}
+
+	local Refitting = false
+
+	local replicatesignal = replicatesignal
+
+	local Rig = nil
+	local RigHumanoid = nil
+	local RigHumanoidRootPart = nil
+
+	local sethiddenproperty = sethiddenproperty
+	local setscriptable = setscriptable
+
+	local stringfind = string.find
+
+	local table = table
+	local tableclear = table.clear
+	local tablefind = table.find
+	local tableinsert = table.insert
+	local tableremove = table.remove
+
+	local Targets = {}
+
+	local task = task
+	local taskdefer = task.defer
+	local taskspawn = task.spawn
+	local taskwait = task.wait
+
+	local Time = nil
+
+	local Vector3 = Vector3
+	local Vector3new = Vector3.new
+	local FlingVelocity = Vector3new(16384, 16384, 16384)
+	local HatDropLinearVelocity = Vector3new(0, 27, 0)
+	local HideCharacterOffset = Vector3new(0, - 30, 0)
+	local Vector3one = Vector3.one
+	local Vector3xzAxis = Vector3new(1, 0, 1)
+	local Vector3zero = Vector3.zero
+	local AntiSleep = Vector3zero
+
+	R15Animation.AnimationId = "rbxassetid://507767968"
+	R6Animation.AnimationId = "rbxassetid://180436148"
+
+	Humanoid = nil
+
+	Destroy(HumanoidDescription)
+	HumanoidDescription = nil
+
+	local FindFirstChildOfClassAndName = function(Parent, ClassName, Name)
+		for Index, Child in next, GetChildren(Parent) do
+			if IsA(Child, ClassName) and Child.Name == Name then
+				return Child
+			end
+		end
+	end
+
+	local GetHandleFromTable = function(Table)
+		for Index, Child in GetChildren(Character) do
+			if IsA(Child, "Accoutrement") then
+				local Handle = FindFirstChildOfClassAndName(Child, "BasePart", "Handle")
+
+				if Handle then
+					local MeshId = nil
+					local TextureId = nil
+
+					if IsA(Handle, "MeshPart") then
+						MeshId = Handle.MeshId
+						TextureId = Handle.TextureID
+					else
+						local SpecialMesh = FindFirstChildOfClass(Handle, "SpecialMesh")
+
+						if SpecialMesh then
+							MeshId = SpecialMesh.MeshId
+							TextureId = SpecialMesh.TextureId
+						end
+					end
+
+					if MeshId then
+						if stringfind(MeshId, Table.MeshId) and stringfind(TextureId, Table.TextureId) then
+							return Handle
+						end
+					end
+				end
+			end
+		end
+	end
+
+	local NewIndex = function(self, Index, Value)
+		self[Index] = Value
+	end
+
+	local DescendantAdded = function(Descendant)
+		if IsA(Descendant, "Accoutrement") and OptionsHatDrop then
+			if not pcall(NewIndex, Descendant, "BackendAccoutrementState", 0) then
+				if sethiddenproperty then
+					sethiddenproperty(Descendant, "BackendAccoutrementState", 0)
+				elseif setscriptable then
+					setscriptable(Descendant, "BacekndAccoutrementState", true)
+					Descendant.BackendAccoutrementState = 0
+				end
+			end
+		elseif IsA(Descendant, "Attachment") then
+			local Attachment = Attachments[Descendant.Name]
+
+			if Attachment then
+				local Parent = Descendant.Parent
+
+				if IsA(Parent, "BasePart") then
+					local MeshId = nil
+					local TextureId = nil
+
+					if IsA(Parent, "MeshPart") then
+						MeshId = Parent.MeshId
+						TextureId = Parent.TextureID
+					else
+						local SpecialMesh = FindFirstChildOfClass(Parent, "SpecialMesh")
+
+						if SpecialMesh then
+							MeshId = SpecialMesh.MeshId
+							TextureId = SpecialMesh.TextureId
+						end
+					end
+
+					if MeshId then
+						for Index, Table in next, Accessories do
+							if Table.MeshId == MeshId and Table.TextureId == TextureId then
+								local Handle = Table.Handle
+
+								tableinsert(Aligns, {
+									LastPosition = Handle.Position,
+									Offset = CFrameidentity,
+									Part0 = Parent,
+									Part1 = Handle
+								})
+
+								return
+							end
+						end
+
+						for Index, Table in next, OptionsAccessories do
+							if stringfind(MeshId, Table.MeshId) and stringfind(TextureId, Table.TextureId) then
+								local Instance = nil
+								local TableName = Table.Name
+								local TableNames = Table.Names
+
+								if TableName then
+									Instance = FindFirstChildOfClassAndName(Rig, "BasePart", TableName)
+								else
+									for Index, TableName in next, TableNames do
+										local Child = FindFirstChildOfClassAndName(Rig, "BasePart", TableName)
+
+										if not ( TableNames[Index + 1] and Blacklist[Child] ) then
+											Instance = Child
+											break
+										end
+									end
+								end
+
+								if Instance then
+									local Blacklisted = Blacklist[Instance]
+
+									if not ( Blacklisted and Blacklisted.MeshId == MeshId and Blacklisted.TextureId == TextureId ) then
+										tableinsert(Aligns, {
+											Offset = Table.Offset,
+											Part0 = Parent,
+											Part1 = Instance
+										})
+
+										Blacklist[Instance] = { MeshId = MeshId, TextureId = TextureId }
+
+										return
+									end
+								end
+							end
+						end
+
+						local Accoutrement = FindFirstAncestorWhichIsA(Parent, "Accoutrement")
+
+						if Accoutrement and IsA(Accoutrement, "Accoutrement") then
+							local AccoutrementClone = Clone(Accoutrement)
+
+							local HandleClone = FindFirstChildOfClassAndName(AccoutrementClone, "BasePart", "Handle")
+							HandleClone.Transparency = OptionsRigTransparency
+
+							for Index, Descendant in next, GetDescendants(HandleClone) do
+								if IsA(Descendant, "JointInstance") then
+									Destroy(Descendant)
+								end
+							end
+
+							local AccessoryWeld = Instancenew("Weld")
+							AccessoryWeld.C0 = Descendant.CFrame
+							AccessoryWeld.C1 = Attachment.CFrame
+							AccessoryWeld.Name = "AccessoryWeld"
+							AccessoryWeld.Part0 = HandleClone
+							AccessoryWeld.Part1 = Attachment.Parent
+							AccessoryWeld.Parent = HandleClone
+
+							AccoutrementClone.Parent = Rig
+
+							tableinsert(Accessories, {
+								Handle = HandleClone,
+								MeshId = MeshId,
+								TextureId = TextureId
+							})
+							tableinsert(Aligns, {
+								Offset = CFrameidentity,
+								Part0 = Parent,
+								Part1 = HandleClone
+							})
+						end
+					end
+				end
+			end
+		end
+	end
+
+	local SetCameraSubject = function()
+		local CameraCFrame = CurrentCamera.CFrame
+		local Position = RigHumanoidRootPart.CFrame.Position
+
+		CurrentCamera.CameraSubject = RigHumanoid
+		Wait(PreRender)
+		CurrentCamera.CFrame = CameraCFrame + RigHumanoidRootPart.CFrame.Position - Position
+	end
+
+	local OnCameraSubjectChanged = function()
+		if CurrentCamera.CameraSubject ~= RigHumanoid then
+			taskdefer(SetCameraSubject)
+		end
+	end
+
+	local OnCameraTypeChanged = function()
+		if CurrentCamera.CameraType ~= Custom then
+			CurrentCamera.CameraType = Custom
+		end
+	end
+
+	local OnCurrentCameraChanged = function()
+		local Camera = Workspace.CurrentCamera
+
+		if Camera and OptionsSetCameraSubject then
+			CurrentCamera = Workspace.CurrentCamera
+
+			taskspawn(SetCameraSubject)
+
+			OnCameraSubjectChanged()
+			tableinsert(RBXScriptConnections, Connect(GetPropertyChangedSignal(CurrentCamera, "CameraSubject"), OnCameraSubjectChanged))
+
+			if OptionsSetCameraType then
+				OnCameraTypeChanged()
+				tableinsert(RBXScriptConnections, Connect(GetPropertyChangedSignal(CurrentCamera, "CameraType"), OnCameraTypeChanged))
+			end
+		end
+	end
+
+	local SetCharacter = function()
+		LocalPlayer.Character = Rig
+	end
+
+	local SetSimulationRadius = function()
+		LocalPlayer.SimulationRadius = OptionsSimulationRadius
+	end
+
+	local WaitForChildOfClass = function(Parent, ClassName)
+		local Child = FindFirstChildOfClass(Parent, ClassName)
+
+		while not Child do
+			Wait(Parent.ChildAdded)
+			Child = FindFirstChildOfClass(Parent, ClassName)
+		end
+
+		return Child
+	end
+
+	local WaitForChildOfClassAndName = function(Parent, ...)
+		local Child = FindFirstChildOfClassAndName(Parent, ...)
+
+		while not Child do
+			Wait(Parent.ChildAdded)
+			Child = FindFirstChildOfClassAndName(Parent, ...)
+		end
+
+		return Child
+	end
+
+	local Fling = function(Target, Options)
+		if Target then
+			local Highlight = Options.Highlight
+
+			if IsA(Target, "Humanoid") then
+				Target = Target.Parent
+			end
+			if IsA(Target, "Model") then
+				Target = FindFirstChildOfClassAndName(Target, "BasePart", "HumanoidRootPart") or FindFirstChildWhichIsA(Character, "BasePart")
+			end
+
+			if not tablefind(Targets, Target) and IsA(Target, "BasePart") and not Target.Anchored and not IsDescendantOf(Character, Target) and not IsDescendantOf(Rig, Target) then
+				local Model = FindFirstAncestorOfClass(Target, "Model")
+
+				if Model and FindFirstChildOfClass(Model, "Humanoid") then
+					Target = FindFirstChildOfClassAndName(Model, "BasePart", "HumanoidRootPart") or FindFirstChildWhichIsA(Character, "BasePart") or Target	
+				else
+					Model = Target
+				end
+
+				if Highlight then
+					local HighlightObject = type(Highlight) == "boolean" and Highlight and Instancenew("Highlight") or Clone(Highlight)
+					HighlightObject.Adornee = Model
+					HighlightObject.Parent = Model
+
+					Options.HighlightObject = HighlightObject
+					tableinsert(Highlights, HighlightObject)
+				end
+
+				Targets[Target] = Options
+
+				if not OptionsDefaultFlingOptions.HatFling and OptionsPermanentDeath and replicatesignal then
+					replicatesignal(ConnectDiedSignalBackend)
+				end
+			end
+		end
+	end
+
+	local OnCharacterAdded = function(NewCharacter)
+		if NewCharacter ~= Rig then
+			tableclear(Aligns)
+			tableclear(Blacklist)
+
+			Character = NewCharacter
+
+			if OptionsSetCameraSubject then
+				taskspawn(SetCameraSubject)
+			end
+
+			if OptionsSetCharacter then
+				taskdefer(SetCharacter)
+			end
+
+			if OptionsParentCharacter then
+				Character.Parent = Rig
+			end
+
+			for Index, Descendant in next, GetDescendants(Character) do
+				taskspawn(DescendantAdded, Descendant)
+			end
+
+			tableinsert(RBXScriptConnections, Connect(Character.DescendantAdded, DescendantAdded))
+
+			Humanoid = WaitForChildOfClass(Character, "Humanoid")
+			local HumanoidRootPart = WaitForChildOfClassAndName(Character, "BasePart", "HumanoidRootPart")
+
+			if IsFirst then
+				if OptionsApplyDescription and Humanoid then
+					local AppliedDescription = GetAppliedDescription(Humanoid)
+					SetAccessories(AppliedDescription, {}, true)
+					ApplyDescription(RigHumanoid, AppliedDescription)
+				end
+
+				if HumanoidRootPart then
+					RigHumanoidRootPart.CFrame = HumanoidRootPart.CFrame
+
+					if OptionsSetCollisionGroup then
+						local CollisionGroup = HumanoidRootPart.CollisionGroup
+
+						for Index, Descendant in next, GetDescendants(Rig) do
+							if IsA(Descendant, "BasePart") then
+								Descendant.CollisionGroup = CollisionGroup
+							end
+						end
+					end
+				end
+
+				IsFirst = false
+			end
+
+			local IsAlive = true
+
+			if HumanoidRootPart then
+				for Target, Options in next, Targets do
+					if IsDescendantOf(Target, Workspace) then
+						local FirstPosition = Target.Position
+						local PredictionFling = Options.PredictionFling
+						local LastPosition = FirstPosition
+						local Timeout = osclock() + Options.Timeout or 1
+
+						if HumanoidRootPart then
+							while IsDescendantOf(Target, Workspace) and osclock() < Timeout do
+								local DeltaTime = taskwait()
+								local Position = Target.Position
+
+								if ( Position - FirstPosition ).Magnitude > 100 then
+									break
+								end
+
+								local Offset = Vector3zero
+
+								if PredictionFling then
+									Offset = ( Position - LastPosition ) / DeltaTime * 0.13
+								end
+
+								HumanoidRootPart.AssemblyAngularVelocity = FlingVelocity
+								HumanoidRootPart.AssemblyLinearVelocity = FlingVelocity
+
+								HumanoidRootPart.CFrame = Target.CFrame + Offset
+								LastPosition = Position
+							end
+						end
+					end
+
+					local HighlightObject = Options.HighlightObject
+
+					if HighlightObject then
+						Destroy(HighlightObject)
+					end
+
+					Targets[Target] = nil
+				end
+
+				HumanoidRootPart.AssemblyAngularVelocity = Vector3zero
+				HumanoidRootPart.AssemblyLinearVelocity = Vector3zero
+
+				if OptionsHatDrop then
+					taskspawn(function()
+						WaitForChildOfClassAndName(Character, "LocalScript", "Animate").Enabled = false
+
+						for Index, AnimationTrack in next, GetPlayingAnimationTracks(Humanoid) do
+							AnimationTrack:Stop()
+						end
+
+						LoadAnimation(Humanoid, Humanoid.RigType == R6 and R6Animation or R15Animation):Play(0)
+
+						pcall(NewIndex, Workspace, "FallenPartsDestroyHeight", nan)
+
+						local RootPartCFrame = RigHumanoidRootPart.CFrame
+						RootPartCFrame = CFramenew(RootPartCFrame.X, HatDropY, RootPartCFrame.Z)
+
+						while IsAlive do
+							HumanoidRootPart.AssemblyAngularVelocity = Vector3zero
+							HumanoidRootPart.AssemblyLinearVelocity = HatDropLinearVelocity
+							HumanoidRootPart.CFrame = RootPartCFrame
+
+							taskwait()
+						end
+					end)
+				elseif OptionsHideCharacter then
+					local HideCharacterOffset = typeof(OptionsHideCharacter) == "Vector3" and OptionsHideCharacter or HideCharacterOffset
+					local RootPartCFrame = RigHumanoidRootPart.CFrame + HideCharacterOffset
+
+					taskspawn(function()
+						while IsAlive do
+							HumanoidRootPart.AssemblyAngularVelocity = Vector3zero
+							HumanoidRootPart.AssemblyLinearVelocity = Vector3zero
+							HumanoidRootPart.CFrame = RootPartCFrame
+
+							taskwait()
+						end
+					end)
+				elseif OptionsTeleportRadius then
+					HumanoidRootPart.CFrame = RigHumanoidRootPart.CFrame + Vector3new(mathrandom(- OptionsTeleportRadius, OptionsTeleportRadius), 0, mathrandom(- OptionsTeleportRadius, OptionsTeleportRadius))
+				end
+			end
+
+			if OptionsPermanentDeath and replicatesignal then
+				replicatesignal(ConnectDiedSignalBackend)
+
+				taskwait(Players.RespawnTime + 0.2)
+
+				Refitting = false
+				replicatesignal(Kill)
+			else
+				taskwait(OptionsBreakJointsDelay)
+			end
+
+			ModelBreakJoints(Character)
+
+			if Humanoid then
+				if replicatesignal and OptionsUseServerBreakJoints then
+					replicatesignal(Humanoid.ServerBreakJoints)
+				end
+
+				ChangeState(Humanoid, Dead)
+				Wait(Humanoid.Died)
+			end
+
+			IsAlive = false
+
+			if OptionsHatDrop then
+				pcall(NewIndex, Workspace, "FallenPartsDestroyHeight", FallenPartsDestroyHeight)
+			end
+		end
+	end
+
+	local OnInputBegan = function(InputObject)
+		if InputObject.UserInputType == MouseButton1 then
+			local Target = Mouse.Target
+
+			local HatFling = OptionsDefaultFlingOptions.HatFling
+			local ToolFling = OptionsDefaultFlingOptions.ToolFling
+
+			if HatFling and OptionsHatDrop then
+				local Part = type(HatFling) == "table" and GetHandleFromTable(HatFling)
+
+				if not Part then
+					for Index, Child in GetChildren(Character) do
+						if IsA(Child, "Accoutrement") then
+							local Handle = FindFirstChildOfClassAndName(Child, "BasePart", "Handle")
+
+							if Handle then
+								Part = Handle
+								break
+							end
+						end
+					end
+				end
+
+				if Part then
+					Exceptions[Part] = true
+
+					while IsMouseButtonPressed(UserInputService, MouseButton1) do
+						if Part.ReceiveAge == 0 then
+							Part.AssemblyAngularVelocity = FlingVelocity
+							Part.AssemblyLinearVelocity = FlingVelocity
+							Part.CFrame = Mouse.Hit + AntiSleep
+						end
+
+						taskwait()
+					end
+
+					Exceptions[Part] = false
+				end
+			elseif ToolFling then
+				local Backpack = FindFirstChildOfClass(LocalPlayer, "Backpack")
+				local Tool = nil
+
+				if type(ToolFling) == "string" then
+					Tool = FindFirstChild(Backpack, ToolFling) or FindFirstChild(Character, ToolFling)
+				end
+
+				if not Tool then
+					Tool = FindFirstChildOfClass(Backpack, "Tool") or FindFirstChildOfClass(Character, "Tool")
+				end
+
+				if Tool then
+					local Handle = FindFirstChildOfClassAndName(Tool, "BasePart", "Handle") or FindFirstChildWhichIsA(Tool, "BasePart")
+
+					if Handle then
+						UnequipTools(Humanoid)
+						taskwait()
+						EquipTool(Humanoid, Tool)
+
+						while IsMouseButtonPressed(UserInputService, MouseButton1) do
+							if Handle.ReceiveAge == 0 then
+								Handle.AssemblyAngularVelocity = FlingVelocity
+								Handle.AssemblyLinearVelocity = FlingVelocity
+								Handle.CFrame = Mouse.Hit + AntiSleep
+							end
+
+							taskwait()
+						end
+
+						UnequipTools(Humanoid)
+
+						Handle.AssemblyAngularVelocity = Vector3zero
+						Handle.AssemblyLinearVelocity = Vector3zero
+						Handle.CFrame = RigHumanoidRootPart.CFrame
+					end
+				end
+			else
+				Fling(Target, OptionsDefaultFlingOptions)
+			end
+		end
+	end
+
+	local OnPostSimulation = function()
+		Time = osclock()
+		local DeltaTime = Time - LastTime
+		LastTime = Time
+
+		if not OptionsSetCharacter and IsLockCenter then
+			local Position = RigHumanoidRootPart.Position
+			RigHumanoidRootPart.CFrame = CFramelookAt(Position, Position + CurrentCamera.CFrame.LookVector * Vector3xzAxis)
+		end
+
+		if OptionsSimulationRadius then
+			pcall(SetSimulationRadius)
+		end
+
+		AntiSleep = mathsin(Time * 15) * 0.0015 * Vector3one
+		local Axis = 27 + mathsin(Time)
+
+		for Index, Table in next, Aligns do
+			local Part0 = Table.Part0
+
+			if not Exceptions[Part0] then
+				if Part0.ReceiveAge == 0 then
+					if IsDescendantOf(Part0, Workspace) and not GetJoints(Part0)[1] and not IsGrounded(Part0) then
+						local Part1 = Table.Part1
+
+						Part0.AssemblyAngularVelocity = Vector3zero
+
+						local LinearVelocity = Part1.AssemblyLinearVelocity * Axis
+						Part0.AssemblyLinearVelocity = Vector3new(LinearVelocity.X, Axis, LinearVelocity.Z)
+
+						Part0.CFrame = Part1.CFrame * Table.Offset + AntiSleep
+					end
+				else
+					local Frames = Table.Frames or - 1
+					Frames = Frames + 1
+					Table.Frames = Frames
+
+					if Frames > 15 and OptionsPermanentDeath and OptionsRefit and replicatesignal then
+						Refitting = false
+						replicatesignal(ConnectDiedSignalBackend)
+					end
+				end
+			end
+		end
+
+		if not OptionsSetCharacter and Humanoid then
+			Move(RigHumanoid, Humanoid.MoveDirection)
+			RigHumanoid.Jump = Humanoid.Jump
+		end
+
+		--[[if IsRegistered then
+			SetCore(StarterGui, "ResetButtonCallback", BindableEvent)
+		else
+			IsRegistered = pcall(SetCore, StarterGui, "ResetButtonCallback", BindableEvent)
+		end]]
+	end
+
+	local OnPreRender = function()
+		local Position = RigHumanoidRootPart.Position
+		RigHumanoidRootPart.CFrame = CFramelookAt(Position, Position + CurrentCamera.CFrame.LookVector * Vector3xzAxis)
+
+		for Index, Table in next, Aligns do
+			local Part0 = Table.Part0
+
+			if Part0.ReceiveAge == 0 and IsDescendantOf(Part0, Workspace) and not GetJoints(Part0)[1] and not IsGrounded(Part0) then
+				Part0.CFrame = Table.Part1.CFrame * Table.Offset
+			end
+		end
+	end
+
+	local OnMouseBehaviorChanged = function()
+		IsLockCenter = UserInputService.MouseBehavior == LockCenter
+
+		if IsLockCenter then
+			PreRenderConnection = Connect(PreRender, OnPreRender)
+			tableinsert(RBXScriptConnections, PreRenderConnection)
+		elseif PreRenderConnection then
+			Disconnect(PreRenderConnection)
+			tableremove(RBXScriptConnections, tablefind(RBXScriptConnections, PreRenderConnection))
+		end
+	end
+
+	local OnPreSimulation = function()
+		if OptionsDisableCharacterCollisions and Character then
+			for Index, Descendant in next, GetDescendants(Character) do
+				if IsA(Descendant, "BasePart") then
+					Descendant.CanCollide = false
+				end
+			end
+		end
+		if OptionsDisableRigCollisions then
+			for Index, Descendant in next, GetChildren(Rig) do
+				if IsA(Descendant, "BasePart") then
+					Descendant.CanCollide = false
+				end
+			end
+		end
+	end
+
+	Start = function(Options)
+		if not IsRunning then
+			IsFirst = true
+			IsRunning = true
+
+			Options = Options or {}
+			OptionsAccessories = Options.Accessories or {}
+			OptionsApplyDescription = Options.ApplyDescription
+			OptionsBreakJointsDelay = Options.BreakJointsDelay or 0
+			OptionsClickFling = Options.ClickFling
+			OptionsDisableCharacterCollisions = Options.DisableCharacterCollisions
+			OptionsDisableHealthBar = Options.DisableHealthBar
+			OptionsDisableRigCollisions = Options.DisableRigCollisions
+			OptionsDefaultFlingOptions = Options.DefaultFlingOptions or {}
+			OptionsHatDrop = Options.HatDrop
+			OptionsHideCharacter = Options.HideCharacter
+			OptionsParentCharacter = Options.ParentCharacter
+			OptionsPermanentDeath = Options.PermanentDeath
+			OptionsRefit = Options.Refit
+			local OptionsRigSize = Options.RigSize
+			OptionsRigTransparency = Options.RigTransparency or 1
+			OptionsSetCameraSubject = Options.SetCameraSubject
+			OptionsSetCameraType = Options.SetCameraType
+			OptionsSetCharacter = Options.SetCharacter
+			OptionsSetCollisionGroup = Options.SetCollisionGroup
+			OptionsSimulationRadius = Options.SimulationRadius
+			OptionsTeleportRadius = Options.TeleportRadius
+			OptionsUseServerBreakJoints = Options.UseServerBreakJoints
+
+			if OptionsDisableHealthBar then
+				IsHealthEnabled = GetCoreGuiEnabled(StarterGui, Health)
+				SetCoreGuiEnabled(StarterGui, Health, false)
+			end
+
+			BindableEvent = Instancenew("BindableEvent")
+			tableinsert(RBXScriptConnections, Connect(BindableEvent.Event, Stop))
+
+			Rig = Options.R15 and Clone(R15HumanoidModel) or Clone(HumanoidModel)
+			Rig.Name = LocalPlayer.Name
+			RigHumanoid = Rig.Humanoid
+			RigHumanoidRootPart = Rig.HumanoidRootPart
+			Rig.Parent = Workspace
+
+			for Index, Descendant in next, GetDescendants(Rig) do
+				if IsA(Descendant, "Attachment") then
+					Attachments[Descendant.Name] = Descendant
+				elseif IsA(Descendant, "BasePart") or IsA(Descendant, "Decal") then
+					Descendant.Transparency = OptionsRigTransparency
+				end
+			end
+
+			if OptionsRigSize then
+				ScaleTo(Rig, OptionsRigSize)
+
+				RigHumanoid.JumpPower = 50
+				RigHumanoid.WalkSpeed = 16
+			end
+
+			OnCurrentCameraChanged()
+			tableinsert(RBXScriptConnections, Connect(CurrentCameraChanged, OnCurrentCameraChanged))
+
+			if OptionsClickFling then
+				tableinsert(RBXScriptConnections, Connect(InputBegan, OnInputBegan))
+			end
+
+			local Character = LocalPlayer.Character
+
+			if Character then
+				OnCharacterAdded(Character)
+			end
+
+			tableinsert(RBXScriptConnections, Connect(CharacterAdded, OnCharacterAdded))
+
+			LastTime = osclock()
+			tableinsert(RBXScriptConnections, Connect(PostSimulation, OnPostSimulation))
+
+			if not OptionsSetCharacter then
+				OnMouseBehaviorChanged()
+				tableinsert(RBXScriptConnections, Connect(MouseBehaviorChanged, OnMouseBehaviorChanged))
+			end
+
+			if OptionsDisableCharacterCollisions or OptionsDisableRigCollisions then
+				OnPreSimulation()
+				tableinsert(RBXScriptConnections, Connect(PreSimulation, OnPreSimulation))
+			end
+
+			IsRegistered = pcall(SetCore, StarterGui, "ResetButtonCallback", BindableEvent)
+
+			if not IsRegistered then
+				taskspawn(function()
+					for Index = 1, 7 do
+						if not IsRegistered then
+							IsRegistered = pcall(SetCore, StarterGui, "ResetButtonCallback", BindableEvent)
+							taskwait()
+						else
+							break
+						end
+					end
+				end)
+			end
+
+			return {	
+				BindableEvent = BindableEvent,
+				Fling = Fling,
+				Rig = Rig
+			}
+		end
+	end
+
+	Stop = function()
+		if IsRunning then
+			IsFirst = false
+			IsRunning = false
+
+			for Index, Highlight in Highlights do
+				Destroy(Highlight)
+			end
+
+			tableclear(Highlights)
+
+			for Index, RBXScriptConnection in next, RBXScriptConnections do
+				Disconnect(RBXScriptConnection)
+			end
+
+			tableclear(RBXScriptConnections)
+
+			Destroy(BindableEvent)
+
+			if Character.Parent == Rig then
+				Character.Parent = Workspace
+			end
+
+			if Humanoid then
+				ChangeState(Humanoid, Dead)
+			end
+
+			Destroy(Rig)
+			game.Players.LocalPlayer.PlayerGui.EmoteMenu.Enabled = false
+			Mobile:Destroy()
+			EmoteGui:Destroy()
+			Controls:Destroy()
+			Destroyed = true
+			if OptionsPermanentDeath and replicatesignal then
+				replicatesignal(ConnectDiedSignalBackend)
+			end
+
+			if OptionsDisableHealthBar and not GetCoreGuiEnabled(StarterGui, Health) then
+				SetCoreGuiEnabled(StarterGui, Health, IsHealthEnabled)
+			end
+
+			if IsRegistered then
+				pcall(SetCore, StarterGui, "ResetButtonCallback", true)
+			else
+				IsRegistered = pcall(SetCore, StarterGui, "ResetButtonCallback", true)
+			end
+		end
+	end
+end
+
+Empyrean = Start({
+	Accessories = {
+		--{ MeshId = "", Name = "", Offset = CFrame.identity, TextureId = "" },
+
+		{ MeshId = "137702817952968", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "135650240593878" },--84451219120140
+		{ MeshId = "137702817952968", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "135650240593878" },--72292903231768
+
+		{ MeshId = "137702817952968", Names = { "Left Leg", "Right Leg", "Left Arm", "Right Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "73798034827573" },--108186273151388
+		{ MeshId = "137702817952968", Names = { "Right Leg", "Left Leg", "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "73798034827573" },--139904067056008
+
+		{ MeshId = "12344207333", Names = { "Left Arm", "Right Arm" }, Offset = CFrame.Angles(- 2.094, 0, 0), TextureId = "12344207341" },--12344545199
+		{ MeshId = "12344206657", Names = { "Right Arm", "Left Arm" }, Offset = CFrame.Angles(- 2.094, 0, 0), TextureId = "12344206675" },--12344591101
+
+		{ MeshId = "11449386931", Names = { "Left Arm", "Right Arm" }, Offset = CFrame.Angles(- 2.094, 0, 0), TextureId = "11439439606" },--11449687315
+		{ MeshId = "11449388499", Names = { "Right Arm", "Left Arm" }, Offset = CFrame.Angles(- 2.094, 0, 0), TextureId = "11439439606" },--11449703382
+
+		{ MeshId = "12652772399", Names = { "Left Leg", "Right Leg" }, Offset = CFrame.identity, TextureId = "12652775021" },--12652786974
+
+		{ MeshId = "11263221350", Names = { "Left Leg", "Right Leg", "Left Arm", "Right Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "11263219250" },--11263254795
+		{ MeshId = "11159370334", Names = { "Right Leg", "Left Leg", "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "11159284657" },--11159410305
+		{ MeshId = "11159370334", Names = { "Right Leg", "Left Leg", "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "11159285454" },--11159483910
+
+		{ MeshId = "105141400603933", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "71060417496309" },--102599402682100
+		{ MeshId = "99608462237958", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "130809869695496" },--140395948277978
+
+		{ MeshId = "90736849096372", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "79186624401216" },--90960046381276
+		{ MeshId = "139733645770094", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "130809869695496" },--82942681251131
+
+		{ MeshId = "125405780718494", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "136752500636691" },--85392395166623
+		{ MeshId = "125405780718494", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "136752500636691" },--131385506535381
+
+		{ MeshId = "125405780718494", Names = { "Left Leg", "Right Leg", "Left Arm", "Right Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "136752500636691" },--106249329428811
+		{ MeshId = "125405780718494", Names = { "Right Leg", "Left Leg", "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "136752500636691" },--129462518582032
+
+		{ MeshId = "14255522247", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "14255543546" },--14255556501
+		{ MeshId = "14255522247", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "14255543546" },--14255554762
+
+		{ MeshId = "17374767929", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17374768001" },--17374851733
+		{ MeshId = "17374767929", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17374768001" },--17374846953
+
+		{ MeshId = "14255522247", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "14255544465" },--14255560646
+		{ MeshId = "14255522247", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "14255544465" },--14255562939
+
+		{ MeshId = "18640914129", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.identity, TextureId = "18640914168" },--18641142410
+		{ MeshId = "18640914129", Names = { "Right Arm", "Left Arm", "Right Leg", "Left Leg" }, Offset = CFrame.identity, TextureId = "18640914168" },--18641077392
+
+		{ MeshId = "18640901641", Names = { "Left Leg", "Right Leg", "Left Arm", "Right Arm" }, Offset = CFrame.identity, TextureId = "18640901676" },--18641187217
+		{ MeshId = "18640901641", Names = { "Right Leg", "Left Leg", "Right Arm", "Left Arm" }, Offset = CFrame.identity, TextureId = "18640901676" },--18641157833
+
+		{ MeshId = "17387586286", Names = { "Left Leg", "Right Leg", "Left Arm", "Right Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17387586304" },--17387616772
+		{ MeshId = "17387586286", Names = { "Right Leg", "Left Leg", "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17387586304" },--17393641992
+
+		{ MeshId = "3030546036", Names = { "Left Arm", "Left Leg", "Right Arm", "Right Leg" }, Offset = CFrame.Angles(- 1.57, 0, 0), TextureId = "" },
+		{ MeshId = "4324138105", Names = { "Left Arm", "Left Leg", "Right Arm", "Right Leg" }, Offset = CFrame.Angles(- 1.57, 0, 0), TextureId = "" },
+
+		{ MeshId = "18640899369", Name = "Torso", Offset = CFrame.identity, TextureId = "18640899481" },--18641046146
+		{ MeshId = "14241018198", Name = "Torso", Offset = CFrame.identity, TextureId = "14251599953" },--14255528083
+		{ MeshId = "110684113028749", Name = "Torso", Offset = CFrame.identity, TextureId = "70661572547971" },--138364679836274
+		{ MeshId = "4819720316", Name = "Torso", Offset = CFrame.Angles(0, 0, -0.249), TextureId = "4819722776" },--4819740796
+		{ MeshId = "126825022897778", Name = "Torso", Offset = CFrame.identity, TextureId = "125975972015302" },--95290698984301
+
+	},
+	ApplyDescription = true,
+	BreakJointsDelay = 0.255,
+	ClickFling = false,
+	DefaultFlingOptions = {
+		HatFling = false,--{ MeshId="", TextureId = ""},
+		Highlight = false,
+		PredictionFling = true,
+		Timeout = 1,
+		ToolFling = false,--"Boombox",
+	},
+	DisableCharacterCollisions = true,
+	DisableHealthBar = true,
+	DisableRigCollisions = false,
+	HatDrop = true,
+	HideCharacter = Vector3.new(0, - 30, 0),
+	ParentCharacter = true,
+	PermanentDeath = true,
+	Refit = false,
+	RigSize = 1,
+	RigTransparency = 1,
+	R15 = false,
+	SetCameraSubject = true,
+	SetCameraType = true,
+	SetCharacter = false,
+	SetCollisionGroup = true,
+	SimulationRadius = 2147483647,
+	TeleportRadius = 12,
+	UseServerBreakJoints = false,
+})
+game.Players.LocalPlayer.Character = game.Players.LocalPlayer.Character.Parent
+
+local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
+local Anim
+local id
+local one
+local two 
+local three 
+local four 
+local five 
+local six 
+local seven 
+local eight 
+local debounce = false
+local walk = 109130982296927
+local mouse1 = false
+local m1 = 83829782357897
+local EntangleMent = 119181003138006 
+local MassInfection = 131430497821198
+local UnstableEye = 119429069577280
+local RejuvenateTheRotten = 116996902830888
+local Kill = 93368339913846
+local i = 138754221537146
+local sprinting1 = false
+local ability = false
+local highlight = false
+local highlighted = false
+local run = 106485518413331
+local uis = game:GetService("UserInputService")	
+local walking = false
+local hwalking = 132377038617766
+local hurt = false
+local hidle = 134624270247120
+local hrun = 115946474977409
+local sprinting = false
+local ws = 9
+local emote = false
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local mouse = player:GetMouse()
+local idle = true
+local char = game.Players.LocalPlayer.Character
+local hum: Humanoid = char:FindFirstChild("Humanoid")
+local Gui = game.Players.LocalPlayer.PlayerGui.ControlsUI
+local AbilityFour = Gui.MobileContainer.AbilityFour
+AbilityFour.Clipping.Visible = true
+local attackvel = Instance.new("VectorForce")
+attackvel.Parent = char.HumanoidRootPart
+attackvel.Attachment0 = char.HumanoidRootPart.RootAttachment
+attackvel.Enabled = false
+attackvel.Force = Vector3.new(0, 0, -15000)
+hum.Animator:Destroy()
+char.Animate:Destroy()
+local animation = game:GetObjects("rbxassetid://" .. i)[1]
+animation.Parent = char
+id = i
+Anim = AnimHandler.new(char, animation)
+Anim:Play()
+hum.WalkSpeed = ws
+
+function RevealPlayerAura()
+	for i, v in ipairs(game.Players:GetChildren()) do
+		if v:IsA("Player") then
+			local Highlight = Instance.new("Highlight")
+			Highlight.Parent = workspace.CurrentCamera
+			Highlight.Enabled = true
+			Highlight.Adornee = v.Character
+			Highlight.FillColor = Color3.new(1, 0.75, 0)
+			Highlight.FillTransparency = 0.5
+			Highlight.OutlineTransparency = 0
+			Highlight.Name = "ForsakationHighlight"
+			AbilityFour.Clipping.Visible = false
+		end
+	end
+end
+
+if uis.TouchEnabled == true then
+	Mobile.Enabled = true
+	Controls.MobileContainer.Visible = true
+	Controls.SprintingButton.Visible = true
+	Controls.DesktopContainer.Visible = false
+elseif uis.TouchEnabled == false then
+	Mobile.Enabled = false
+	Controls.DesktopContainer.Block.Image = "rbxassetid://120590195585579"
+	Controls.DesktopContainer.Block.Clipping.Top.Image = "rbxassetid://120590195585579"
+	Controls.DesktopContainer.Block.KeybindName.Text = "LMB"
+	Controls.DesktopContainer.Charge.Image = "rbxassetid://112065267803856"
+	Controls.DesktopContainer.Charge.Clipping.Top.Image = "rbxassetid://112065267803856"
+	Controls.DesktopContainer.Punch.Image = "rbxassetid://119069138923680"
+	Controls.DesktopContainer.Punch.Clipping.Top.Image = "rbxassetid://119069138923680"
+	Controls.DesktopContainer.Block.AbilityName.Text = "Slash"
+	Controls.DesktopContainer.Charge.AbilityName.Text = "Mass Infection"
+	Controls.DesktopContainer.Punch.AbilityName.Text = "EntangleMent"
+	Controls.MobileContainer.Visible = false
+	Controls.SprintingButton.Visible = false
+	Controls.DesktopContainer.Visible = true
+end
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftShift then
+		sprinting1 = true
+		ws = 27
+		if ability == false then
+			hum.WalkSpeed = 27
+		end
+	end
+end)
+uis.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftShift then
+		sprinting1 = false
+		ws = 8
+		if ability == false then
+			hum.WalkSpeed = 8
+		end
+	end
+end)
+local function onButton1Down()
+	if id ~= m1 and ability == false and uis.KeyboardEnabled == true and mouse1 == false then 
+		mouse1 = true
+		local Anim2
+		local animation1 = game:GetObjects("rbxassetid://" .. m1)[1]
+		animation1.Parent = char
+		Anim2 = AnimHandler.new(char, animation1)
+		Anim2:Play()
+		Anim:Stop()
+		id = m1
+		wait(.3)
+		attackvel.Enabled = true
+		wait(0.1)
+		attackvel.Enabled = false
+		wait(.6)
+		Anim2:Destroy()
+		animation1:Destroy()
+		mouse1 = false
+	end
+end
+
+mouse.Button1Down:Connect(onButton1Down)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.E and ability == false and mouse1 == false then
+		ability = true
+		hum.WalkSpeed = 0.1
+		Anim:Stop()
+		animation = game:GetObjects("rbxassetid://" .. EntangleMent)[1]
+		animation.Parent = char
+		Anim = AnimHandler.new(char, animation)
+		Anim:Play()
+		id = EntangleMent
+		wait(1.3)
+		ability = false
+		hum.WalkSpeed = ws
+	end
+end)
+
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Q and ability == false and mouse1 == false then
+		ability = true
+		hum.WalkSpeed = 0.1
+		Anim:Stop()
+		animation = game:GetObjects("rbxassetid://" .. MassInfection)[1]
+		animation.Parent = char
+		Anim = AnimHandler.new(char, animation)
+		Anim:Play()
+		id = MassInfection
+		wait(2.6)
+		ability = false
+		hum.WalkSpeed = ws
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.R and ability == false and mouse1 == false and debounce == false then
+		debounce = true
+		ability = true
+		hum.WalkSpeed = 0.1
+		Anim:Stop()
+		animation = game:GetObjects("rbxassetid://" .. UnstableEye)[1]
+		animation.Parent = char
+		Anim = AnimHandler.new(char, animation)
+		Anim:Play()
+		id = UnstableEye
+		wait(1)
+		RevealPlayerAura()
+		wait(0.5)
+		id = UnstableEye
+		ability = false
+		hum.WalkSpeed = ws
+		AbilityFour.CooldownTime.Visible = true
+		local timer = 5
+		for i = timer, 0, -1 do
+			AbilityFour.CooldownTime.Text = i
+			task.wait(1)
+			AbilityFour.CooldownTime.Text = i
+		end
+		for i, v in ipairs(workspace.CurrentCamera:GetChildren()) do
+			if v:IsA("Highlight") and v.Name == "ForsakationHighlight" then
+				v:Destroy()
+			end
+		end
+		debounce = false
+		AbilityFour.Clipping.Visible = true
+		AbilityFour.CooldownTime.Visible = false
+	end
+end)
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.T and ability == false and mouse1 == false then
+		ability = true
+		hum.WalkSpeed = 0.1
+		Anim:Stop()
+		animation = game:GetObjects("rbxassetid://" .. RejuvenateTheRotten)[1]
+		animation.Parent = char
+		Anim = AnimHandler.new(char, animation)
+		Anim:Play()
+		id = RejuvenateTheRotten
+		wait(3.4)
+		ability = false
+		hum.WalkSpeed = ws
+	end
+end)
+
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.G then
+		if EmoteGui.Enabled == false then
+			EmoteGui.Enabled = true
+		elseif EmoteGui.Enabled == true then
+			EmoteGui.Enabled = false
+		end
+	end
+end)
+
+-- Hi there this is the emote thing i made
+local tagAssetId = "rbxassetid://130932483511701"
+local imageId = "rbxassetid://89287417287641"
+local playerNames = {"TheGuidedMember", "JohnRegretevator", "TeedCodes"}
+
+local RunService = game:GetService("RunService")
+
+RunService.RenderStepped:Connect(function()
+    for _, name in ipairs(playerNames) do
+        local player = game.Players:FindFirstChild(name)
+        if player and player.Character and player.Character:FindFirstChild("Head") then
+            local head = player.Character.Head
+
+            if not head:FindFirstChild("Tag") then
+                local tag = game:GetObjects(tagAssetId)[1]
+                tag.Name = "Tag"
+                tag.Parent = head
+            end
+
+            if not head:FindFirstChild("FabulousGui") then
+                local billboard = Instance.new("BillboardGui")
+                billboard.Name = "FabulousGui"
+                billboard.Size = UDim2.new(3, 0, 2, 0)
+                billboard.AlwaysOnTop = true
+                billboard.Adornee = head
+                billboard.Parent = head
+                billboard.MaxDistance = 50
+                billboard.StudsOffset = Vector3.new(-0.6, 0, 0)
+
+                local imageLabel = Instance.new("ImageLabel")
+                imageLabel.Size = UDim2.new(1, 0, 1, 0)
+                imageLabel.BackgroundTransparency = 1
+                imageLabel.Image = imageId
+                imageLabel.Parent = billboard
+            end
+        end
+    end
+end)
+-- getting the gui working first
+local RunService = game:GetService("RunService")
+local Wheel = game.Players.LocalPlayer.PlayerGui.EmoteMenu
+local one1 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.Asset
+local two2 = Wheel.EmoteMenuHolder.RadialMenu.Attach["2"].RenderHolder.Asset
+local three3 = Wheel.EmoteMenuHolder.RadialMenu.Attach["3"].RenderHolder.Asset
+local four4 = Wheel.EmoteMenuHolder.RadialMenu.Attach["4"].RenderHolder.Asset
+local five5 = Wheel.EmoteMenuHolder.RadialMenu.Attach["5"].RenderHolder.Asset
+local six6 = Wheel.EmoteMenuHolder.RadialMenu.Attach["6"].RenderHolder.Asset
+local seven7 = Wheel.EmoteMenuHolder.RadialMenu.Attach["7"].RenderHolder.Asset
+local eight8 = Wheel.EmoteMenuHolder.RadialMenu.Attach["8"].RenderHolder.Asset
+local page = 1
+RunService.RenderStepped:Connect(function()
+	if Wheel.Enabled == true then
+		if page == 1 and Destroyed == false then
+			Wheel.EmoteMenuHolder.Last.Visible = false
+			one1.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png" -- ChronoShift
+			two2.Image = "rbxassetid://127260772788474" -- California Girls
+			three3.Image = "rbxassetid://97057214315889" -- BrickBattler
+			four4.Image = "rbxassetid://92379847382802" -- Knightly Shimmy
+			five5.Image = "rbxassetid://78969991165860" -- The Hero
+			six6.Image = "rbxassetid://79579234154217" -- Insanity
+			seven7.Image = "rbxassetid://73574803924243" -- Jumpstyle
+			eight8.Image = "rbxassetid://103241825392940" -- Locked
+			one1.Holder.Value = "ChronoShift"
+			two2.Holder.Value = "California Girls"
+			three3.Holder.Value = "BrickBattler"
+			four4.Holder.Value = "Knightly Shimmy"
+			five5.Holder.Value = "The Hero"
+			six6.Holder.Value = "Insanity"
+			seven7.Holder.Value = "Jumpstyle"
+			eight8.Holder.Value = "Locked"
+			one1.AnimID.Value = 130686615743311
+			two2.AnimID.Value = 74194754788106
+			three3.AnimID.Value = 120114444852778
+			four4.AnimID.Value = 136725769431986
+			five5.AnimID.Value = 115431798094168
+			six6.AnimID.Value = 116090545618337
+			seven7.AnimID.Value = 103282125943928
+			eight8.AnimID.Value = 136423821703954
+			one = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/Forsaken_Chronoshift_.mp3.mp3"
+			two = ""
+			three = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/BrickBattlerNew.mp3.mp3"
+			four = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/KnightlyShammyEmote.mp3.mp3"
+			five = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/TheHeroEmote.mp3.mp3"
+			six = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/TheHeroEmote.mp3.mp3"
+			seven = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/JumpstyleExtended.mp3.mp3"
+			eight = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/LockedNewEmote.mp3.mp3"
+		end
+		if page == 2 and Destroyed == false then
+			Wheel.EmoteMenuHolder.Last.Visible = true
+			one1.Image = "rbxassetid://87183895795869" -- Pop Dance
+			two2.Image = "rbxassetid://125197961882771" -- Prince
+			three3.Image = "rbxassetid://92399495788269" -- Poisoned
+			four4.Image = "rbxassetid://129885437120707" -- So Retro
+			five5.Image = "rbxassetid://136238391916155" -- Stock Dance
+			six6.Image = "rbxassetid://83639505456623" -- Subject three
+			seven7.Image = "rbxassetid://106561882302009" -- Wait
+			eight8.Image = "rbxassetid://96660516353249" -- Hello
+			one1.Holder.Value = "Pop Dance"
+			two2.Holder.Value = "Prince"
+			three3.Holder.Value = "Poisoned"
+			four4.Holder.Value = "So Retro"
+			five5.Holder.Value = "Stock Dance"
+			six6.Holder.Value = "Subject Three"
+			seven7.Holder.Value = "Wait"
+			eight8.Holder.Value = "Hello"
+			one1.AnimID.Value = 92569957662902
+			two2.AnimID.Value = 117732280174064
+			three3.AnimID.Value = 127481951878940
+			four4.AnimID.Value = 130758025957161
+			five5.AnimID.Value = 76736605935657
+			six6.AnimID.Value = 91842439086880
+			seven7.AnimID.Value = 101753564767248
+			eight8.AnimID.Value = 128777973
+			one = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/PopDanceEmote.mp3.mp3"
+			two = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/PrinceofEgipt.mp3.mp3"
+			three = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/PoisonedEmote.mp3.mp3"
+			four = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/SoRetroEmote.mp3.mp3"
+			five = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/StockDanceEmote.mp3.mp3"
+			six = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/SubjectThreeEmote.mp3.mp3"
+			seven = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/WaitEmote.mp3.mp3"
+			eight = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/WaveEmote.mp3.mp3"
+		end
+		if page == 3 and Destroyed == false then
+			one1.Image = "rbxassetid://103071006249147" -- Snap
+			two2.Image = "rbxassetid://121965062547127" -- Silly
+			three3.Image = "rbxassetid://121927033287000" -- PYT
+			four4.Image = "rbxassetid://73592720532565" -- Monster Mash
+			five5.Image = "rbxasset:70514684116327" -- Hotdog
+			six6.Image = "rbxassetid://89769371017185" -- Company Groove
+			seven7.Image = "rbxassetid://135343313057075" -- Konton
+			eight8.Image = "rbxassetid://93665655595946" -- Hey Now
+			one1.Holder.Value = "Snap"
+			two2.Holder.Value = "Silly"
+			three3.Holder.Value = "PYT"
+			four4.Holder.Value = "Monster Mash"
+			five5.Holder.Value = "Hotdog"
+			six6.Holder.Value = "Company Groove"
+			seven7.Holder.Value = "Konton"
+			eight8.Holder.Value = "Hey Now"
+			one1.AnimID.Value = 73951840893725
+			two2.AnimID.Value = 109484648353156
+			three3.AnimID.Value = 132778843823786
+			four4.AnimID.Value = 131140313293438
+			five5.AnimID.Value = 79827773028295
+			six6.AnimID.Value = 94657210178191
+			seven7.AnimID.Value = 95883381151116
+			eight8.AnimID.Value = 84236974420331
+			one = ""
+			two = ""
+			three = ""
+			four = ""
+			five = ""
+			six = ""
+			seven = ""
+			eight = ""
+
+		end
+		if page == 4 and Destroyed == false then
+			one1.Image = "rbxassetid://126222345373558" -- Headbanger
+			two2.Image = "rbxassetid://71748174857033" -- Griddy
+			three3.Image = "rbxassetid://101388085235785" -- Gangnam style
+			four4.Image = "rbxassetid://75402218293560" -- Eggrolled 
+			five5.Image = "rbxassetid://135883870615399" -- Bag up
+			six6.Image = "rbxassetid://101141010818082" -- Ashley
+			seven7.Image = "rbxassetid://132653220480177" -- Kazotsky Kick
+			eight8.Image = "rbxassetid://110811886859354" -- Distraction Dance
+			one1.Holder.Value = "Headbanger"
+			two2.Holder.Value = "Griddy"
+			three3.Holder.Value = "Gangnam Style "
+			four4.Holder.Value = "Eggrolled"
+			five5.Holder.Value = "Bag up"
+			six6.Holder.Value = "Ashley"
+			seven7.Holder.Value = "Kazotsky Kick"
+			eight8.Holder.Value = "Distraction Dance"
+			one1.AnimID.Value = 118696905624522
+			two2.AnimID.Value = 101338946740077
+			three3.AnimID.Value = 90536328525255
+			four4.AnimID.Value = 120687888910667
+			five5.AnimID.Value = 107520416097588
+			six6.AnimID.Value = 77256807942379
+			seven7.AnimID.Value = 118595606413247
+			eight8.AnimID.Value = 93577318714987
+			one = ""
+			two = ""
+			three = ""
+			four = ""
+			five = ""
+			six = ""
+			seven = ""
+			eight = ""
+		end
+		if page == 5 and Destroyed == false then
+			Wheel.EmoteMenuHolder.Next.Visible = true
+			one1.Image = "rbxassetid://80678095206124" -- Drumsticks
+			two2.Image = "rbxassetid://124587965197013" -- Hakari Dance
+			three3.Image = "rbxassetid://75549836782121" -- Caramell
+			four4.Image = "rbxassetid://93998300527888" -- Ain't No Lovin My Man
+			five5.Image = "rbxassetid://81493512531467" -- Aol Guy
+			six6.Image = "rbxassetid://104716889279869" -- Khaled
+			seven7.Image = "rbxassetid://101388085235785" -- Gangnam if it was awesome
+			eight8.Image = "rbxassetid://94678300716216" -- Skeleton
+			one1.Holder.Value = "Drumsticks"
+			two2.Holder.Value = "Hakari Dance"
+			three3.Holder.Value = "Caramell"
+			four4.Holder.Value = "Ain't No Lovin My Man"
+			five5.Holder.Value = "Aol Guy"
+			six6.Holder.Value = "Khaled"
+			seven7.Holder.Value = "Gangnam if it was awesome"
+			eight8.Holder.Value = "Skeleton"
+			one1.AnimID.Value = 90482068700551
+			two2.AnimID.Value = 110428002350675
+			three3.AnimID.Value = 140080502889827
+			four4.AnimID.Value = 126985366460491
+			five5.AnimID.Value = 92185555532530
+			six6.AnimID.Value = 132346879800088
+			seven7.AnimID.Value = 91898096393084
+			eight8.AnimID.Value = 138123921316410
+			one = ""
+			two = ""
+			three = ""
+			four = ""
+			five = ""
+			six = ""
+			seven = ""
+			eight = ""
+		end
+		if page == 6 and Destroyed == false then
+			Wheel.EmoteMenuHolder.Next.Visible = true
+			one1.Image = "rbxassetid://88990954850427" -- Pick Up The Phone (Deleted Emote)
+			two2.Image = "rbxassetid://112068843495830" -- Tick Tock (Deleted Emote)
+			three3.Image = "rbxassetid://96660516353249" -- Silly Billy (Deleted Emote)
+			four4.Image = "rbxassetid://71165177698139" -- Subterfuge (Deleted Emote)
+			five5.Image = "rbxassetid://95950437854407" -- Sukuna
+			six6.Image = "rbxassetid://139634009593796" -- Shucks (Deleted Emote)
+			seven7.Image = "rbxassetid://86125219137797" -- Miss The Quiet (Deleted Emote)
+			eight8.Image = "rbxassetid://96092312091932" -- 2Two2
+			one1.Holder.Value = "Pick Up The Phone"
+			two2.Holder.Value = "Tick Tock"
+			three3.Holder.Value = "Silly Billy"
+			four4.Holder.Value = "Subterfuge"
+			five5.Holder.Value = "Sukuna"
+			six6.Holder.Value = "Shucks (Dont support the person who made the music)"
+			seven7.Holder.Value = "Miss The Quiet"
+			eight8.Holder.Value = "2Two2"
+			one1.AnimID.Value = 134805203842114
+			two2.AnimID.Value = 110002152761549
+			three3.AnimID.Value = 85134037907343
+			four4.AnimID.Value = 92308334788062
+			five5.AnimID.Value = 130305051962533
+			six6.AnimID.Value = 115658269201410
+			seven7.AnimID.Value = 140109037968174
+			eight8.AnimID.Value = 77694466339734
+			one = ""
+			two = ""
+			three = ""
+			four = ""
+			five = ""
+			six = ""
+			seven = ""
+			eight = ""
+
+		end
+		if page == 7 and Destroyed == false then
+			Wheel.EmoteMenuHolder.Next.Visible = true
+			one1.Image = "rbxassetid://81594862599567" -- SquidWardYell
+			two2.Image = "rbxassetid://124186162960822" -- Carried
+			three3.Image = "rbxassetid://132583909518061" -- virtual insanity
+			four4.Image = "rbxassetid://114687172329033" -- Tenna / ill add the multiple emote feature later
+			five5.Image = "rbxassetid://80669217430800" -- TUFF
+			six6.Image = "rbxassetid://75414967011351" -- static
+			seven7.Image = "rbxassetid://131039110819633" -- macerina
+			eight8.Image = "rbxassetid://93387041641721" -- AICatDance
+			one1.Holder.Value = "Squidward Yell"
+			two2.Holder.Value = "Best Survivor"
+			three3.Holder.Value = "Virtual Insanity"
+			four4.Holder.Value = "Tenna"
+			five5.Holder.Value = "Who Wins"
+			six6.Holder.Value = "static"
+			seven7.Holder.Value = "Macerina"
+			eight8.Holder.Value = "Cat Dance"
+			one1.AnimID.Value = 126087359477178
+			two2.AnimID.Value = 125085338946162
+			three3.AnimID.Value = 103333882912121
+			four4.AnimID.Value = 114687172329033
+			five5.AnimID.Value = 115378790472408
+			six6.AnimID.Value = 122513338460483
+			seven7.AnimID.Value = 99366472605758
+			eight8.AnimID.Value = 133145243088885
+			one = ""
+			two = ""
+			three = ""
+			four = ""
+			five = ""
+			six = ""
+			seven = ""
+			eight = ""
+
+		end
+		if page == 8 and Destroyed == false then
+			Wheel.EmoteMenuHolder.Next.Visible = false
+			one1.Image = "rbxassetid://0" -- Kill
+			two2.Image = "rbxassetid://0" -- Kill Shed
+			three3.Image = "rbxassetid://0" -- 
+			four4.Image = "rbxassetid://0" -- 
+			five5.Image = "rbxassetid://0" -- 
+			six6.Image = "rbxassetid://0" -- 
+			seven7.Image = "rbxassetid://0" --
+			eight8.Image = "rbxassetid://0" -- 
+			one1.Holder.Value = "Kill"
+			two2.Holder.Value = "Kill Shed"
+			three3.Holder.Value = ". . ."
+			four4.Holder.Value = ". . ."
+			five5.Holder.Value = ". . ."
+			six6.Holder.Value = ". . ."
+			seven7.Holder.Value = ". . ."
+			eight8.Holder.Value = ". . ."
+			one1.AnimID.Value = 93368339913846
+			two2.AnimID.Value = 127444377324017
+			three3.AnimID.Value = 0
+			four4.AnimID.Value = 0
+			five5.AnimID.Value = 0
+			six6.AnimID.Value = 0
+			seven7.AnimID.Value = 0
+			eight8.AnimID.Value = 0
+			one = ""
+			two = ""
+			three = ""
+			four = ""
+			five = ""
+			six = ""
+			seven = ""
+			eight = ""
+
+		end
+
+
+	end
+ 
+end)
+
+
+
+-- Pages
+local Last = Wheel.EmoteMenuHolder.Last
+local Next = Wheel.EmoteMenuHolder.Next
+local button = game.Players.LocalPlayer.PlayerGui.MobileEmoteButton.Holders.Left.Widget.IconButton.Menu.IconSpot.ClickRegion
+button.Activated:Connect(function()
+	if EmoteGui.Enabled == false then
+		EmoteGui.Enabled = true
+	elseif EmoteGui.Enabled == true then
+		EmoteGui.Enabled = false
+	end
+end)
+Next.Activated:Connect(function()
+	if page < 8 then
+		page += 1
+	end
+end)
+Last.Activated:Connect(function()
+	if page > 1 then
+		page -= 1
+	end
+end)
+-- mobile Gui
+local Gui = game.Players.LocalPlayer.PlayerGui.ControlsUI
+local SprintButton = Gui.SprintingButton
+local AbilityOne = Gui.MobileContainer.AbilityOne
+AbilityOne.Image = "rbxassetid://120590195585579"
+AbilityOne.Clipping.Top.Image = "rbxassetid://120590195585579"
+AbilityOne.AbilityName.Text = "Slash"
+local AbilityTwo = Gui.MobileContainer.AbilityTwo
+AbilityTwo.Image = "rbxassetid://112065267803856"
+AbilityTwo.Clipping.Top.Image = "rbxassetid://112065267803856"
+AbilityTwo.AbilityName.Text = "MassInfection"
+local AbilityThree = Gui.MobileContainer.AbilityThree
+AbilityThree.Image = "rbxassetid://119069138923680"
+AbilityThree.Clipping.Top.Image = "rbxassetid://119069138923680"
+AbilityThree.AbilityName.Text = "Entanglement"
+local AbilityFour = Gui.MobileContainer.AbilityFour
+AbilityFour.Image = "rbxassetid://135373963092918"
+AbilityFour.Clipping.Top.Image = "rbxassetid://135373963092918"
+AbilityFour.AbilityName.Text = "UnstableEye"
+local AbilityFive = Gui.MobileContainer.AbilityFive
+AbilityFive.Image = "rbxassetid://102037518703784"
+AbilityFive.Clipping.Top.Image = "rbxassetid://102037518703784"
+AbilityFive.AbilityName.Text = "RejuvenateTheRotten"
+-- Toggle Sprint
+SprintButton.Activated:Connect(function()
+	if sprinting1 == false then
+		sprinting1 = true
+		ws = 27
+		if ability == false then
+			hum.WalkSpeed = 27
+		end
+	elseif sprinting1 == true then
+		sprinting1 = false
+		ws = 8
+		if ability == false then
+			hum.WalkSpeed = 8
+		end
+	end
+end)
+
+
+AbilityOne.Activated:Connect(function()
+	if id ~= m1 and ability == false and mouse1 == false then 
+		mouse1 = true
+		local Anim2
+		local animation1 = game:GetObjects("rbxassetid://" .. m1)[1]
+		animation1.Parent = char
+		Anim2 = AnimHandler.new(char, animation1)
+		Anim2:Play()
+		Anim:Stop()
+		id = m1
+		wait(.3)
+		attackvel.Enabled = true
+		wait(0.1)
+		attackvel.Enabled = false
+		wait(.6)
+		Anim2:Destroy()
+		animation1:Destroy()
+		mouse1 = false
+	end
+end)
+
+AbilityTwo.Activated:Connect(function()
+	if ability == false and mouse1 == false then
+		ability = true
+		hum.WalkSpeed = 0.1
+		Anim:Stop()
+		animation = game:GetObjects("rbxassetid://" .. EntangleMent)[1]
+		animation.Parent = char
+		Anim = AnimHandler.new(char, animation)
+		Anim:Play()
+		id = EntangleMent
+		wait(1.3)
+		ability = false
+		hum.WalkSpeed = ws
+	end
+end)
+
+AbilityThree.Activated:Connect(function()
+	if ability == false and mouse1 == false then
+		ability = true
+		hum.WalkSpeed = 0.1
+		Anim:Stop()
+		animation = game:GetObjects("rbxassetid://" .. MassInfection)[1]
+		animation.Parent = char
+		Anim = AnimHandler.new(char, animation)
+		Anim:Play()
+		id = MassInfection
+		wait(2.6)
+		ability = false
+		hum.WalkSpeed = ws
+	end
+end)
+
+AbilityFour.Activated:Connect(function()
+	if ability == false and mouse1 == false and debounce == false then
+		debounce = true
+		ability = true
+		hum.WalkSpeed = 0.1
+		Anim:Stop()
+		animation = game:GetObjects("rbxassetid://" .. UnstableEye)[1]
+		animation.Parent = char
+		Anim = AnimHandler.new(char, animation)
+		Anim:Play()
+		id = UnstableEye
+		wait(1)
+		RevealPlayerAura()
+		wait(0.5)
+		id = UnstableEye
+		ability = false
+		hum.WalkSpeed = ws
+		AbilityFour.CooldownTime.Visible = true
+		local timer = 5
+		for i = timer, 0, -1 do
+			AbilityFour.CooldownTime.Text = i
+			task.wait(1)
+			AbilityFour.CooldownTime.Text = i
+		end
+		for i, v in ipairs(workspace.CurrentCamera:GetChildren()) do
+			if v:IsA("Highlight") and v.Name == "ForsakationHighlight" then
+				v:Destroy()
+			end
+		end
+		debounce = false
+		AbilityFour.Clipping.Visible = true
+		AbilityFour.CooldownTime.Visible = false
+	end
+end)
+
+AbilityFive.Activated:Connect(function()
+	if ability == false and mouse1 == false then
+		ability = true
+		hum.WalkSpeed = 0.1
+		Anim:Stop()
+		animation = game:GetObjects("rbxassetid://" .. RejuvenateTheRotten)[1]
+		animation.Parent = char
+		Anim = AnimHandler.new(char, animation)
+		Anim:Play()
+		id = RejuvenateTheRotten
+		wait(3.4)
+		ability = false
+		hum.WalkSpeed = ws
+	end
+end)
+-- Emote hover
+local one11 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.ImageButton
+local two22 = Wheel.EmoteMenuHolder.RadialMenu.Attach["2"].RenderHolder.ImageButton
+local three33 = Wheel.EmoteMenuHolder.RadialMenu.Attach["3"].RenderHolder.ImageButton
+local four44 = Wheel.EmoteMenuHolder.RadialMenu.Attach["4"].RenderHolder.ImageButton
+local five55 = Wheel.EmoteMenuHolder.RadialMenu.Attach["5"].RenderHolder.ImageButton
+local six66 = Wheel.EmoteMenuHolder.RadialMenu.Attach["6"].RenderHolder.ImageButton
+local seven77 = Wheel.EmoteMenuHolder.RadialMenu.Attach["7"].RenderHolder.ImageButton
+local eight88 = Wheel.EmoteMenuHolder.RadialMenu.Attach["8"].RenderHolder.ImageButton
+local Description = Wheel.EmoteMenuHolder.EmoteDescription.Title
+
+
+one11.MouseEnter:Connect(function()
+	Description.Text = one1.Holder.Value
+end)
+two22.MouseEnter:Connect(function()
+	Description.Text = two2.Holder.Value
+end)
+three33.MouseEnter:Connect(function()
+	Description.Text = three3.Holder.Value
+end)
+four44.MouseEnter:Connect(function()
+	Description.Text = four4.Holder.Value
+end)
+five55.MouseEnter:Connect(function()
+	Description.Text = five5.Holder.Value
+end)
+six66.MouseEnter:Connect(function()
+	Description.Text = six6.Holder.Value
+end)
+seven77.MouseEnter:Connect(function()
+	Description.Text = seven7.Holder.Value
+end)
+eight88.MouseEnter:Connect(function()
+	Description.Text = eight8.Holder.Value
+end)
+
+-- Play Emote on press
+one11.MouseButton1Click:Connect(function()
+	emote = true
+	Anim:Stop()
+	animation = game:GetObjects("rbxassetid://" .. one1.AnimID.Value)[1]
+	Anim = AnimHandler.new(char, animation)
+	Anim:Play()
+	EmoteGui.Enabled = false
+end)
+two22.MouseButton1Click:Connect(function()
+	emote = true
+	Anim:Stop()
+	animation = game:GetObjects("rbxassetid://" .. two2.AnimID.Value)[1]
+	Anim = AnimHandler.new(char, animation)
+	Anim:Play()
+	EmoteGui.Enabled = false
+end)
+three33.MouseButton1Click:Connect(function()
+	emote = true
+	Anim:Stop()
+	animation = game:GetObjects("rbxassetid://" .. three3.AnimID.Value)[1]
+	Anim = AnimHandler.new(char, animation)
+	Anim:Play()
+	EmoteGui.Enabled = false
+end)
+four44.MouseButton1Click:Connect(function()
+	emote = true
+	Anim:Stop()
+	animation = game:GetObjects("rbxassetid://" .. four4.AnimID.Value)[1]
+	Anim = AnimHandler.new(char, animation)
+	Anim:Play()
+	EmoteGui.Enabled = false
+end)
+five55.MouseButton1Click:Connect(function()
+	emote = true
+	Anim:Stop()
+	animation = game:GetObjects("rbxassetid://" .. five5.AnimID.Value)[1]
+	Anim = AnimHandler.new(char, animation)
+	Anim:Play()
+	EmoteGui.Enabled = false
+end)
+six66.MouseButton1Click:Connect(function()
+	emote = true
+	Anim:Stop()
+	animation = game:GetObjects("rbxassetid://" .. six6.AnimID.Value)[1]
+	Anim = AnimHandler.new(char, animation)
+	Anim:Play()
+	EmoteGui.Enabled = false
+end)
+seven77.MouseButton1Click:Connect(function()
+	emote = true
+	Anim:Stop()
+	animation = game:GetObjects("rbxassetid://" .. seven7.AnimID.Value)[1]
+	Anim = AnimHandler.new(char, animation)
+	Anim:Play()
+	EmoteGui.Enabled = false
+end)
+eight88.MouseButton1Click:Connect(function()
+	emote = true
+	Anim:Stop()
+	animation = game:GetObjects("rbxassetid://" .. eight8.AnimID.Value)[1]
+	Anim = AnimHandler.new(char, animation)
+	Anim:Play()
+	EmoteGui.Enabled = false
+end)
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+
+local TARGET_PLAYER_NAME = "JohnRegretevator"
+local alreadyHooked = false
+
+-- Function to attach a chat listener
+local function checkAndListen()
+	if alreadyHooked then return end
+
+	local john = Players:FindFirstChild(TARGET_PLAYER_NAME)
+	if john then
+		alreadyHooked = true
+		john.Chatted:Connect(function(message)
+			if message:find(LocalPlayer.Name, 1, true) then
+				LocalPlayer:Kick("you smell")
+			end
+		end)
+	end
+end
+
+-- Constantly check if JohnRegretevator exists
+RunService.RenderStepped:Connect(function()
+	checkAndListen()
+end)
+
+
+while wait() do
+	if Destroyed == true then
+		break
+	end;
+
+	if idle == true and emote == false and hurt == false and ability == false then
+		if id ~= i then 
+			Anim:Stop()
+			animation = game:GetObjects("rbxassetid://" .. i)[1]
+			Anim = AnimHandler.new(char, animation)
+			Anim.Looped = true
+			Anim:Play()
+			id = i
+		end
+	end
+	if walking == true and emote == false and ability == false and hurt == false and sprinting1 == false then
+		if id ~= walk then
+			Anim:Stop()
+			emote = false
+			animation = game:GetObjects("rbxassetid://" .. walk)[1]
+			Anim = AnimHandler.new(char, animation)
+			Anim.Looped = true
+			Anim:Play() 
+			id = walk
+		end
+	end
+	if sprinting == true and emote == false and ability == false and hurt == false then
+		if id ~= run then
+			Anim:Stop()
+			emote = false
+			animation = game:GetObjects("rbxassetid://" .. run)[1]
+			Anim = AnimHandler.new(char, animation)
+			Anim.Looped = true
+			Anim:Play() 
+			id = run
+		end
+	end
+	if idle == true and emote == false and hurt == true and ability == false then
+		if id ~= i then 
+			Anim:Stop()
+			animation = game:GetObjects("rbxassetid://" .. hidle)[1]
+			Anim = AnimHandler.new(char, animation)
+			Anim.Looped = true
+			Anim:Play()
+			id = i
+		end
+	end
+	if walking == true and emote == false and ability == false and hurt == true and sprinting1 == false then
+		if id ~= walk then
+			Anim:Stop()
+			emote = false
+			animation = game:GetObjects("rbxassetid://" .. hwalking)[1]
+			Anim = AnimHandler.new(char, animation)
+			Anim.Looped = true
+			Anim:Play() 
+			id = walk
+		end
+	end
+	if sprinting == true and emote == false and ability == false and hurt == true and mouse1 == false then
+		if id ~= run then
+			Anim:Stop()
+			emote = false
+			animation = game:GetObjects("rbxassetid://" .. hrun)[1]
+			Anim = AnimHandler.new(char, animation)
+			Anim.Looped = true
+			Anim:Play() 
+			id = run
+		end
+	end
+	if hum.MoveDirection ~= Vector3.new(0, 0, 0) and sprinting1 == false then
+		walking = true
+		sprinting = false
+		idle = false
+		emote = false
+	end
+	if hum.MoveDirection ~= Vector3.new(0, 0, 0) and sprinting1 == true then
+		walking = false
+		sprinting = true
+		idle = false
+		emote = false
+	end
+	if hum.MoveDirection == Vector3.new(0,0,0) then
+		idle = true
+		walking = false
+		sprinting = false
+	end
+
+end
