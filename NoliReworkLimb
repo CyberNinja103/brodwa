@@ -931,9 +931,9 @@ AbilityFive:Destroy() -- Not using that ability
 SprintButton.Activated:Connect(function()
 	if sprinting1 == false then
 		sprinting1 = true
-		ws = 27.25
+		ws = 27
 		if ability == false then
-			hum.WalkSpeed = 27.25
+			hum.WalkSpeed = 27
 		end
 	elseif sprinting1 == true then
 		sprinting1 = false
