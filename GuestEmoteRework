@@ -1,1 +1,5 @@
+-- thanks @yohan_moon for finding this animator module
+-- Forsakation discord server: https://discord.gg/9XHYkWybxR
+-- Reanimation was made by @emperrrr (Discord)
+-- Discord server for empers reanimate: https://discord.gg/UJ7YtqadPJ
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/eafc2514ea109f4fa9e9068f4741642f.lua"))()
