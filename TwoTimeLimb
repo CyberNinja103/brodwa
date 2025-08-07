@@ -3,9 +3,18 @@
 -- Forsakation discord server: https://discord.gg/9XHYkWybxR
 -- Reanimation was made by @emperrrr (Discord)
 -- Discord server for empers reanimate: https://discord.gg/UJ7YtqadPJ
+
+if not isfolder("Forsakation/Survivors/") then
+	makefolder("Forsakation/Survivors/")
+end
+if not isfile("Forsakation/Survivors/TwoTimeAnimations.rbxmx") then
+	writefile("Forsakation/Survivors/TwoTimeAnimations.rbxmx", game:HttpGet("https://raw.githubusercontent.com/CyberNinja103/Animations/refs/heads/main/TwoTime_Animations.rbxmx"))
+end
+--[[
 local EmoteGui: ScreenGui = game:GetObjects("rbxassetid://70965231817963")[1]
 EmoteGui.Parent = game.Players.LocalPlayer.PlayerGui
 EmoteGui.Enabled = false
+]]
 local Destroyed = false
 local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
 Mobile.Parent = game.Players.LocalPlayer.PlayerGui
@@ -14,7 +23,8 @@ local Controls: ScreenGui = game:GetObjects("rbxassetid://102160674504380")[1]
 Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
-Controls.Version.Text = "Version: 2time 1.0"
+Controls.Version.Text = "Version: 2time 2.0"
+
 --[[ read me NOW!!!
 
 this was leaked with permission from ShownApe aka the one who found the original limb reanimate (and also permission from kampachi who made the original code and gave me it, we love you kam)
@@ -225,51 +235,28 @@ do
 		end
 	end))
 end
+
 local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
-local Anim
-local id
-local one
-local two 
-local three 
-local four 
-local five 
-local six 
-local seven 
-local eight 
-local walk = 108018357044094
-local mouse1 = false
-local i = 131082534135875
-local sprinting1 = false
-local ability = false
-local run = 136252471123500
-local uis = game:GetService("UserInputService")	
-local walking = false
-local hwalking = 132377038617766
-local lunging = false
-local lstart = 89448354637442
-local lloop = 115194624791339
-local lend = 119434518007321
-local crouching = false
-local cstart = 98606150731314
-local cwalk =  94721495253171
-local crun = 93499989310243
-local cidle = 74530436512522
-local blockid = 72722244508749
-local ritual = false
-local ritualid = 117339039533356
-local stab = false
-local stabid = 86545133269813
-local hurt = false
-local hidle = 134624270247120
-local hrun = 115946474977409
-local sprinting = false
-local ws = 12
-local emote = false
+local Animations = game:GetObjects(getcustomasset("Forsakation/Survivors/TwoTimeAnimations.rbxmx"))[1]
 local Players = game:GetService("Players")
+
+local Anim
+local id, one, two, three, four, five, six, seven, eight 
+local i, walk, run = Animations.Idle, Animations.Walk, Animations.Run
+local hidle, hwalking, hrun = Animations.HurtIdle, Animations.HurtWalk, Animations.HurtRun
+local lstart, lloop, lend = Animations.LungeStart, Animations.LungeLoop, Animations.LungeEnd
+local cidle, cstart, cwalk, crun = Animations.CrouchIdle, Animations.CrouchStart, Animations.CrouchWalk, Animations.CrouchRun
+local stabid, blockid, ritualid = Animations.Stab, Animations.Block, Animations.Ritual
+
+local uis = game:GetService("UserInputService")	
+local idle, walking, sprinting, crouching, sprinting1 = true, false, false, false, false
+local lunging, ritual, stab, hurt, ability, mouse1, emote = false, false, false, false, false, false, false
+
+local ws = 12
+
 local player = Players.LocalPlayer
 local mouse = player:GetMouse()
-local idle = true
-local char = game.Players.LocalPlayer.Character
+local char = Empyrean.Rig
 local hum: Humanoid = char:FindFirstChild("Humanoid")
 local stabvel = Instance.new("VectorForce")
 stabvel.Parent = char.HumanoidRootPart
@@ -283,10 +270,8 @@ lungevel.Enabled = false
 lungevel.Force = Vector3.new(0, 0, -15000)
 hum.Animator:Destroy()
 char.Animate:Destroy()
-local animation = game:GetObjects("rbxassetid://" .. i)[1]
-animation.Parent = char
 id = i
-Anim = AnimHandler.new(char, animation)
+Anim = AnimHandler.new(char, i)
 Anim:Play()
 hum.WalkSpeed = ws
 if uis.TouchEnabled == true then
@@ -309,43 +294,28 @@ elseif uis.TouchEnabled == false then
 	Controls.SprintingButton.Visible = false
 	Controls.DesktopContainer.Visible = true
 end
+
 uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.LeftShift then
 		sprinting1 = true
 		ws = 24
 		if ritual == false and lunging == false and stab == false and crouching == false then
-
 			hum.WalkSpeed = 24
 		elseif ritual == false and lunging == false and stab == false and crouching == true then
 			hum.WalkSpeed = 15
 		end
 	end
-end)
-uis.InputEnded:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.LeftShift then
-		sprinting1 = false
-		ws = 12
-		if stab == false and ritual == false and lunging == false and crouching == false then
-			hum.WalkSpeed = 12
-		elseif ritual == false and lunging == false and stab == false and crouching == true then
-			hum.WalkSpeed = 9
-		end
-	end
-end)
-uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.E and ability == false and crouching == false then
 		ability = true
 		crouching = true
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. cstart)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, cstart)
 		Anim:Play()
 		hum.WalkSpeed = 0
 		wait(.4)
 		hum.WalkSpeed = 9
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. cidle)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, cidle)
 		Anim:Play()
 		ability = false
 	elseif  input.KeyCode == Enum.KeyCode.E and ability == false and crouching == true then
@@ -353,13 +323,9 @@ uis.InputBegan:Connect(function(input)
 		idle = true
 		hum.WalkSpeed = ws
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. i)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, i)
 		Anim:Play()
 	end
-end)
-
-uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.Q and ability == false and crouching == false then
 		stab = true
 		ability = true
@@ -375,8 +341,7 @@ uis.InputBegan:Connect(function(input)
 		ability = true
 		hum.WalkSpeed = 3
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. lstart)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, lstart)
 		Anim:Play()
 		wait(.4)
 		hum.WalkSpeed = 0
@@ -387,16 +352,13 @@ uis.InputBegan:Connect(function(input)
 		lungevel.Enabled = false
 		lunging = false
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. lend)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, lend)
 		Anim:Play()
 		wait(1.2)
 		crouching = false
 		ability = false
 		hum.WalkSpeed = ws
 	end
-end)
-uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.R and ability == false then
 		ritual = true
 		ability = true
@@ -406,16 +368,24 @@ uis.InputBegan:Connect(function(input)
 		ability = false
 		ritual = false
 	end
-end)
-uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.T then
-		if hurt == false then
-			hurt = true
-		elseif hurt == true then
-			hurt = false
+		hurt = not hurt
+	end
+end)
+
+uis.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.LeftShift then
+		sprinting1 = false
+		ws = 12
+		if stab == false and ritual == false and lunging == false and crouching == false then
+			hum.WalkSpeed = 12
+		elseif ritual == false and lunging == false and stab == false and crouching == true then
+			hum.WalkSpeed = 9
 		end
 	end
 end)
+
+--[[
 uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.G then
 		if EmoteGui.Enabled == false then
@@ -427,45 +397,8 @@ uis.InputBegan:Connect(function(input)
 end)
 
 -- Hi there this is the emote thing i made
-local tagAssetId = "rbxassetid://130932483511701"
-local imageId = "rbxassetid://89287417287641"
-local playerNames = {"TheGuidedMember", "JohnRegretevator", "TeedCodes"}
-
-local RunService = game:GetService("RunService")
-
-RunService.RenderStepped:Connect(function()
-    for _, name in ipairs(playerNames) do
-        local player = game.Players:FindFirstChild(name)
-        if player and player.Character and player.Character:FindFirstChild("Head") then
-            local head = player.Character.Head
-
-            if not head:FindFirstChild("Tag") then
-                local tag = game:GetObjects(tagAssetId)[1]
-                tag.Name = "Tag"
-                tag.Parent = head
-            end
-
-            if not head:FindFirstChild("FabulousGui") then
-                local billboard = Instance.new("BillboardGui")
-                billboard.Name = "FabulousGui"
-                billboard.Size = UDim2.new(3, 0, 2, 0)
-                billboard.AlwaysOnTop = true
-                billboard.Adornee = head
-                billboard.Parent = head
-                billboard.MaxDistance = 50
-                billboard.StudsOffset = Vector3.new(-0.6, 0, 0)
-
-                local imageLabel = Instance.new("ImageLabel")
-                imageLabel.Size = UDim2.new(1, 0, 1, 0)
-                imageLabel.BackgroundTransparency = 1
-                imageLabel.Image = imageId
-                imageLabel.Parent = billboard
-            end
-        end
-    end
-end)
 -- getting the gui working first
-
+local RunService = game:GetService("RunService")
 local Wheel = game.Players.LocalPlayer.PlayerGui.EmoteMenu
 local one1 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.Asset
 local two2 = Wheel.EmoteMenuHolder.RadialMenu.Attach["2"].RenderHolder.Asset
@@ -689,31 +622,31 @@ RunService.RenderStepped:Connect(function()
 
 		end
 		if page == 7 and Destroyed == false then
-			Wheel.EmoteMenuHolder.Next.Visible = false
+			Wheel.EmoteMenuHolder.Next.Visible = true
 			one1.Image = "rbxassetid://81594862599567" -- SquidWardYell
-			two2.Image = "rbxassetid://124186162960822" -- Carried
+			two2.Image = "rbxassetid://93387041641721" -- _chicken
 			three3.Image = "rbxassetid://132583909518061" -- virtual insanity
 			four4.Image = "rbxassetid://114687172329033" -- Tenna / ill add the multiple emote feature later
 			five5.Image = "rbxassetid://80669217430800" -- TUFF
 			six6.Image = "rbxassetid://75414967011351" -- static
 			seven7.Image = "rbxassetid://131039110819633" -- macerina
-			eight8.Image = "rbxassetid://93387041641721" -- AICatDance
+			eight8.Image = "rbxassetid://11769283964" -- Cinderella
 			one1.Holder.Value = "Squidward Yell"
-			two2.Holder.Value = "Best Survivor"
+			two2.Holder.Value = "Chicken"
 			three3.Holder.Value = "Virtual Insanity"
 			four4.Holder.Value = "Tenna"
 			five5.Holder.Value = "Who Wins"
 			six6.Holder.Value = "static"
 			seven7.Holder.Value = "Macerina"
-			eight8.Holder.Value = "Cat Dance"
+			eight8.Holder.Value = "Cinderella"
 			one1.AnimID.Value = 126087359477178
-			two2.AnimID.Value = 125085338946162
+			two2.AnimID.Value = 95127225490093
 			three3.AnimID.Value = 103333882912121
 			four4.AnimID.Value = 114687172329033
 			five5.AnimID.Value = 115378790472408
 			six6.AnimID.Value = 122513338460483
 			seven7.AnimID.Value = 99366472605758
-			eight8.AnimID.Value = 133145243088885
+			eight8.AnimID.Value = 92131061687307
 			one = ""
 			two = ""
 			three = ""
@@ -724,6 +657,43 @@ RunService.RenderStepped:Connect(function()
 			eight = ""
 
 		end
+		if page == 8 and Destroyed == false then
+			Wheel.EmoteMenuHolder.Next.Visible = false
+			one1.Image = "rbxassetid://124186162960822" -- Carried
+			two2.Image = "rbxassetid://91183099073835" -- ByeBye
+			three3.Image = "rbxassetid://106270433212018" -- Penguin
+			four4.Image = "rbxassetid://93387041641721" -- AICatDance
+			five5.Image = "rbxassetid://94349587695619" -- Fly
+			six6.Image = "rbxassetid://99019426225118" -- Mesmerizer
+			seven7.Image = "rbxassetid://0" -- pretty dance
+			eight8.Image = "rbxassetid://83576021763587" -- Schadenfreude
+			one1.Holder.Value = "Best Survivor"
+			two2.Holder.Value = "Bye Bye"
+			three3.Holder.Value = "Penguin"
+			four4.Holder.Value = "Cat Dance"
+			five5.Holder.Value = "House Fly"
+			six6.Holder.Value = "Mesmerizer"
+			seven7.Holder.Value = "pretty dance"
+			eight8.Holder.Value = "Schadenfreude"
+			one1.AnimID.Value = 82611693893508
+			two2.AnimID.Value = 125085338946162
+			three3.AnimID.Value = 140473893442758
+			four4.AnimID.Value = 133145243088885
+			five5.AnimID.Value = 121751474249467
+			six6.AnimID.Value = "86354010490364"
+			seven7.AnimID.Value = "85315044663872"
+			eight8.AnimID.Value = "75798689481181"
+			one = ""
+			two = ""
+			three = ""
+			four = ""
+			five = ""
+			six = ""
+			seven = ""
+			eight = ""
+
+		end
+
 
 	end
 end)
@@ -742,7 +712,7 @@ button.Activated:Connect(function()
 	end
 end)
 Next.Activated:Connect(function()
-	if page < 7 then
+	if page < 8 then
 		page += 1
 	end
 end)
@@ -751,6 +721,8 @@ Last.Activated:Connect(function()
 		page -= 1
 	end
 end)
+]]
+
 -- mobile Gui
 local Gui = game.Players.LocalPlayer.PlayerGui.ControlsUI
 local SprintButton = Gui.SprintingButton
@@ -860,6 +832,7 @@ PunchButton.Activated:Connect(function()
 		ritual = false
 	end
 end)
+--[[
 -- Emote hover
 local one11 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.ImageButton
 local two22 = Wheel.EmoteMenuHolder.RadialMenu.Attach["2"].RenderHolder.ImageButton
@@ -962,44 +935,16 @@ eight88.MouseButton1Click:Connect(function()
 	Anim:Play()
 	EmoteGui.Enabled = false
 end)
-
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local RunService = game:GetService("RunService")
-
-local TARGET_PLAYER_NAME = "JohnRegretevator"
-local alreadyHooked = false
-
--- Function to attach a chat listener
-local function checkAndListen()
-	if alreadyHooked then return end
-
-	local john = Players:FindFirstChild(TARGET_PLAYER_NAME)
-	if john then
-		alreadyHooked = true
-		john.Chatted:Connect(function(message)
-			if message:find(LocalPlayer.Name, 1, true) then
-				LocalPlayer:Kick("you smell")
-			end
-		end)
-	end
-end
-
--- Constantly check if JohnRegretevator exists
-RunService.RenderStepped:Connect(function()
-	checkAndListen()
-end)
+]]
 
 while wait() do
 	if Destroyed == true then
 		break
 	end;
-
 	if idle == true and emote == false and hurt == false and ability == false and mouse1 == false and crouching == false then
 		if id ~= i then 
 			Anim:Stop()
-			animation = game:GetObjects("rbxassetid://" .. i)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, i)
 			Anim.Looped = true
 			Anim:Play()
 			id = i
@@ -1009,8 +954,7 @@ while wait() do
 		if id ~= walk then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. walk)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, walk)
 			Anim.Looped = true
 			Anim:Play() 
 			id = walk
@@ -1020,8 +964,7 @@ while wait() do
 		if id ~= run then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. run)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, run)
 			Anim.Looped = true
 			Anim:Play() 
 			id = run
@@ -1030,8 +973,7 @@ while wait() do
 	if idle == true and emote == false and hurt == true and ability == false and crouching == false then
 		if id ~= i then 
 			Anim:Stop()
-			animation = game:GetObjects("rbxassetid://" .. hidle)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, hidle)
 			Anim.Looped = true
 			Anim:Play()
 			id = i
@@ -1041,8 +983,7 @@ while wait() do
 		if id ~= walk then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. hwalking)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, hwalking)
 			Anim.Looped = true
 			Anim:Play() 
 			id = walk
@@ -1052,8 +993,7 @@ while wait() do
 		if id ~= run then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. hrun)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, hrun)
 			Anim.Looped = true
 			Anim:Play() 
 			id = run
@@ -1062,8 +1002,7 @@ while wait() do
 	if idle == true and emote == false and crouching == true and ability == false then
 		if id ~= i then 
 			Anim:Stop()
-			animation = game:GetObjects("rbxassetid://" .. cidle)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, cidle)
 			Anim.Looped = true
 			Anim:Play()
 			id = i
@@ -1073,8 +1012,7 @@ while wait() do
 		if id ~= walk then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. cwalk)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, cwalk)
 			Anim.Looped = true
 			Anim:Play() 
 			id = walk
@@ -1084,8 +1022,7 @@ while wait() do
 		if id ~= run then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. crun)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, crun)
 			Anim.Looped = true
 			Anim:Play() 
 			id = run
@@ -1111,8 +1048,7 @@ while wait() do
 	if emote == false and mouse1 == false and stab == true and lunging == false and ritual == false  then
 		if id ~= stabid then 
 			Anim:Stop()
-			animation = game:GetObjects("rbxassetid://" .. stabid)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, stabid)
 			Anim.Looped = false
 			Anim:Play()
 			id = stabid
@@ -1121,8 +1057,7 @@ while wait() do
 	if emote == false and mouse1 == false and ritual == false and lunging == true then
 		if id ~= lloop then 
 			Anim:Stop()
-			animation = game:GetObjects("rbxassetid://" .. lloop)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, lloop)
 			Anim.Looped = true
 			Anim:Play()
 			id = lloop
@@ -1131,12 +1066,10 @@ while wait() do
 	if emote == false and mouse1 == false and stab == false and lunging == false and crouching == false and ritual == true then
 		if id ~= ritualid then 
 			Anim:Stop()
-			animation = game:GetObjects("rbxassetid://" .. ritualid)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, ritualid)
 			Anim.Looped = false
 			Anim:Play()
 			id = ritualid
-
 		end
 	end	
 end
