@@ -474,7 +474,7 @@ function onTouched(hit)
 	if dash == true then
 		if not hit or not hit.Parent then return end
 		local human = hit.Parent:findFirstChild("Humanoid")
-		if human and human:IsA("Humanoid") then
+		if human and human:IsA("Humanoid") and hit.Parent.Name ~= game.Players.LocalPlayer.Name then
 			AbilityTwo.Clipping.Visible = false
 			dash = false
 			char.HumanoidRootPart.DashVelocity:Destroy()
