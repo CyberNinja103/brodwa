@@ -16,14 +16,15 @@ EmoteGui.Parent = game.Players.LocalPlayer.PlayerGui
 EmoteGui.Enabled = false
 ]]
 local Destroyed = false
-local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
-Mobile.Parent = game.Players.LocalPlayer.PlayerGui
-Mobile.Enabled = false
+--local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
+--Mobile.Parent = game.Players.LocalPlayer.PlayerGui
+--Mobile.Enabled = false
 local Controls: ScreenGui = game:GetObjects("rbxassetid://102160674504380")[1]
 Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: 2time 2.0"
+
 --[[ read me NOW!!!
 
 this was leaked with permission from ShownApe aka the one who found the original limb reanimate (and also permission from kampachi who made the original code and gave me it, we love you kam)
@@ -161,7 +162,6 @@ do
 
 		BreakJoints(Character)
 		Rig:Destroy()
-		Mobile:Destroy()
 		Controls:Destroy()
 		Destroyed = true
 	end).Disconnect
@@ -234,6 +234,7 @@ do
 	end))
 end
 
+
 local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
 local Animations = game:GetObjects(getcustomasset("Forsakation/Survivors/TwoTimeAnimations.rbxmx"))[1]
 local Players = game:GetService("Players")
@@ -254,7 +255,7 @@ local ws = 12
 
 local player = Players.LocalPlayer
 local mouse = player:GetMouse()
-local char = game.Players.LocalPlayer.Character
+local char = player.Character
 local hum: Humanoid = char:FindFirstChild("Humanoid")
 local stabvel = Instance.new("VectorForce")
 stabvel.Parent = char.HumanoidRootPart
@@ -273,12 +274,12 @@ Anim = AnimHandler.new(char, i)
 Anim:Play()
 hum.WalkSpeed = ws
 if uis.TouchEnabled == true then
-	Mobile.Enabled = true
+	--Mobile.Enabled = true
 	Controls.MobileContainer.Visible = true
 	Controls.SprintingButton.Visible = true
 	Controls.DesktopContainer.Visible = false
 elseif uis.TouchEnabled == false then
-	Mobile.Enabled = false
+	--Mobile.Enabled = false
 	Controls.DesktopContainer.Block.Image = "rbxassetid://129077533212750"
 	Controls.DesktopContainer.Block.Clipping.Top.Image = "rbxassetid://129077533212750"
 	Controls.DesktopContainer.Charge.Image = "rbxassetid://77707049887484"
