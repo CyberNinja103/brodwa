@@ -272,7 +272,6 @@ Anim = AnimHandler.new(char, i)
 Anim:Play()
 hum.WalkSpeed = ws
 if uis.TouchEnabled == true then
-	Mobile.Enabled = true
 	Controls.MobileContainer.Visible = true
 end
 
