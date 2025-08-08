@@ -24,6 +24,7 @@ Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: 2time 2.0"
+EmoteGui:Destroy()
 do
 	local Accessories = {}
 
@@ -1237,7 +1238,7 @@ uis.InputEnded:Connect(function(input)
 		end
 	end
 end)
-EmoteGui:Destroy()
+
 --[[
 uis.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.G then
