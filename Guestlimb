@@ -159,7 +159,7 @@ do
 		BreakJoints(Character)
 		Rig:Destroy()
 		Mobile:Destroy()
-		EmoteGui:Destroy()
+		game.Players.LocalPlayer.PlayerGui.EmoteMenu:Destroy()
 		Controls:Destroy()
 		Destroyed = true
 	end).Disconnect
