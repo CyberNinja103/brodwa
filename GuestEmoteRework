@@ -1209,19 +1209,6 @@ uis.InputEnded:Connect(function(input)
 		end
 	end
 end)
-
---[[
--- broken and needs to be fixed rn
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.G then
-		if EmoteGui.Enabled == false then
-			EmoteGui.Enabled = true
-		elseif EmoteGui.Enabled == true then
-			EmoteGui.Enabled = false
-		end
-	end
-end)
--- Hi there this is the emote thing i made
 local tagAssetId = "rbxassetid://130932483511701"
 local imageId = "rbxassetid://89287417287641"
 local playerNames = {"TheGuidedMember", "JohnRegretevator", "TeedCodes"}
@@ -1259,6 +1246,19 @@ RunService.RenderStepped:Connect(function()
         end
     end
 end)
+--[[
+-- broken and needs to be fixed rn
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.G then
+		if EmoteGui.Enabled == false then
+			EmoteGui.Enabled = true
+		elseif EmoteGui.Enabled == true then
+			EmoteGui.Enabled = false
+		end
+	end
+end)
+-- Hi there this is the emote thing i made
+
 -- getting the gui working first
 local RunService = game:GetService("RunService")
 local Wheel = game.Players.LocalPlayer.PlayerGui.EmoteMenu
