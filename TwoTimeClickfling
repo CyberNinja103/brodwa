@@ -16,9 +16,9 @@ EmoteGui.Parent = game.Players.LocalPlayer.PlayerGui
 EmoteGui.Enabled = false
 ]]
 local Destroyed = false
-local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
-Mobile.Parent = game.Players.LocalPlayer.PlayerGui
-Mobile.Enabled = false
+--local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
+--Mobile.Parent = game.Players.LocalPlayer.PlayerGui
+--Mobile.Enabled = false
 local Controls: ScreenGui = game:GetObjects("rbxassetid://102160674504380")[1]
 Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
@@ -974,8 +974,6 @@ do
 			end
 
 			Destroy(Rig)
-			game.Players.LocalPlayer.PlayerGui.EmoteMenu.Enabled = false
-			Mobile:Destroy()
 			Controls:Destroy()
 			Destroyed = true
 			if OptionsPermanentDeath and replicatesignal then
@@ -1127,12 +1125,12 @@ Anim = AnimHandler.new(char, i)
 Anim:Play()
 hum.WalkSpeed = ws
 if uis.TouchEnabled == true then
-	Mobile.Enabled = true
+	--Mobile.Enabled = true
 	Controls.MobileContainer.Visible = true
 	Controls.SprintingButton.Visible = true
 	Controls.DesktopContainer.Visible = false
 elseif uis.TouchEnabled == false then
-	Mobile.Enabled = false
+	--Mobile.Enabled = false
 	Controls.DesktopContainer.Block.Image = "rbxassetid://129077533212750"
 	Controls.DesktopContainer.Block.Clipping.Top.Image = "rbxassetid://129077533212750"
 	Controls.DesktopContainer.Charge.Image = "rbxassetid://77707049887484"
