@@ -387,7 +387,6 @@ RunService.RenderStepped:Connect(function()
         end
     end
 end)
-EmoteGui:Destroy()
 --[[
 -- broken and needs to be fixed rn
 uis.InputBegan:Connect(function(input)
