@@ -24,7 +24,6 @@ Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: 2time 2.0"
-EmoteGui:Destroy()
 do
 	local Accessories = {}
 
