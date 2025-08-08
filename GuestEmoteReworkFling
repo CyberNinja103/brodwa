@@ -20,6 +20,7 @@ Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: Guest 2.0"
+
 do
 	local Accessories = {}
 
@@ -970,6 +971,7 @@ do
 			end
 
 			Destroy(Rig)
+			game.Players.LocalPlayer.PlayerGui.EmoteMenu.Enabled = false
 			Controls:Destroy()
 			Destroyed = true
 			if OptionsPermanentDeath and replicatesignal then
@@ -1041,7 +1043,7 @@ Empyrean = Start({
 		{ MeshId = "17387586286", Names = { "Left Leg", "Right Leg", "Left Arm", "Right Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17387586304" },--17387616772
 		{ MeshId = "17387586286", Names = { "Right Leg", "Left Leg", "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "17387586304" },--17393641992
 
-		-- { MeshId = "3030546036", Names = { "Left Arm", "Left Leg", "Right Arm", "Right Leg" }, Offset = CFrame.Angles(- 1.57, 0, 0), TextureId = "" },
+		{ MeshId = "3030546036", Names = { "Left Arm", "Left Leg", "Right Arm", "Right Leg" }, Offset = CFrame.Angles(- 1.57, 0, 0), TextureId = "" },
 		{ MeshId = "4324138105", Names = { "Left Arm", "Left Leg", "Right Arm", "Right Leg" }, Offset = CFrame.Angles(- 1.57, 0, 0), TextureId = "" },
 
 		{ MeshId = "18640899369", Name = "Torso", Offset = CFrame.identity, TextureId = "18640899481" },--18641046146
@@ -1050,18 +1052,12 @@ Empyrean = Start({
 		{ MeshId = "4819720316", Name = "Torso", Offset = CFrame.Angles(0, 0, -0.249), TextureId = "4819722776" },--4819740796
 		{ MeshId = "126825022897778", Name = "Torso", Offset = CFrame.identity, TextureId = "125975972015302" },--95290698984301
 
-		{ MeshId = "4819720316", Name = "Torso", Offset = CFrame.Angles(0, 0, -0.25), TextureId = "4819722776" },
-		{ MeshId = "3030546036", Name = "Left Arm", Offset = CFrame.Angles(-1.57, 0, 1.57), TextureId = "3033903209" },
-		{ MeshId = "3030546036", Name = "Right Arm", Offset = CFrame.Angles(-1.57, 0, -1.57), TextureId = "3360978739" },
-		{ MeshId = "3030546036", Name = "Left Leg", Offset = CFrame.Angles(-1.57, 0, 1.57), TextureId = "3033898741" },
-		{ MeshId = "3030546036", Name = "Right Leg", Offset = CFrame.Angles(-1.57, 0, -1.57), TextureId = "3409604993" },
-
 	},
 	ApplyDescription = true,
 	BreakJointsDelay = 0.255,
-	ClickFling = true,
+	ClickFling = false,
 	DefaultFlingOptions = {
-		HatFling = true,--{ MeshId="", TextureId = ""},
+		HatFling = false,--{ MeshId="", TextureId = ""},
 		Highlight = false,
 		PredictionFling = true,
 		Timeout = 1,
@@ -1076,7 +1072,7 @@ Empyrean = Start({
 	PermanentDeath = true,
 	Refit = false,
 	RigSize = 1,
-	RigTransparency = 0.5,
+	RigTransparency = 1,
 	R15 = false,
 	SetCameraSubject = true,
 	SetCameraType = true,
@@ -1086,8 +1082,8 @@ Empyrean = Start({
 	TeleportRadius = 12,
 	UseServerBreakJoints = false,
 })
-
 game.Players.LocalPlayer.Character = game.Players.LocalPlayer.Character.Parent
+
 local uis = game:GetService("UserInputService")	
 local Players = game:GetService("Players")
 local Animations = game:GetObjects(getcustomasset("Forsakation/Survivors/GuestAnimations.rbxmx"))[1]
@@ -1129,7 +1125,6 @@ Anim = AnimHandler.new(char, i)
 Anim:Play()
 hum.WalkSpeed = ws
 if uis.TouchEnabled == true then
-	Mobile.Enabled = true
 	Controls.MobileContainer.Visible = true
 end
 
