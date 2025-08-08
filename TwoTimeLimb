@@ -24,7 +24,6 @@ Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: 2time 2.0"
-EmoteGui:Destroy()
 --[[ read me NOW!!!
 
 this was leaked with permission from ShownApe aka the one who found the original limb reanimate (and also permission from kampachi who made the original code and gave me it, we love you kam)
