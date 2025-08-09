@@ -1,20 +1,29 @@
+if not isfolder("Forsakation/Killers/") then
+	makefolder("Forsakation/Killers/")
+end
+if not isfile("Forsakation/Killers/1x1x1x1Animations.rbxmx") then
+	writefile("Forsakation/Killers/1x1x1x1Animations.rbxmx", game:HttpGet("https://raw.githubusercontent.com/CyberNinja103/Animations/refs/heads/main/1x1x1x1Animations.rbxmx"))
+end
 
 -- thanks @yohan_moon for finding this animator module
 -- Forsakation discord server: https://discord.gg/9XHYkWybxR
 -- Reanimation was made by @emperrrr (Discord)
 -- Discord server for empers reanimate: https://discord.gg/UJ7YtqadPJ
-local EmoteGui: ScreenGui = game:GetObjects("rbxassetid://70965231817963")[1]
-EmoteGui.Parent = game.Players.LocalPlayer.PlayerGui
-EmoteGui.Enabled = false
+
+ ------------------------------------------------------------------------------------
+--local EmoteGui: ScreenGui = game:GetObjects("rbxassetid://70965231817963")[1]
+--EmoteGui.Parent = game.Players.LocalPlayer.PlayerGui
+--EmoteGui.Enabled = false
 local Destroyed = false
-local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
-Mobile.Parent = game.Players.LocalPlayer.PlayerGui
-Mobile.Enabled = false
+--local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
+--Mobile.Parent = game.Players.LocalPlayer.PlayerGui
+--Mobile.Enabled = false
 local Controls: ScreenGui = game:GetObjects("rbxassetid://85172975543013")[1]
 Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
-Controls.Version.Text = "Version: 1x1x1x1 1.0"
+Controls.Version.Text = "Version: 1x1x1x1 2.0"
+
 
 do
 	local Accessories = {}
@@ -966,9 +975,6 @@ do
 			end
 
 			Destroy(Rig)
-			game.Players.LocalPlayer.PlayerGui.EmoteMenu.Enabled = false
-			Mobile:Destroy()
-			EmoteGui:Destroy()
 			Controls:Destroy()
 			Destroyed = true
 			if OptionsPermanentDeath and replicatesignal then
@@ -1082,6 +1088,7 @@ Empyrean = Start({
 })
 game.Players.LocalPlayer.Character = game.Players.LocalPlayer.Character.Parent
 
+local Animations = game:GetObjects(getcustomasset("Forsakation/Killers/1x1x1x1Animations.rbxmx"))[1]
 local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
 local Anim
 local id
@@ -1094,26 +1101,26 @@ local six
 local seven 
 local eight 
 local debounce = false
-local walk = 109130982296927
+local walk = Animations.Walk
 local mouse1 = false
-local m1 = 83829782357897
-local EntangleMent = 119181003138006 
-local MassInfection = 131430497821198
-local UnstableEye = 119429069577280
-local RejuvenateTheRotten = 116996902830888
-local Kill = 93368339913846
-local i = 138754221537146
+local m1 = Animations.Slash
+local EntangleMent = Animations .Entanglement
+local MassInfection = Animations.MassInfection
+local UnstableEye = Animations.Unstable
+local RejuvenateTheRotten = Animations.ow
+local Kill = Animations.execute
+local i = Animations.NewIdle
 local sprinting1 = false
 local ability = false
 local highlight = false
 local highlighted = false
-local run = 106485518413331
+local run = Animations.Run
 local uis = game:GetService("UserInputService")	
 local walking = false
-local hwalking = 132377038617766
+local hwalking = walk
 local hurt = false
-local hidle = 134624270247120
-local hrun = 115946474977409
+local hidle = i
+local hrun = run
 local sprinting = false
 local ws = 9
 local emote = false
@@ -1133,10 +1140,8 @@ attackvel.Enabled = false
 attackvel.Force = Vector3.new(0, 0, -15000)
 hum.Animator:Destroy()
 char.Animate:Destroy()
-local animation = game:GetObjects("rbxassetid://" .. i)[1]
-animation.Parent = char
 id = i
-Anim = AnimHandler.new(char, animation)
+Anim = AnimHandler.new(char, i)
 Anim:Play()
 hum.WalkSpeed = ws
 
@@ -1157,12 +1162,12 @@ function RevealPlayerAura()
 end
 
 if uis.TouchEnabled == true then
-	Mobile.Enabled = true
+	--Mobile.Enabled = true
 	Controls.MobileContainer.Visible = true
 	Controls.SprintingButton.Visible = true
 	Controls.DesktopContainer.Visible = false
 elseif uis.TouchEnabled == false then
-	Mobile.Enabled = false
+	--Mobile.Enabled = false
 	Controls.DesktopContainer.Block.Image = "rbxassetid://120590195585579"
 	Controls.DesktopContainer.Block.Clipping.Top.Image = "rbxassetid://120590195585579"
 	Controls.DesktopContainer.Block.KeybindName.Text = "LMB"
@@ -1199,9 +1204,7 @@ local function onButton1Down()
 	if id ~= m1 and ability == false and uis.KeyboardEnabled == true and mouse1 == false then 
 		mouse1 = true
 		local Anim2
-		local animation1 = game:GetObjects("rbxassetid://" .. m1)[1]
-		animation1.Parent = char
-		Anim2 = AnimHandler.new(char, animation1)
+		Anim2 = AnimHandler.new(char, m1)
 		Anim2:Play()
 		Anim:Stop()
 		id = m1
@@ -1211,7 +1214,6 @@ local function onButton1Down()
 		attackvel.Enabled = false
 		wait(.6)
 		Anim2:Destroy()
-		animation1:Destroy()
 		mouse1 = false
 	end
 end
@@ -1222,9 +1224,7 @@ uis.InputBegan:Connect(function(input)
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. EntangleMent)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, EntangleMent)
 		Anim:Play()
 		id = EntangleMent
 		wait(1.3)
@@ -1238,9 +1238,7 @@ uis.InputBegan:Connect(function(input)
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. MassInfection)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, MassInfection)
 		Anim:Play()
 		id = MassInfection
 		wait(2.6)
@@ -1254,9 +1252,7 @@ uis.InputBegan:Connect(function(input)
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. UnstableEye)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, UnstableEye)
 		Anim:Play()
 		id = UnstableEye
 		wait(1)
@@ -1287,9 +1283,7 @@ uis.InputBegan:Connect(function(input)
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. RejuvenateTheRotten)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, RejuvenateTheRotten)
 		Anim:Play()
 		id = RejuvenateTheRotten
 		wait(3.4)
@@ -1298,15 +1292,15 @@ uis.InputBegan:Connect(function(input)
 	end
 end)
 
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.G then
-		if EmoteGui.Enabled == false then
-			EmoteGui.Enabled = true
-		elseif EmoteGui.Enabled == true then
-			EmoteGui.Enabled = false
-		end
-	end
-end)
+--uis.InputBegan:Connect(function(input)
+--	if input.KeyCode == Enum.KeyCode.G then
+--		if EmoteGui.Enabled == false then
+--			EmoteGui.Enabled = true
+--		elseif EmoteGui.Enabled == true then
+--			EmoteGui.Enabled = false
+--		end
+--	end
+--end)
 
 -- Hi there this is the emote thing i made
 local tagAssetId = "rbxassetid://130932483511701"
@@ -1316,361 +1310,361 @@ local playerNames = {"TheGuidedMember", "JohnRegretevator", "TeedCodes"}
 local RunService = game:GetService("RunService")
 
 RunService.RenderStepped:Connect(function()
-    for _, name in ipairs(playerNames) do
-        local player = game.Players:FindFirstChild(name)
-        if player and player.Character and player.Character:FindFirstChild("Head") then
-            local head = player.Character.Head
+	for _, name in ipairs(playerNames) do
+		local player = game.Players:FindFirstChild(name)
+		if player and player.Character and player.Character:FindFirstChild("Head") then
+			local head = player.Character.Head
 
-            if not head:FindFirstChild("Tag") then
-                local tag = game:GetObjects(tagAssetId)[1]
-                tag.Name = "Tag"
-                tag.Parent = head
-            end
+			if not head:FindFirstChild("Tag") then
+				local tag = game:GetObjects(tagAssetId)[1]
+				tag.Name = "Tag"
+				tag.Parent = head
+			end
 
-            if not head:FindFirstChild("FabulousGui") then
-                local billboard = Instance.new("BillboardGui")
-                billboard.Name = "FabulousGui"
-                billboard.Size = UDim2.new(3, 0, 2, 0)
-                billboard.AlwaysOnTop = true
-                billboard.Adornee = head
-                billboard.Parent = head
-                billboard.MaxDistance = 50
-                billboard.StudsOffset = Vector3.new(-0.6, 0, 0)
+			if not head:FindFirstChild("FabulousGui") then
+				local billboard = Instance.new("BillboardGui")
+				billboard.Name = "FabulousGui"
+				billboard.Size = UDim2.new(3, 0, 2, 0)
+				billboard.AlwaysOnTop = true
+				billboard.Adornee = head
+				billboard.Parent = head
+				billboard.MaxDistance = 50
+				billboard.StudsOffset = Vector3.new(-0.6, 0, 0)
 
-                local imageLabel = Instance.new("ImageLabel")
-                imageLabel.Size = UDim2.new(1, 0, 1, 0)
-                imageLabel.BackgroundTransparency = 1
-                imageLabel.Image = imageId
-                imageLabel.Parent = billboard
-            end
-        end
-    end
+				local imageLabel = Instance.new("ImageLabel")
+				imageLabel.Size = UDim2.new(1, 0, 1, 0)
+				imageLabel.BackgroundTransparency = 1
+				imageLabel.Image = imageId
+				imageLabel.Parent = billboard
+			end
+		end
+	end
 end)
 -- getting the gui working first
-local RunService = game:GetService("RunService")
-local Wheel = game.Players.LocalPlayer.PlayerGui.EmoteMenu
-local one1 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.Asset
-local two2 = Wheel.EmoteMenuHolder.RadialMenu.Attach["2"].RenderHolder.Asset
-local three3 = Wheel.EmoteMenuHolder.RadialMenu.Attach["3"].RenderHolder.Asset
-local four4 = Wheel.EmoteMenuHolder.RadialMenu.Attach["4"].RenderHolder.Asset
-local five5 = Wheel.EmoteMenuHolder.RadialMenu.Attach["5"].RenderHolder.Asset
-local six6 = Wheel.EmoteMenuHolder.RadialMenu.Attach["6"].RenderHolder.Asset
-local seven7 = Wheel.EmoteMenuHolder.RadialMenu.Attach["7"].RenderHolder.Asset
-local eight8 = Wheel.EmoteMenuHolder.RadialMenu.Attach["8"].RenderHolder.Asset
-local page = 1
-RunService.RenderStepped:Connect(function()
-	if Wheel.Enabled == true then
-		if page == 1 and Destroyed == false then
-			Wheel.EmoteMenuHolder.Last.Visible = false
-			one1.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png" -- ChronoShift
-			two2.Image = "rbxassetid://127260772788474" -- California Girls
-			three3.Image = "rbxassetid://97057214315889" -- BrickBattler
-			four4.Image = "rbxassetid://92379847382802" -- Knightly Shimmy
-			five5.Image = "rbxassetid://78969991165860" -- The Hero
-			six6.Image = "rbxassetid://79579234154217" -- Insanity
-			seven7.Image = "rbxassetid://73574803924243" -- Jumpstyle
-			eight8.Image = "rbxassetid://103241825392940" -- Locked
-			one1.Holder.Value = "ChronoShift"
-			two2.Holder.Value = "California Girls"
-			three3.Holder.Value = "BrickBattler"
-			four4.Holder.Value = "Knightly Shimmy"
-			five5.Holder.Value = "The Hero"
-			six6.Holder.Value = "Insanity"
-			seven7.Holder.Value = "Jumpstyle"
-			eight8.Holder.Value = "Locked"
-			one1.AnimID.Value = 130686615743311
-			two2.AnimID.Value = 74194754788106
-			three3.AnimID.Value = 120114444852778
-			four4.AnimID.Value = 136725769431986
-			five5.AnimID.Value = 115431798094168
-			six6.AnimID.Value = 116090545618337
-			seven7.AnimID.Value = 103282125943928
-			eight8.AnimID.Value = 136423821703954
-			one = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/Forsaken_Chronoshift_.mp3.mp3"
-			two = ""
-			three = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/BrickBattlerNew.mp3.mp3"
-			four = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/KnightlyShammyEmote.mp3.mp3"
-			five = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/TheHeroEmote.mp3.mp3"
-			six = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/TheHeroEmote.mp3.mp3"
-			seven = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/JumpstyleExtended.mp3.mp3"
-			eight = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/LockedNewEmote.mp3.mp3"
-		end
-		if page == 2 and Destroyed == false then
-			Wheel.EmoteMenuHolder.Last.Visible = true
-			one1.Image = "rbxassetid://87183895795869" -- Pop Dance
-			two2.Image = "rbxassetid://125197961882771" -- Prince
-			three3.Image = "rbxassetid://92399495788269" -- Poisoned
-			four4.Image = "rbxassetid://129885437120707" -- So Retro
-			five5.Image = "rbxassetid://136238391916155" -- Stock Dance
-			six6.Image = "rbxassetid://83639505456623" -- Subject three
-			seven7.Image = "rbxassetid://106561882302009" -- Wait
-			eight8.Image = "rbxassetid://96660516353249" -- Hello
-			one1.Holder.Value = "Pop Dance"
-			two2.Holder.Value = "Prince"
-			three3.Holder.Value = "Poisoned"
-			four4.Holder.Value = "So Retro"
-			five5.Holder.Value = "Stock Dance"
-			six6.Holder.Value = "Subject Three"
-			seven7.Holder.Value = "Wait"
-			eight8.Holder.Value = "Hello"
-			one1.AnimID.Value = 92569957662902
-			two2.AnimID.Value = 117732280174064
-			three3.AnimID.Value = 127481951878940
-			four4.AnimID.Value = 130758025957161
-			five5.AnimID.Value = 76736605935657
-			six6.AnimID.Value = 91842439086880
-			seven7.AnimID.Value = 101753564767248
-			eight8.AnimID.Value = 128777973
-			one = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/PopDanceEmote.mp3.mp3"
-			two = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/PrinceofEgipt.mp3.mp3"
-			three = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/PoisonedEmote.mp3.mp3"
-			four = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/SoRetroEmote.mp3.mp3"
-			five = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/StockDanceEmote.mp3.mp3"
-			six = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/SubjectThreeEmote.mp3.mp3"
-			seven = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/WaitEmote.mp3.mp3"
-			eight = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/WaveEmote.mp3.mp3"
-		end
-		if page == 3 and Destroyed == false then
-			one1.Image = "rbxassetid://103071006249147" -- Snap
-			two2.Image = "rbxassetid://121965062547127" -- Silly
-			three3.Image = "rbxassetid://121927033287000" -- PYT
-			four4.Image = "rbxassetid://73592720532565" -- Monster Mash
-			five5.Image = "rbxasset:70514684116327" -- Hotdog
-			six6.Image = "rbxassetid://89769371017185" -- Company Groove
-			seven7.Image = "rbxassetid://135343313057075" -- Konton
-			eight8.Image = "rbxassetid://93665655595946" -- Hey Now
-			one1.Holder.Value = "Snap"
-			two2.Holder.Value = "Silly"
-			three3.Holder.Value = "PYT"
-			four4.Holder.Value = "Monster Mash"
-			five5.Holder.Value = "Hotdog"
-			six6.Holder.Value = "Company Groove"
-			seven7.Holder.Value = "Konton"
-			eight8.Holder.Value = "Hey Now"
-			one1.AnimID.Value = 73951840893725
-			two2.AnimID.Value = 109484648353156
-			three3.AnimID.Value = 132778843823786
-			four4.AnimID.Value = 131140313293438
-			five5.AnimID.Value = 79827773028295
-			six6.AnimID.Value = 94657210178191
-			seven7.AnimID.Value = 95883381151116
-			eight8.AnimID.Value = 84236974420331
-			one = ""
-			two = ""
-			three = ""
-			four = ""
-			five = ""
-			six = ""
-			seven = ""
-			eight = ""
+--local RunService = game:GetService("RunService")
+--local Wheel = game.Players.LocalPlayer.PlayerGui.EmoteMenu
+--local one1 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.Asset
+--local two2 = Wheel.EmoteMenuHolder.RadialMenu.Attach["2"].RenderHolder.Asset
+--local three3 = Wheel.EmoteMenuHolder.RadialMenu.Attach["3"].RenderHolder.Asset
+--local four4 = Wheel.EmoteMenuHolder.RadialMenu.Attach["4"].RenderHolder.Asset
+--local five5 = Wheel.EmoteMenuHolder.RadialMenu.Attach["5"].RenderHolder.Asset
+--local six6 = Wheel.EmoteMenuHolder.RadialMenu.Attach["6"].RenderHolder.Asset
+--local seven7 = Wheel.EmoteMenuHolder.RadialMenu.Attach["7"].RenderHolder.Asset
+--local eight8 = Wheel.EmoteMenuHolder.RadialMenu.Attach["8"].RenderHolder.Asset
+--local page = 1
+--RunService.RenderStepped:Connect(function()
+--	if Wheel.Enabled == true then
+--		if page == 1 and Destroyed == false then
+--			Wheel.EmoteMenuHolder.Last.Visible = false
+--			one1.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png" -- ChronoShift
+--			two2.Image = "rbxassetid://127260772788474" -- California Girls
+--			three3.Image = "rbxassetid://97057214315889" -- BrickBattler
+--			four4.Image = "rbxassetid://92379847382802" -- Knightly Shimmy
+--			five5.Image = "rbxassetid://78969991165860" -- The Hero
+--			six6.Image = "rbxassetid://79579234154217" -- Insanity
+--			seven7.Image = "rbxassetid://73574803924243" -- Jumpstyle
+--			eight8.Image = "rbxassetid://103241825392940" -- Locked
+--			one1.Holder.Value = "ChronoShift"
+--			two2.Holder.Value = "California Girls"
+--			three3.Holder.Value = "BrickBattler"
+--			four4.Holder.Value = "Knightly Shimmy"
+--			five5.Holder.Value = "The Hero"
+--			six6.Holder.Value = "Insanity"
+--			seven7.Holder.Value = "Jumpstyle"
+--			eight8.Holder.Value = "Locked"
+--			one1.AnimID.Value = 130686615743311
+--			two2.AnimID.Value = 74194754788106
+--			three3.AnimID.Value = 120114444852778
+--			four4.AnimID.Value = 136725769431986
+--			five5.AnimID.Value = 115431798094168
+--			six6.AnimID.Value = 116090545618337
+--			seven7.AnimID.Value = 103282125943928
+--			eight8.AnimID.Value = 136423821703954
+--			one = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/Forsaken_Chronoshift_.mp3.mp3"
+--			two = ""
+--			three = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/BrickBattlerNew.mp3.mp3"
+--			four = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/KnightlyShammyEmote.mp3.mp3"
+--			five = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/TheHeroEmote.mp3.mp3"
+--			six = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/TheHeroEmote.mp3.mp3"
+--			seven = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/JumpstyleExtended.mp3.mp3"
+--			eight = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/LockedNewEmote.mp3.mp3"
+--		end
+--		if page == 2 and Destroyed == false then
+--			Wheel.EmoteMenuHolder.Last.Visible = true
+--			one1.Image = "rbxassetid://87183895795869" -- Pop Dance
+--			two2.Image = "rbxassetid://125197961882771" -- Prince
+--			three3.Image = "rbxassetid://92399495788269" -- Poisoned
+--			four4.Image = "rbxassetid://129885437120707" -- So Retro
+--			five5.Image = "rbxassetid://136238391916155" -- Stock Dance
+--			six6.Image = "rbxassetid://83639505456623" -- Subject three
+--			seven7.Image = "rbxassetid://106561882302009" -- Wait
+--			eight8.Image = "rbxassetid://96660516353249" -- Hello
+--			one1.Holder.Value = "Pop Dance"
+--			two2.Holder.Value = "Prince"
+--			three3.Holder.Value = "Poisoned"
+--			four4.Holder.Value = "So Retro"
+--			five5.Holder.Value = "Stock Dance"
+--			six6.Holder.Value = "Subject Three"
+--			seven7.Holder.Value = "Wait"
+--			eight8.Holder.Value = "Hello"
+--			one1.AnimID.Value = 92569957662902
+--			two2.AnimID.Value = 117732280174064
+--			three3.AnimID.Value = 127481951878940
+--			four4.AnimID.Value = 130758025957161
+--			five5.AnimID.Value = 76736605935657
+--			six6.AnimID.Value = 91842439086880
+--			seven7.AnimID.Value = 101753564767248
+--			eight8.AnimID.Value = 128777973
+--			one = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/PopDanceEmote.mp3.mp3"
+--			two = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/PrinceofEgipt.mp3.mp3"
+--			three = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/PoisonedEmote.mp3.mp3"
+--			four = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/SoRetroEmote.mp3.mp3"
+--			five = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/StockDanceEmote.mp3.mp3"
+--			six = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/SubjectThreeEmote.mp3.mp3"
+--			seven = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/WaitEmote.mp3.mp3"
+--			eight = "https://github.com/CyberNinja103/Audio/raw/refs/heads/main/WaveEmote.mp3.mp3"
+--		end
+--		if page == 3 and Destroyed == false then
+--			one1.Image = "rbxassetid://103071006249147" -- Snap
+--			two2.Image = "rbxassetid://121965062547127" -- Silly
+--			three3.Image = "rbxassetid://121927033287000" -- PYT
+--			four4.Image = "rbxassetid://73592720532565" -- Monster Mash
+--			five5.Image = "rbxasset:70514684116327" -- Hotdog
+--			six6.Image = "rbxassetid://89769371017185" -- Company Groove
+--			seven7.Image = "rbxassetid://135343313057075" -- Konton
+--			eight8.Image = "rbxassetid://93665655595946" -- Hey Now
+--			one1.Holder.Value = "Snap"
+--			two2.Holder.Value = "Silly"
+--			three3.Holder.Value = "PYT"
+--			four4.Holder.Value = "Monster Mash"
+--			five5.Holder.Value = "Hotdog"
+--			six6.Holder.Value = "Company Groove"
+--			seven7.Holder.Value = "Konton"
+--			eight8.Holder.Value = "Hey Now"
+--			one1.AnimID.Value = 73951840893725
+--			two2.AnimID.Value = 109484648353156
+--			three3.AnimID.Value = 132778843823786
+--			four4.AnimID.Value = 131140313293438
+--			five5.AnimID.Value = 79827773028295
+--			six6.AnimID.Value = 94657210178191
+--			seven7.AnimID.Value = 95883381151116
+--			eight8.AnimID.Value = 84236974420331
+--			one = ""
+--			two = ""
+--			three = ""
+--			four = ""
+--			five = ""
+--			six = ""
+--			seven = ""
+--			eight = ""
 
-		end
-		if page == 4 and Destroyed == false then
-			one1.Image = "rbxassetid://126222345373558" -- Headbanger
-			two2.Image = "rbxassetid://71748174857033" -- Griddy
-			three3.Image = "rbxassetid://101388085235785" -- Gangnam style
-			four4.Image = "rbxassetid://75402218293560" -- Eggrolled 
-			five5.Image = "rbxassetid://135883870615399" -- Bag up
-			six6.Image = "rbxassetid://101141010818082" -- Ashley
-			seven7.Image = "rbxassetid://132653220480177" -- Kazotsky Kick
-			eight8.Image = "rbxassetid://110811886859354" -- Distraction Dance
-			one1.Holder.Value = "Headbanger"
-			two2.Holder.Value = "Griddy"
-			three3.Holder.Value = "Gangnam Style "
-			four4.Holder.Value = "Eggrolled"
-			five5.Holder.Value = "Bag up"
-			six6.Holder.Value = "Ashley"
-			seven7.Holder.Value = "Kazotsky Kick"
-			eight8.Holder.Value = "Distraction Dance"
-			one1.AnimID.Value = 118696905624522
-			two2.AnimID.Value = 101338946740077
-			three3.AnimID.Value = 90536328525255
-			four4.AnimID.Value = 120687888910667
-			five5.AnimID.Value = 107520416097588
-			six6.AnimID.Value = 77256807942379
-			seven7.AnimID.Value = 118595606413247
-			eight8.AnimID.Value = 93577318714987
-			one = ""
-			two = ""
-			three = ""
-			four = ""
-			five = ""
-			six = ""
-			seven = ""
-			eight = ""
-		end
-		if page == 5 and Destroyed == false then
-			Wheel.EmoteMenuHolder.Next.Visible = true
-			one1.Image = "rbxassetid://80678095206124" -- Drumsticks
-			two2.Image = "rbxassetid://124587965197013" -- Hakari Dance
-			three3.Image = "rbxassetid://75549836782121" -- Caramell
-			four4.Image = "rbxassetid://93998300527888" -- Ain't No Lovin My Man
-			five5.Image = "rbxassetid://81493512531467" -- Aol Guy
-			six6.Image = "rbxassetid://104716889279869" -- Khaled
-			seven7.Image = "rbxassetid://101388085235785" -- Gangnam if it was awesome
-			eight8.Image = "rbxassetid://94678300716216" -- Skeleton
-			one1.Holder.Value = "Drumsticks"
-			two2.Holder.Value = "Hakari Dance"
-			three3.Holder.Value = "Caramell"
-			four4.Holder.Value = "Ain't No Lovin My Man"
-			five5.Holder.Value = "Aol Guy"
-			six6.Holder.Value = "Khaled"
-			seven7.Holder.Value = "Gangnam if it was awesome"
-			eight8.Holder.Value = "Skeleton"
-			one1.AnimID.Value = 90482068700551
-			two2.AnimID.Value = 110428002350675
-			three3.AnimID.Value = 140080502889827
-			four4.AnimID.Value = 126985366460491
-			five5.AnimID.Value = 92185555532530
-			six6.AnimID.Value = 132346879800088
-			seven7.AnimID.Value = 91898096393084
-			eight8.AnimID.Value = 138123921316410
-			one = ""
-			two = ""
-			three = ""
-			four = ""
-			five = ""
-			six = ""
-			seven = ""
-			eight = ""
-		end
-		if page == 6 and Destroyed == false then
-			Wheel.EmoteMenuHolder.Next.Visible = true
-			one1.Image = "rbxassetid://88990954850427" -- Pick Up The Phone (Deleted Emote)
-			two2.Image = "rbxassetid://112068843495830" -- Tick Tock (Deleted Emote)
-			three3.Image = "rbxassetid://96660516353249" -- Silly Billy (Deleted Emote)
-			four4.Image = "rbxassetid://71165177698139" -- Subterfuge (Deleted Emote)
-			five5.Image = "rbxassetid://95950437854407" -- Sukuna
-			six6.Image = "rbxassetid://139634009593796" -- Shucks (Deleted Emote)
-			seven7.Image = "rbxassetid://86125219137797" -- Miss The Quiet (Deleted Emote)
-			eight8.Image = "rbxassetid://96092312091932" -- 2Two2
-			one1.Holder.Value = "Pick Up The Phone"
-			two2.Holder.Value = "Tick Tock"
-			three3.Holder.Value = "Silly Billy"
-			four4.Holder.Value = "Subterfuge"
-			five5.Holder.Value = "Sukuna"
-			six6.Holder.Value = "Shucks (Dont support the person who made the music)"
-			seven7.Holder.Value = "Miss The Quiet"
-			eight8.Holder.Value = "2Two2"
-			one1.AnimID.Value = 134805203842114
-			two2.AnimID.Value = 110002152761549
-			three3.AnimID.Value = 85134037907343
-			four4.AnimID.Value = 92308334788062
-			five5.AnimID.Value = 130305051962533
-			six6.AnimID.Value = 115658269201410
-			seven7.AnimID.Value = 140109037968174
-			eight8.AnimID.Value = 77694466339734
-			one = ""
-			two = ""
-			three = ""
-			four = ""
-			five = ""
-			six = ""
-			seven = ""
-			eight = ""
+--		end
+--		if page == 4 and Destroyed == false then
+--			one1.Image = "rbxassetid://126222345373558" -- Headbanger
+--			two2.Image = "rbxassetid://71748174857033" -- Griddy
+--			three3.Image = "rbxassetid://101388085235785" -- Gangnam style
+--			four4.Image = "rbxassetid://75402218293560" -- Eggrolled 
+--			five5.Image = "rbxassetid://135883870615399" -- Bag up
+--			six6.Image = "rbxassetid://101141010818082" -- Ashley
+--			seven7.Image = "rbxassetid://132653220480177" -- Kazotsky Kick
+--			eight8.Image = "rbxassetid://110811886859354" -- Distraction Dance
+--			one1.Holder.Value = "Headbanger"
+--			two2.Holder.Value = "Griddy"
+--			three3.Holder.Value = "Gangnam Style "
+--			four4.Holder.Value = "Eggrolled"
+--			five5.Holder.Value = "Bag up"
+--			six6.Holder.Value = "Ashley"
+--			seven7.Holder.Value = "Kazotsky Kick"
+--			eight8.Holder.Value = "Distraction Dance"
+--			one1.AnimID.Value = 118696905624522
+--			two2.AnimID.Value = 101338946740077
+--			three3.AnimID.Value = 90536328525255
+--			four4.AnimID.Value = 120687888910667
+--			five5.AnimID.Value = 107520416097588
+--			six6.AnimID.Value = 77256807942379
+--			seven7.AnimID.Value = 118595606413247
+--			eight8.AnimID.Value = 93577318714987
+--			one = ""
+--			two = ""
+--			three = ""
+--			four = ""
+--			five = ""
+--			six = ""
+--			seven = ""
+--			eight = ""
+--		end
+--		if page == 5 and Destroyed == false then
+--			Wheel.EmoteMenuHolder.Next.Visible = true
+--			one1.Image = "rbxassetid://80678095206124" -- Drumsticks
+--			two2.Image = "rbxassetid://124587965197013" -- Hakari Dance
+--			three3.Image = "rbxassetid://75549836782121" -- Caramell
+--			four4.Image = "rbxassetid://93998300527888" -- Ain't No Lovin My Man
+--			five5.Image = "rbxassetid://81493512531467" -- Aol Guy
+--			six6.Image = "rbxassetid://104716889279869" -- Khaled
+--			seven7.Image = "rbxassetid://101388085235785" -- Gangnam if it was awesome
+--			eight8.Image = "rbxassetid://94678300716216" -- Skeleton
+--			one1.Holder.Value = "Drumsticks"
+--			two2.Holder.Value = "Hakari Dance"
+--			three3.Holder.Value = "Caramell"
+--			four4.Holder.Value = "Ain't No Lovin My Man"
+--			five5.Holder.Value = "Aol Guy"
+--			six6.Holder.Value = "Khaled"
+--			seven7.Holder.Value = "Gangnam if it was awesome"
+--			eight8.Holder.Value = "Skeleton"
+--			one1.AnimID.Value = 90482068700551
+--			two2.AnimID.Value = 110428002350675
+--			three3.AnimID.Value = 140080502889827
+--			four4.AnimID.Value = 126985366460491
+--			five5.AnimID.Value = 92185555532530
+--			six6.AnimID.Value = 132346879800088
+--			seven7.AnimID.Value = 91898096393084
+--			eight8.AnimID.Value = 138123921316410
+--			one = ""
+--			two = ""
+--			three = ""
+--			four = ""
+--			five = ""
+--			six = ""
+--			seven = ""
+--			eight = ""
+--		end
+--		if page == 6 and Destroyed == false then
+--			Wheel.EmoteMenuHolder.Next.Visible = true
+--			one1.Image = "rbxassetid://88990954850427" -- Pick Up The Phone (Deleted Emote)
+--			two2.Image = "rbxassetid://112068843495830" -- Tick Tock (Deleted Emote)
+--			three3.Image = "rbxassetid://96660516353249" -- Silly Billy (Deleted Emote)
+--			four4.Image = "rbxassetid://71165177698139" -- Subterfuge (Deleted Emote)
+--			five5.Image = "rbxassetid://95950437854407" -- Sukuna
+--			six6.Image = "rbxassetid://139634009593796" -- Shucks (Deleted Emote)
+--			seven7.Image = "rbxassetid://86125219137797" -- Miss The Quiet (Deleted Emote)
+--			eight8.Image = "rbxassetid://96092312091932" -- 2Two2
+--			one1.Holder.Value = "Pick Up The Phone"
+--			two2.Holder.Value = "Tick Tock"
+--			three3.Holder.Value = "Silly Billy"
+--			four4.Holder.Value = "Subterfuge"
+--			five5.Holder.Value = "Sukuna"
+--			six6.Holder.Value = "Shucks (Dont support the person who made the music)"
+--			seven7.Holder.Value = "Miss The Quiet"
+--			eight8.Holder.Value = "2Two2"
+--			one1.AnimID.Value = 134805203842114
+--			two2.AnimID.Value = 110002152761549
+--			three3.AnimID.Value = 85134037907343
+--			four4.AnimID.Value = 92308334788062
+--			five5.AnimID.Value = 130305051962533
+--			six6.AnimID.Value = 115658269201410
+--			seven7.AnimID.Value = 140109037968174
+--			eight8.AnimID.Value = 77694466339734
+--			one = ""
+--			two = ""
+--			three = ""
+--			four = ""
+--			five = ""
+--			six = ""
+--			seven = ""
+--			eight = ""
 
-		end
-		if page == 7 and Destroyed == false then
-			Wheel.EmoteMenuHolder.Next.Visible = true
-			one1.Image = "rbxassetid://81594862599567" -- SquidWardYell
-			two2.Image = "rbxassetid://124186162960822" -- Carried
-			three3.Image = "rbxassetid://132583909518061" -- virtual insanity
-			four4.Image = "rbxassetid://114687172329033" -- Tenna / ill add the multiple emote feature later
-			five5.Image = "rbxassetid://80669217430800" -- TUFF
-			six6.Image = "rbxassetid://75414967011351" -- static
-			seven7.Image = "rbxassetid://131039110819633" -- macerina
-			eight8.Image = "rbxassetid://93387041641721" -- AICatDance
-			one1.Holder.Value = "Squidward Yell"
-			two2.Holder.Value = "Best Survivor"
-			three3.Holder.Value = "Virtual Insanity"
-			four4.Holder.Value = "Tenna"
-			five5.Holder.Value = "Who Wins"
-			six6.Holder.Value = "static"
-			seven7.Holder.Value = "Macerina"
-			eight8.Holder.Value = "Cat Dance"
-			one1.AnimID.Value = 126087359477178
-			two2.AnimID.Value = 125085338946162
-			three3.AnimID.Value = 103333882912121
-			four4.AnimID.Value = 114687172329033
-			five5.AnimID.Value = 115378790472408
-			six6.AnimID.Value = 122513338460483
-			seven7.AnimID.Value = 99366472605758
-			eight8.AnimID.Value = 133145243088885
-			one = ""
-			two = ""
-			three = ""
-			four = ""
-			five = ""
-			six = ""
-			seven = ""
-			eight = ""
+--		end
+--		if page == 7 and Destroyed == false then
+--			Wheel.EmoteMenuHolder.Next.Visible = true
+--			one1.Image = "rbxassetid://81594862599567" -- SquidWardYell
+--			two2.Image = "rbxassetid://124186162960822" -- Carried
+--			three3.Image = "rbxassetid://132583909518061" -- virtual insanity
+--			four4.Image = "rbxassetid://114687172329033" -- Tenna / ill add the multiple emote feature later
+--			five5.Image = "rbxassetid://80669217430800" -- TUFF
+--			six6.Image = "rbxassetid://75414967011351" -- static
+--			seven7.Image = "rbxassetid://131039110819633" -- macerina
+--			eight8.Image = "rbxassetid://93387041641721" -- AICatDance
+--			one1.Holder.Value = "Squidward Yell"
+--			two2.Holder.Value = "Best Survivor"
+--			three3.Holder.Value = "Virtual Insanity"
+--			four4.Holder.Value = "Tenna"
+--			five5.Holder.Value = "Who Wins"
+--			six6.Holder.Value = "static"
+--			seven7.Holder.Value = "Macerina"
+--			eight8.Holder.Value = "Cat Dance"
+--			one1.AnimID.Value = 126087359477178
+--			two2.AnimID.Value = 125085338946162
+--			three3.AnimID.Value = 103333882912121
+--			four4.AnimID.Value = 114687172329033
+--			five5.AnimID.Value = 115378790472408
+--			six6.AnimID.Value = 122513338460483
+--			seven7.AnimID.Value = 99366472605758
+--			eight8.AnimID.Value = 133145243088885
+--			one = ""
+--			two = ""
+--			three = ""
+--			four = ""
+--			five = ""
+--			six = ""
+--			seven = ""
+--			eight = ""
 
-		end
-		if page == 8 and Destroyed == false then
-			Wheel.EmoteMenuHolder.Next.Visible = false
-			one1.Image = "rbxassetid://0" -- Kill
-			two2.Image = "rbxassetid://0" -- Kill Shed
-			three3.Image = "rbxassetid://0" -- 
-			four4.Image = "rbxassetid://0" -- 
-			five5.Image = "rbxassetid://0" -- 
-			six6.Image = "rbxassetid://0" -- 
-			seven7.Image = "rbxassetid://0" --
-			eight8.Image = "rbxassetid://0" -- 
-			one1.Holder.Value = "Kill"
-			two2.Holder.Value = "Kill Shed"
-			three3.Holder.Value = ". . ."
-			four4.Holder.Value = ". . ."
-			five5.Holder.Value = ". . ."
-			six6.Holder.Value = ". . ."
-			seven7.Holder.Value = ". . ."
-			eight8.Holder.Value = ". . ."
-			one1.AnimID.Value = 93368339913846
-			two2.AnimID.Value = 127444377324017
-			three3.AnimID.Value = 0
-			four4.AnimID.Value = 0
-			five5.AnimID.Value = 0
-			six6.AnimID.Value = 0
-			seven7.AnimID.Value = 0
-			eight8.AnimID.Value = 0
-			one = ""
-			two = ""
-			three = ""
-			four = ""
-			five = ""
-			six = ""
-			seven = ""
-			eight = ""
+--		end
+--		if page == 8 and Destroyed == false then
+--			Wheel.EmoteMenuHolder.Next.Visible = false
+--			one1.Image = "rbxassetid://0" -- Kill
+--			two2.Image = "rbxassetid://0" -- Kill Shed
+--			three3.Image = "rbxassetid://0" -- 
+--			four4.Image = "rbxassetid://0" -- 
+--			five5.Image = "rbxassetid://0" -- 
+--			six6.Image = "rbxassetid://0" -- 
+--			seven7.Image = "rbxassetid://0" --
+--			eight8.Image = "rbxassetid://0" -- 
+--			one1.Holder.Value = "Kill"
+--			two2.Holder.Value = "Kill Shed"
+--			three3.Holder.Value = ". . ."
+--			four4.Holder.Value = ". . ."
+--			five5.Holder.Value = ". . ."
+--			six6.Holder.Value = ". . ."
+--			seven7.Holder.Value = ". . ."
+--			eight8.Holder.Value = ". . ."
+--			one1.AnimID.Value = 93368339913846
+--			two2.AnimID.Value = 127444377324017
+--			three3.AnimID.Value = 0
+--			four4.AnimID.Value = 0
+--			five5.AnimID.Value = 0
+--			six6.AnimID.Value = 0
+--			seven7.AnimID.Value = 0
+--			eight8.AnimID.Value = 0
+--			one = ""
+--			two = ""
+--			three = ""
+--			four = ""
+--			five = ""
+--			six = ""
+--			seven = ""
+--			eight = ""
 
-		end
-
-
-	end
- 
-end)
+--		end
 
 
+--	end
 
--- Pages
-local Last = Wheel.EmoteMenuHolder.Last
-local Next = Wheel.EmoteMenuHolder.Next
-local button = game.Players.LocalPlayer.PlayerGui.MobileEmoteButton.Holders.Left.Widget.IconButton.Menu.IconSpot.ClickRegion
-button.Activated:Connect(function()
-	if EmoteGui.Enabled == false then
-		EmoteGui.Enabled = true
-	elseif EmoteGui.Enabled == true then
-		EmoteGui.Enabled = false
-	end
-end)
-Next.Activated:Connect(function()
-	if page < 8 then
-		page += 1
-	end
-end)
-Last.Activated:Connect(function()
-	if page > 1 then
-		page -= 1
-	end
-end)
+--end)
+
+
+
+---- Pages
+--local Last = Wheel.EmoteMenuHolder.Last
+--local Next = Wheel.EmoteMenuHolder.Next
+--local button = game.Players.LocalPlayer.PlayerGui.MobileEmoteButton.Holders.Left.Widget.IconButton.Menu.IconSpot.ClickRegion
+--button.Activated:Connect(function()
+--	if EmoteGui.Enabled == false then
+--		EmoteGui.Enabled = true
+--	elseif EmoteGui.Enabled == true then
+--		EmoteGui.Enabled = false
+--	end
+--end)
+--Next.Activated:Connect(function()
+--	if page < 8 then
+--		page += 1
+--	end
+--end)
+--Last.Activated:Connect(function()
+--	if page > 1 then
+--		page -= 1
+--	end
+--end)
 -- mobile Gui
 local Gui = game.Players.LocalPlayer.PlayerGui.ControlsUI
 local SprintButton = Gui.SprintingButton
@@ -1716,9 +1710,7 @@ AbilityOne.Activated:Connect(function()
 	if id ~= m1 and ability == false and mouse1 == false then 
 		mouse1 = true
 		local Anim2
-		local animation1 = game:GetObjects("rbxassetid://" .. m1)[1]
-		animation1.Parent = char
-		Anim2 = AnimHandler.new(char, animation1)
+		Anim2 = AnimHandler.new(char, m1)
 		Anim2:Play()
 		Anim:Stop()
 		id = m1
@@ -1728,7 +1720,6 @@ AbilityOne.Activated:Connect(function()
 		attackvel.Enabled = false
 		wait(.6)
 		Anim2:Destroy()
-		animation1:Destroy()
 		mouse1 = false
 	end
 end)
@@ -1738,9 +1729,8 @@ AbilityThree.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. EntangleMent)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+
+		Anim = AnimHandler.new(char, EntangleMent)
 		Anim:Play()
 		id = EntangleMent
 		wait(1.3)
@@ -1754,9 +1744,8 @@ AbilityTwo.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. MassInfection)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+
+		Anim = AnimHandler.new(char, MassInfection)
 		Anim:Play()
 		id = MassInfection
 		wait(2.6)
@@ -1771,9 +1760,7 @@ AbilityFour.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. UnstableEye)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, UnstableEye)
 		Anim:Play()
 		id = UnstableEye
 		wait(1)
@@ -1805,9 +1792,7 @@ AbilityFive.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. RejuvenateTheRotten)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, RejuvenateTheRotten)
 		Anim:Play()
 		id = RejuvenateTheRotten
 		wait(3.4)
@@ -1816,107 +1801,107 @@ AbilityFive.Activated:Connect(function()
 	end
 end)
 -- Emote hover
-local one11 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.ImageButton
-local two22 = Wheel.EmoteMenuHolder.RadialMenu.Attach["2"].RenderHolder.ImageButton
-local three33 = Wheel.EmoteMenuHolder.RadialMenu.Attach["3"].RenderHolder.ImageButton
-local four44 = Wheel.EmoteMenuHolder.RadialMenu.Attach["4"].RenderHolder.ImageButton
-local five55 = Wheel.EmoteMenuHolder.RadialMenu.Attach["5"].RenderHolder.ImageButton
-local six66 = Wheel.EmoteMenuHolder.RadialMenu.Attach["6"].RenderHolder.ImageButton
-local seven77 = Wheel.EmoteMenuHolder.RadialMenu.Attach["7"].RenderHolder.ImageButton
-local eight88 = Wheel.EmoteMenuHolder.RadialMenu.Attach["8"].RenderHolder.ImageButton
-local Description = Wheel.EmoteMenuHolder.EmoteDescription.Title
+--local one11 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.ImageButton
+--local two22 = Wheel.EmoteMenuHolder.RadialMenu.Attach["2"].RenderHolder.ImageButton
+--local three33 = Wheel.EmoteMenuHolder.RadialMenu.Attach["3"].RenderHolder.ImageButton
+--local four44 = Wheel.EmoteMenuHolder.RadialMenu.Attach["4"].RenderHolder.ImageButton
+--local five55 = Wheel.EmoteMenuHolder.RadialMenu.Attach["5"].RenderHolder.ImageButton
+--local six66 = Wheel.EmoteMenuHolder.RadialMenu.Attach["6"].RenderHolder.ImageButton
+--local seven77 = Wheel.EmoteMenuHolder.RadialMenu.Attach["7"].RenderHolder.ImageButton
+--local eight88 = Wheel.EmoteMenuHolder.RadialMenu.Attach["8"].RenderHolder.ImageButton
+--local Description = Wheel.EmoteMenuHolder.EmoteDescription.Title
 
 
-one11.MouseEnter:Connect(function()
-	Description.Text = one1.Holder.Value
-end)
-two22.MouseEnter:Connect(function()
-	Description.Text = two2.Holder.Value
-end)
-three33.MouseEnter:Connect(function()
-	Description.Text = three3.Holder.Value
-end)
-four44.MouseEnter:Connect(function()
-	Description.Text = four4.Holder.Value
-end)
-five55.MouseEnter:Connect(function()
-	Description.Text = five5.Holder.Value
-end)
-six66.MouseEnter:Connect(function()
-	Description.Text = six6.Holder.Value
-end)
-seven77.MouseEnter:Connect(function()
-	Description.Text = seven7.Holder.Value
-end)
-eight88.MouseEnter:Connect(function()
-	Description.Text = eight8.Holder.Value
-end)
+--one11.MouseEnter:Connect(function()
+--	Description.Text = one1.Holder.Value
+--end)
+--two22.MouseEnter:Connect(function()
+--	Description.Text = two2.Holder.Value
+--end)
+--three33.MouseEnter:Connect(function()
+--	Description.Text = three3.Holder.Value
+--end)
+--four44.MouseEnter:Connect(function()
+--	Description.Text = four4.Holder.Value
+--end)
+--five55.MouseEnter:Connect(function()
+--	Description.Text = five5.Holder.Value
+--end)
+--six66.MouseEnter:Connect(function()
+--	Description.Text = six6.Holder.Value
+--end)
+--seven77.MouseEnter:Connect(function()
+--	Description.Text = seven7.Holder.Value
+--end)
+--eight88.MouseEnter:Connect(function()
+--	Description.Text = eight8.Holder.Value
+--end)
 
--- Play Emote on press
-one11.MouseButton1Click:Connect(function()
-	emote = true
-	Anim:Stop()
-	animation = game:GetObjects("rbxassetid://" .. one1.AnimID.Value)[1]
-	Anim = AnimHandler.new(char, animation)
-	Anim:Play()
-	EmoteGui.Enabled = false
-end)
-two22.MouseButton1Click:Connect(function()
-	emote = true
-	Anim:Stop()
-	animation = game:GetObjects("rbxassetid://" .. two2.AnimID.Value)[1]
-	Anim = AnimHandler.new(char, animation)
-	Anim:Play()
-	EmoteGui.Enabled = false
-end)
-three33.MouseButton1Click:Connect(function()
-	emote = true
-	Anim:Stop()
-	animation = game:GetObjects("rbxassetid://" .. three3.AnimID.Value)[1]
-	Anim = AnimHandler.new(char, animation)
-	Anim:Play()
-	EmoteGui.Enabled = false
-end)
-four44.MouseButton1Click:Connect(function()
-	emote = true
-	Anim:Stop()
-	animation = game:GetObjects("rbxassetid://" .. four4.AnimID.Value)[1]
-	Anim = AnimHandler.new(char, animation)
-	Anim:Play()
-	EmoteGui.Enabled = false
-end)
-five55.MouseButton1Click:Connect(function()
-	emote = true
-	Anim:Stop()
-	animation = game:GetObjects("rbxassetid://" .. five5.AnimID.Value)[1]
-	Anim = AnimHandler.new(char, animation)
-	Anim:Play()
-	EmoteGui.Enabled = false
-end)
-six66.MouseButton1Click:Connect(function()
-	emote = true
-	Anim:Stop()
-	animation = game:GetObjects("rbxassetid://" .. six6.AnimID.Value)[1]
-	Anim = AnimHandler.new(char, animation)
-	Anim:Play()
-	EmoteGui.Enabled = false
-end)
-seven77.MouseButton1Click:Connect(function()
-	emote = true
-	Anim:Stop()
-	animation = game:GetObjects("rbxassetid://" .. seven7.AnimID.Value)[1]
-	Anim = AnimHandler.new(char, animation)
-	Anim:Play()
-	EmoteGui.Enabled = false
-end)
-eight88.MouseButton1Click:Connect(function()
-	emote = true
-	Anim:Stop()
-	animation = game:GetObjects("rbxassetid://" .. eight8.AnimID.Value)[1]
-	Anim = AnimHandler.new(char, animation)
-	Anim:Play()
-	EmoteGui.Enabled = false
-end)
+---- Play Emote on press
+--one11.MouseButton1Click:Connect(function()
+--	emote = true
+--	Anim:Stop()
+--	animation = game:GetObjects("rbxassetid://" .. one1.AnimID.Value)[1]
+--	Anim = AnimHandler.new(char, animation)
+--	Anim:Play()
+--	EmoteGui.Enabled = false
+--end)
+--two22.MouseButton1Click:Connect(function()
+--	emote = true
+--	Anim:Stop()
+--	animation = game:GetObjects("rbxassetid://" .. two2.AnimID.Value)[1]
+--	Anim = AnimHandler.new(char, animation)
+--	Anim:Play()
+--	EmoteGui.Enabled = false
+--end)
+--three33.MouseButton1Click:Connect(function()
+--	emote = true
+--	Anim:Stop()
+--	animation = game:GetObjects("rbxassetid://" .. three3.AnimID.Value)[1]
+--	Anim = AnimHandler.new(char, animation)
+--	Anim:Play()
+--	EmoteGui.Enabled = false
+--end)
+--four44.MouseButton1Click:Connect(function()
+--	emote = true
+--	Anim:Stop()
+--	animation = game:GetObjects("rbxassetid://" .. four4.AnimID.Value)[1]
+--	Anim = AnimHandler.new(char, animation)
+--	Anim:Play()
+--	EmoteGui.Enabled = false
+--end)
+--five55.MouseButton1Click:Connect(function()
+--	emote = true
+--	Anim:Stop()
+--	animation = game:GetObjects("rbxassetid://" .. five5.AnimID.Value)[1]
+--	Anim = AnimHandler.new(char, animation)
+--	Anim:Play()
+--	EmoteGui.Enabled = false
+--end)
+--six66.MouseButton1Click:Connect(function()
+--	emote = true
+--	Anim:Stop()
+--	animation = game:GetObjects("rbxassetid://" .. six6.AnimID.Value)[1]
+--	Anim = AnimHandler.new(char, animation)
+--	Anim:Play()
+--	EmoteGui.Enabled = false
+--end)
+--seven77.MouseButton1Click:Connect(function()
+--	emote = true
+--	Anim:Stop()
+--	animation = game:GetObjects("rbxassetid://" .. seven7.AnimID.Value)[1]
+--	Anim = AnimHandler.new(char, animation)
+--	Anim:Play()
+--	EmoteGui.Enabled = false
+--end)
+--eight88.MouseButton1Click:Connect(function()
+--	emote = true
+--	Anim:Stop()
+--	animation = game:GetObjects("rbxassetid://" .. eight8.AnimID.Value)[1]
+--	Anim = AnimHandler.new(char, animation)
+--	Anim:Play()
+--	EmoteGui.Enabled = false
+--end)
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -1954,8 +1939,7 @@ while wait() do
 	if idle == true and emote == false and hurt == false and ability == false then
 		if id ~= i then 
 			Anim:Stop()
-			animation = game:GetObjects("rbxassetid://" .. i)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, i)
 			Anim.Looped = true
 			Anim:Play()
 			id = i
@@ -1965,8 +1949,7 @@ while wait() do
 		if id ~= walk then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. walk)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, walk)
 			Anim.Looped = true
 			Anim:Play() 
 			id = walk
@@ -1976,8 +1959,7 @@ while wait() do
 		if id ~= run then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. run)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, run)
 			Anim.Looped = true
 			Anim:Play() 
 			id = run
@@ -1986,8 +1968,7 @@ while wait() do
 	if idle == true and emote == false and hurt == true and ability == false then
 		if id ~= i then 
 			Anim:Stop()
-			animation = game:GetObjects("rbxassetid://" .. hidle)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, hidle)
 			Anim.Looped = true
 			Anim:Play()
 			id = i
@@ -1997,8 +1978,7 @@ while wait() do
 		if id ~= walk then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. hwalking)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, hwalking)
 			Anim.Looped = true
 			Anim:Play() 
 			id = walk
@@ -2008,8 +1988,7 @@ while wait() do
 		if id ~= run then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. hrun)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, hrun)
 			Anim.Looped = true
 			Anim:Play() 
 			id = run
