@@ -3,18 +3,27 @@
 -- Forsakation discord server: https://discord.gg/9XHYkWybxR
 -- Reanimation was made by @emperrrr (Discord)
 -- Discord server for empers reanimate: https://discord.gg/UJ7YtqadPJ
-local EmoteGui: ScreenGui = game:GetObjects("rbxassetid://70965231817963")[1]
-EmoteGui.Parent = game.Players.LocalPlayer.PlayerGui
-EmoteGui.Enabled = false
+
+if not isfolder("Forsakation/Killers/") then
+	makefolder("Forsakation/Killers/")
+end
+if not isfile("Forsakation/Killers/JohnDoeAnimations.rbxmx") then
+	writefile("Forsakation/Killers/JohnDoeAnimations.rbxmx", game:HttpGet("https://raw.githubusercontent.com/CyberNinja103/Animations/refs/heads/main/JohnDoeAnimations.rbxmx"))
+end
+
+--local EmoteGui: ScreenGui = game:GetObjects("rbxassetid://70965231817963")[1]
+--EmoteGui.Parent = game.Players.LocalPlayer.PlayerGui
+--EmoteGui.Enabled = false
 local Destroyed = false
-local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
-Mobile.Parent = game.Players.LocalPlayer.PlayerGui
-Mobile.Enabled = false
+--local Mobile: ScreenGui = game:GetObjects("rbxassetid://77707674968679")[1]
+--Mobile.Parent = game.Players.LocalPlayer.PlayerGui
+--Mobile.Enabled = false
 local Controls: ScreenGui = game:GetObjects("rbxassetid://102160674504380")[1]
 Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
-Controls.Version.Text = "Version: John Doe 1.0"
+Controls.Version.Text = "Version: John Doe 2.0"
+
 --[[ read me NOW!!!
 
 this was leaked with permission from ShownApe aka the one who found the original limb reanimate (and also permission from kampachi who made the original code and gave me it, we love you kam)
@@ -152,8 +161,6 @@ do
 
 		BreakJoints(Character)
 		Rig:Destroy()
-		Mobile:Destroy()
-		EmoteGui:Destroy()
 		Controls:Destroy()
 		Destroyed = true
 	end).Disconnect
@@ -225,6 +232,8 @@ do
 		end
 	end))
 end
+
+local Animations = game:GetObjects(getcustomasset("Forsakation/Killers/JohnDoeAnimations.rbxmx"))[1]
 local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
 local Anim
 local id
@@ -236,22 +245,22 @@ local five
 local six 
 local seven 
 local eight 
-local walk = 81193817424328
+local walk = Animations.walk
 local mouse1 = false
-local m1 = 105458270463374
-local CorruptEnergy = 127172483138092 
-local DigitalFootprint = 86758834842420
-local Kill = 83251433279852
-local i = 105880087711722
+local m1 = Animations.m1
+local CorruptEnergy = Animations.stabby
+local DigitalFootprint = Animations.stompy
+local Kill = Animations.killbutbetter
+local i = Animations.idle
 local sprinting1 = false
 local ability = false
-local run = 132653655520682
+local run = Animations.actualrun
 local uis = game:GetService("UserInputService")	
 local walking = false
-local hwalking = 132377038617766
+local hwalking = walk
 local hurt = false
-local hidle = 134624270247120
-local hrun = 115946474977409
+local hidle = i
+local hrun = run
 local sprinting = false
 local ws = 9
 local emote = false
@@ -268,19 +277,15 @@ attackvel.Enabled = false
 attackvel.Force = Vector3.new(0, 0, -15000)
 hum.Animator:Destroy()
 char.Animate:Destroy()
-local animation = game:GetObjects("rbxassetid://" .. i)[1]
-animation.Parent = char
 id = i
-Anim = AnimHandler.new(char, animation)
+Anim = AnimHandler.new(char, i)
 Anim:Play()
 hum.WalkSpeed = ws
 if uis.TouchEnabled == true then
-	Mobile.Enabled = true
 	Controls.MobileContainer.Visible = true
 	Controls.SprintingButton.Visible = true
 	Controls.DesktopContainer.Visible = false
 elseif uis.TouchEnabled == false then
-	Mobile.Enabled = false
 	Controls.DesktopContainer.Block.Image = "rbxassetid://92362553672440"
 	Controls.DesktopContainer.Block.Clipping.Top.Image = "rbxassetid://92362553672440"
 	Controls.DesktopContainer.Block.KeybindName.Text = "LMB"
@@ -317,9 +322,7 @@ local function onButton1Down()
 	if id ~= m1 and ability == false and uis.KeyboardEnabled == true and mouse1 == false then 
 		mouse1 = true
 		local Anim2
-		local animation1 = game:GetObjects("rbxassetid://" .. m1)[1]
-		animation1.Parent = char
-		Anim2 = AnimHandler.new(char, animation1)
+		Anim2 = AnimHandler.new(char, m1)
 		Anim2:Play()
 		Anim:Stop()
 		id = m1
@@ -329,7 +332,6 @@ local function onButton1Down()
 		attackvel.Enabled = false
 		wait(.6)
 		Anim2:Destroy()
-		animation1:Destroy()
 		mouse1 = false
 	end
 end
@@ -340,9 +342,7 @@ uis.InputBegan:Connect(function(input)
 		ability = true
 		hum.WalkSpeed = 0
 		Anim:Stop()
-		local animation = game:GetObjects("rbxassetid://" .. DigitalFootprint)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, DigitalFootprint)
 		Anim:Play()
 		id = DigitalFootprint
 		wait(3)
@@ -356,16 +356,12 @@ uis.InputBegan:Connect(function(input)
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		local animation = game:GetObjects("rbxassetid://" .. CorruptEnergy)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, CorruptEnergy)
 		Anim:Play()
 		id = CorruptEnergy
 		wait(3)
 		Anim:Stop()
-		local animation = game:GetObjects("rbxassetid://" .. i)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, i)
 		Anim:Play()
 		wait(1)
 		ability = false
@@ -377,9 +373,7 @@ uis.InputBegan:Connect(function(input)
 		ability = true
 		hum.WalkSpeed = 0
 		Anim:Stop()
-		local animation = game:GetObjects("rbxassetid://" .. Kill)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, Kill)
 		Anim:Play()
 		id = Kill
 		wait(2.7)
@@ -388,15 +382,15 @@ uis.InputBegan:Connect(function(input)
 	end
 end)
 
-uis.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.G then
-		if EmoteGui.Enabled == false then
-			EmoteGui.Enabled = true
-		elseif EmoteGui.Enabled == true then
-			EmoteGui.Enabled = false
-		end
-	end
-end)
+--uis.InputBegan:Connect(function(input)
+--	if input.KeyCode == Enum.KeyCode.G then
+--		if EmoteGui.Enabled == false then
+--			EmoteGui.Enabled = true
+--		elseif EmoteGui.Enabled == true then
+--			EmoteGui.Enabled = false
+--		end
+--	end
+--end)
 
 -- Hi there this is the emote thing i made
 local tagAssetId = "rbxassetid://130932483511701"
@@ -406,37 +400,38 @@ local playerNames = {"TheGuidedMember", "JohnRegretevator", "TeedCodes"}
 local RunService = game:GetService("RunService")
 
 RunService.RenderStepped:Connect(function()
-    for _, name in ipairs(playerNames) do
-        local player = game.Players:FindFirstChild(name)
-        if player and player.Character and player.Character:FindFirstChild("Head") then
-            local head = player.Character.Head
+	for _, name in ipairs(playerNames) do
+		local player = game.Players:FindFirstChild(name)
+		if player and player.Character and player.Character:FindFirstChild("Head") then
+			local head = player.Character.Head
 
-            if not head:FindFirstChild("Tag") then
-                local tag = game:GetObjects(tagAssetId)[1]
-                tag.Name = "Tag"
-                tag.Parent = head
-            end
+			if not head:FindFirstChild("Tag") then
+				local tag = game:GetObjects(tagAssetId)[1]
+				tag.Name = "Tag"
+				tag.Parent = head
+			end
 
-            if not head:FindFirstChild("FabulousGui") then
-                local billboard = Instance.new("BillboardGui")
-                billboard.Name = "FabulousGui"
-                billboard.Size = UDim2.new(3, 0, 2, 0)
-                billboard.AlwaysOnTop = true
-                billboard.Adornee = head
-                billboard.Parent = head
-                billboard.MaxDistance = 50
-                billboard.StudsOffset = Vector3.new(-0.6, 0, 0)
+			if not head:FindFirstChild("FabulousGui") then
+				local billboard = Instance.new("BillboardGui")
+				billboard.Name = "FabulousGui"
+				billboard.Size = UDim2.new(3, 0, 2, 0)
+				billboard.AlwaysOnTop = true
+				billboard.Adornee = head
+				billboard.Parent = head
+				billboard.MaxDistance = 50
+				billboard.StudsOffset = Vector3.new(-0.6, 0, 0)
 
-                local imageLabel = Instance.new("ImageLabel")
-                imageLabel.Size = UDim2.new(1, 0, 1, 0)
-                imageLabel.BackgroundTransparency = 1
-                imageLabel.Image = imageId
-                imageLabel.Parent = billboard
-            end
-        end
-    end
+				local imageLabel = Instance.new("ImageLabel")
+				imageLabel.Size = UDim2.new(1, 0, 1, 0)
+				imageLabel.BackgroundTransparency = 1
+				imageLabel.Image = imageId
+				imageLabel.Parent = billboard
+			end
+		end
+	end
 end)
 -- getting the gui working first
+--[[
 local RunService = game:GetService("RunService")
 local Wheel = game.Players.LocalPlayer.PlayerGui.EmoteMenu
 local one1 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.Asset
@@ -760,6 +755,7 @@ Last.Activated:Connect(function()
 		page -= 1
 	end
 end)
+]]
 -- mobile Gui
 local Gui = game.Players.LocalPlayer.PlayerGui.ControlsUI
 local SprintButton = Gui.SprintingButton
@@ -853,6 +849,7 @@ PunchButton.Activated:Connect(function()
 	end
 end)
 -- Emote hover
+--[[
 local one11 = Wheel.EmoteMenuHolder.RadialMenu.Attach["1"].RenderHolder.ImageButton
 local two22 = Wheel.EmoteMenuHolder.RadialMenu.Attach["2"].RenderHolder.ImageButton
 local three33 = Wheel.EmoteMenuHolder.RadialMenu.Attach["3"].RenderHolder.ImageButton
@@ -954,7 +951,7 @@ eight88.MouseButton1Click:Connect(function()
 	Anim:Play()
 	EmoteGui.Enabled = false
 end)
-
+]]
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local RunService = game:GetService("RunService")
@@ -990,8 +987,7 @@ while wait() do
 	if idle == true and emote == false and hurt == false and ability == false then
 		if id ~= i then 
 			Anim:Stop()
-			animation = game:GetObjects("rbxassetid://" .. i)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, i)
 			Anim.Looped = true
 			Anim:Play()
 			id = i
@@ -1001,8 +997,7 @@ while wait() do
 		if id ~= walk then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. walk)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, walk)
 			Anim.Looped = true
 			Anim:Play() 
 			id = walk
@@ -1012,8 +1007,7 @@ while wait() do
 		if id ~= run then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. run)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, run)
 			Anim.Looped = true
 			Anim:Play() 
 			id = run
@@ -1022,8 +1016,7 @@ while wait() do
 	if idle == true and emote == false and hurt == true and ability == false then
 		if id ~= i then 
 			Anim:Stop()
-			animation = game:GetObjects("rbxassetid://" .. hidle)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, hidle)
 			Anim.Looped = true
 			Anim:Play()
 			id = i
@@ -1033,8 +1026,7 @@ while wait() do
 		if id ~= walk then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. hwalking)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, hwalking)
 			Anim.Looped = true
 			Anim:Play() 
 			id = walk
@@ -1044,8 +1036,7 @@ while wait() do
 		if id ~= run then
 			Anim:Stop()
 			emote = false
-			animation = game:GetObjects("rbxassetid://" .. hrun)[1]
-			Anim = AnimHandler.new(char, animation)
+			Anim = AnimHandler.new(char, hrun)
 			Anim.Looped = true
 			Anim:Play() 
 			id = run
