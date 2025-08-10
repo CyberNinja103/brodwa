@@ -253,7 +253,7 @@ local ws = 12
 
 local player = Players.LocalPlayer
 local mouse = player:GetMouse()
-local char = Empyrean.Rig
+local char = game.Players.LocalPlayer.Character
 local hum: Humanoid = char:FindFirstChild("Humanoid")
 local stabvel = Instance.new("VectorForce")
 stabvel.Parent = char.HumanoidRootPart
