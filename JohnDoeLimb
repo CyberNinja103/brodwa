@@ -793,9 +793,7 @@ BlockButton.Activated:Connect(function()
 	if id ~= m1 and ability == false and mouse1 == false then 
 		mouse1 = true
 		local Anim2
-		local animation1 = game:GetObjects("rbxassetid://" .. m1)[1]
-		animation1.Parent = char
-		Anim2 = AnimHandler.new(char, animation1)
+		Anim2 = AnimHandler.new(char, m1)
 		Anim2:Play()
 		Anim:Stop()
 		id = m1
@@ -805,7 +803,6 @@ BlockButton.Activated:Connect(function()
 		attackvel.Enabled = false
 		wait(.6)
 		Anim2:Destroy()
-		animation1:Destroy()
 		mouse1 = false
 	end
 end)
@@ -815,16 +812,12 @@ ChargeButton.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		local animation = game:GetObjects("rbxassetid://" .. CorruptEnergy)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, CorruptEnergy)
 		Anim:Play()
 		id = CorruptEnergy
 		wait(3)
 		Anim:Stop()
-		local animation = game:GetObjects("rbxassetid://" .. i)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, i)
 		Anim:Play()
 		wait(1)
 		ability = false
@@ -834,13 +827,10 @@ end)
 -- Punch
 PunchButton.Activated:Connect(function()
 	if ability == false and mouse1 == false then
-
 		ability = true
 		hum.WalkSpeed = 0
 		Anim:Stop()
-		local animation = game:GetObjects("rbxassetid://" .. DigitalFootprint)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, DigitalFootprint)
 		Anim:Play()
 		id = DigitalFootprint
 		wait(3)
