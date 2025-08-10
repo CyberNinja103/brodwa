@@ -161,7 +161,6 @@ do
 		end
 
 		BreakJoints(Character)
-		Rig:Destroy()
 		Controls:Destroy()
 		Destroyed = true
 	end).Disconnect
@@ -234,7 +233,6 @@ do
 	end))
 end
 
-
 local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
 local Animations = game:GetObjects(getcustomasset("Forsakation/Survivors/TwoTimeAnimations.rbxmx"))[1]
 local Players = game:GetService("Players")
@@ -255,7 +253,7 @@ local ws = 12
 
 local player = Players.LocalPlayer
 local mouse = player:GetMouse()
-local char = player.Character
+local char = Empyrean.Rig
 local hum: Humanoid = char:FindFirstChild("Humanoid")
 local stabvel = Instance.new("VectorForce")
 stabvel.Parent = char.HumanoidRootPart
@@ -771,8 +769,7 @@ BlockButton.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 3
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. lstart)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, lstart)
 		Anim:Play()
 		wait(.4)
 		hum.WalkSpeed = 0
@@ -783,8 +780,7 @@ BlockButton.Activated:Connect(function()
 		lungevel.Enabled = false
 		lunging = false
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. lend)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, lend)
 		Anim:Play()
 		wait(1.2)
 		crouching = false
@@ -798,15 +794,13 @@ ChargeButton.Activated:Connect(function()
 		ability = true
 		crouching = true
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. cstart)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, cstart)
 		Anim:Play()
 		hum.WalkSpeed = 0
 		wait(.4)
 		hum.WalkSpeed = 9
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. cidle)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, cidle)
 		Anim:Play()
 		ability = false
 	elseif  ability == false and crouching == true then
@@ -814,8 +808,7 @@ ChargeButton.Activated:Connect(function()
 		idle = true
 		hum.WalkSpeed = ws
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. i)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, i)
 		Anim:Play()
 	end
 end)
