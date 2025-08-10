@@ -974,6 +974,9 @@ do
 			end
 
 			Destroy(Rig)
+			game.Players.LocalPlayer.PlayerGui.EmoteMenu.Enabled = false
+			Mobile:Destroy()
+			EmoteGui:Destroy()
 			Controls:Destroy()
 			Destroyed = true
 			if OptionsPermanentDeath and replicatesignal then
@@ -997,6 +1000,7 @@ Empyrean = Start({
 	Accessories = {
 		--{ MeshId = "", Name = "", Offset = CFrame.identity, TextureId = "" },
 
+		{ MeshId = "4154474745", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "4154474807" },
 		{ MeshId = "137702817952968", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "135650240593878" },--84451219120140
 		{ MeshId = "137702817952968", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "135650240593878" },--72292903231768
 
@@ -1053,7 +1057,6 @@ Empyrean = Start({
 		{ MeshId = "110684113028749", Name = "Torso", Offset = CFrame.identity, TextureId = "70661572547971" },--138364679836274
 		{ MeshId = "4819720316", Name = "Torso", Offset = CFrame.Angles(0, 0, -0.249), TextureId = "4819722776" },--4819740796
 		{ MeshId = "126825022897778", Name = "Torso", Offset = CFrame.identity, TextureId = "125975972015302" },--95290698984301
-		{ MeshId = "13778226115", Name = "Torso", Offset = CFrame.identity, TextureId = "13779858015" },
 
 	},
 	ApplyDescription = true,
@@ -1647,9 +1650,7 @@ BlockButton.Activated:Connect(function()
 	if id ~= m1 and ability == false and mouse1 == false then 
 		mouse1 = true
 		local Anim2
-		local animation1 = game:GetObjects("rbxassetid://" .. m1)[1]
-		animation1.Parent = char
-		Anim2 = AnimHandler.new(char, animation1)
+		Anim2 = AnimHandler.new(char, m1)
 		Anim2:Play()
 		Anim:Stop()
 		id = m1
@@ -1659,7 +1660,6 @@ BlockButton.Activated:Connect(function()
 		attackvel.Enabled = false
 		wait(.6)
 		Anim2:Destroy()
-		animation1:Destroy()
 		mouse1 = false
 	end
 end)
@@ -1669,16 +1669,12 @@ ChargeButton.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 0.1
 		Anim:Stop()
-		local animation = game:GetObjects("rbxassetid://" .. CorruptEnergy)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, CorruptEnergy)
 		Anim:Play()
 		id = CorruptEnergy
 		wait(3)
 		Anim:Stop()
-		local animation = game:GetObjects("rbxassetid://" .. i)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, i)
 		Anim:Play()
 		wait(1)
 		ability = false
@@ -1688,13 +1684,10 @@ end)
 -- Punch
 PunchButton.Activated:Connect(function()
 	if ability == false and mouse1 == false then
-
 		ability = true
 		hum.WalkSpeed = 0
 		Anim:Stop()
-		local animation = game:GetObjects("rbxassetid://" .. DigitalFootprint)[1]
-		animation.Parent = char
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, DigitalFootprint)
 		Anim:Play()
 		id = DigitalFootprint
 		wait(3)
