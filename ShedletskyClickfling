@@ -996,6 +996,7 @@ Empyrean = Start({
 	Accessories = {
 		--{ MeshId = "", Name = "", Offset = CFrame.identity, TextureId = "" },
 
+		{ MeshId = "4154474745", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "4154474807" },
 		{ MeshId = "137702817952968", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "135650240593878" },--84451219120140
 		{ MeshId = "137702817952968", Names = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" }, Offset = CFrame.Angles(0, 0, 1.57), TextureId = "135650240593878" },--72292903231768
 
@@ -1052,7 +1053,6 @@ Empyrean = Start({
 		{ MeshId = "110684113028749", Name = "Torso", Offset = CFrame.identity, TextureId = "70661572547971" },--138364679836274
 		{ MeshId = "4819720316", Name = "Torso", Offset = CFrame.Angles(0, 0, -0.249), TextureId = "4819722776" },--4819740796
 		{ MeshId = "126825022897778", Name = "Torso", Offset = CFrame.identity, TextureId = "125975972015302" },--95290698984301
-		{ MeshId = "13778226115", Name = "Torso", Offset = CFrame.identity, TextureId = "13779858015" },
 
 	},
 	ApplyDescription = true,
@@ -1085,7 +1085,6 @@ Empyrean = Start({
 	UseServerBreakJoints = false,
 })
 game.Players.LocalPlayer.Character = game.Players.LocalPlayer.Character.Parent
-
 
 local Animations = game:GetObjects(getcustomasset("Forsakation/Survivors/ShedletskyAnimations.rbxmx"))[1]
 local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
@@ -1585,8 +1584,7 @@ ChargeButton.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 4
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. Eat)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, Eat)
 		Anim:Play()
 		wait(2.8)
 		ability = false
@@ -1600,8 +1598,7 @@ BlockButton.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 2
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. Slash)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, Slash)
 		Anim:Play()
 		wait(.5)
 		Slashvel.Enabled = true
