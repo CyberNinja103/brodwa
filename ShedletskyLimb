@@ -730,8 +730,7 @@ ChargeButton.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 4
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. Eat)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, Eat)
 		Anim:Play()
 		wait(2.8)
 		ability = false
@@ -745,8 +744,7 @@ BlockButton.Activated:Connect(function()
 		ability = true
 		hum.WalkSpeed = 2
 		Anim:Stop()
-		animation = game:GetObjects("rbxassetid://" .. Slash)[1]
-		Anim = AnimHandler.new(char, animation)
+		Anim = AnimHandler.new(char, Slash)
 		Anim:Play()
 		wait(.5)
 		Slashvel.Enabled = true
