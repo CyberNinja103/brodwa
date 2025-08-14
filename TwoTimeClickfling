@@ -1,21 +1,15 @@
+
 -- thanks @yohan_moon for finding this animator module
 -- Forsakation discord server: https://discord.gg/9XHYkWybxR
 -- Reanimation was made by @emperrrr (Discord)
 -- Discord server for empers reanimate: https://discord.gg/UJ7YtqadPJ
 
-
 if not isfolder("Forsakation/Survivors/") then
 	makefolder("Forsakation/Survivors/")
 end
-if not isfile("Forsakation/Survivors/TaphAnimations.rbxmx") then
-	writefile("Forsakation/Survivors/TaphAnimations.rbxmx", game:HttpGet("https://raw.githubusercontent.com/CyberNinja103/Animations/refs/heads/main/TaphAnimations.rbxmx"))
+if not isfile("Forsakation/Survivors/TwoTimeAnimations.rbxmx") then
+	writefile("Forsakation/Survivors/TwoTimeAnimations.rbxmx", game:HttpGet("https://raw.githubusercontent.com/CyberNinja103/Animations/refs/heads/main/TwoTime_Animations.rbxmx"))
 end
-for _, obj in pairs(workspace:GetChildren()) do
-    if obj.Name == "SubspaceBox" then
-        obj:Destroy()
-    end
-end
-
 --[[
 local EmoteGui: ScreenGui = game:GetObjects("rbxassetid://70965231817963")[1]
 EmoteGui.Parent = game.Players.LocalPlayer.PlayerGui
@@ -29,7 +23,7 @@ local Controls: ScreenGui = game:GetObjects("rbxassetid://102160674504380")[1]
 Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
-Controls.Version.Text = "Version: Taph 1.0"
+Controls.Version.Text = "Version: 2time 2.0"
 do
 	local Accessories = {}
 
@@ -885,11 +879,7 @@ do
 			RigHumanoid = Rig.Humanoid
 			RigHumanoidRootPart = Rig.HumanoidRootPart
 			Rig.Parent = Workspace
-			
-			local SubspaceBox = Instance.new("Part", Rig)
-			SubspaceBox.Name = "SubspaceBox"
-			SubspaceBox.Size = Vector3.new(1.3, 1.3, 1.3)
-			
+
 			for Index, Descendant in next, GetDescendants(Rig) do
 				if IsA(Descendant, "Attachment") then
 					Attachments[Descendant.Name] = Descendant
@@ -1074,7 +1064,7 @@ Empyrean = Start({
 	},
 	ApplyDescription = true,
 	BreakJointsDelay = 0.255,
-	ClickFling = false,
+	ClickFling = true,
 	DefaultFlingOptions = {
 		HatFling = true,--{ MeshId="", TextureId = ""},
 		Highlight = false,
@@ -1084,14 +1074,14 @@ Empyrean = Start({
 	},
 	DisableCharacterCollisions = true,
 	DisableHealthBar = true,
-	DisableRigCollisions = false,
+	DisableRigCollisions = true,
 	HatDrop = true,
 	HideCharacter = Vector3.new(0, - 30, 0),
 	ParentCharacter = true,
 	PermanentDeath = true,
 	Refit = false,
 	RigSize = 1,
-	RigTransparency = 1,
+	RigTransparency = 0.65,
 	R15 = false,
 	SetCameraSubject = true,
 	SetCameraType = true,
@@ -1104,7 +1094,7 @@ Empyrean = Start({
 
 game.Players.LocalPlayer.Character = game.Players.LocalPlayer.Character.Parent
 local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
-local Animations = game:GetObjects(getcustomasset("Forsakation/Survivors/TaphAnimations.rbxmx"))[1]
+local Animations = game:GetObjects(getcustomasset("Forsakation/Survivors/TwoTimeAnimations.rbxmx"))[1]
 local Players = game:GetService("Players")
 
 local Anim
@@ -1112,8 +1102,8 @@ local id, one, two, three, four, five, six, seven, eight
 local i, walk, run = Animations.Idle, Animations.Walk, Animations.Run
 local hidle, hwalking, hrun = Animations.HurtIdle, Animations.HurtWalk, Animations.HurtRun
 local lstart, lloop, lend = Animations.LungeStart, Animations.LungeLoop, Animations.LungeEnd
-local cidle, cstart, cwalk, crun = Animations.HoldLoop, Animations.PlaceStart, Animations.HoldWalk, Animations.HoldWalk
-local stabid, blockid, ritualid = Animations.Tripmine, Animations.Block, Animations.Ritual
+local cidle, cstart, cwalk, crun = Animations.CrouchIdle, Animations.CrouchStart, Animations.CrouchWalk, Animations.CrouchRun
+local stabid, blockid, ritualid = Animations.Stab, Animations.Block, Animations.Ritual
 
 local uis = game:GetService("UserInputService")	
 local idle, walking, sprinting, crouching, sprinting1 = true, false, false, false, false
@@ -1125,62 +1115,6 @@ local player = Players.LocalPlayer
 local mouse = player:GetMouse()
 local char = Empyrean.Rig
 local hum: Humanoid = char:FindFirstChild("Humanoid")
-local SubspaceTripmine = char:FindFirstChild("SubspaceTripmine")
-local HumanoidRootPart = char:FindFirstChild("HumanoidRootPart")
-local tripPhysics = true
-local workspaceSubspaceBox -- keep track of the workspace version ~
-
-local function updateTripPhysics()
-	local TRWeld = HumanoidRootPart:FindFirstChild("SubspaceBox")
-	local subspaceBox = char:FindFirstChild("SubspaceBox")
-	
-	if tripPhysics then
-		-- delete workspace one if it exists
-		if workspaceSubspaceBox then
-			workspaceSubspaceBox:Destroy()
-			workspaceSubspaceBox = nil
-		end
-		
-		-- create Motor6D if it doesn't exist
-		if subspaceBox and not TRWeld then
-			TRWeld = Instance.new("Motor6D")
-			TRWeld.Name = "SubspaceBox"
-			TRWeld.Parent = HumanoidRootPart
-			TRWeld.Part0 = HumanoidRootPart
-			TRWeld.Part1 = subspaceBox
-			TRWeld.C0 = CFrame.new(1.501, -1.036, -0.032)
-		end
-	else
-		-- destroy Motor6D
-		if TRWeld then
-			TRWeld:Destroy()
-		end
-		
-		if subspaceBox then
-			-- stop only SubspaceBox animations
-			for _, v in pairs(subspaceBox:GetChildren()) do
-				if v:IsA("AnimationTrack") then
-					v:Stop()
-				end
-			end
-
-			-- duplicate to workspace
-			workspaceSubspaceBox = subspaceBox:Clone()
-			workspaceSubspaceBox.Parent = workspace
-			workspaceSubspaceBox.CFrame = subspaceBox.CFrame
-			workspaceSubspaceBox.Anchored = false
-			workspaceSubspaceBox.CanCollide = true
-			workspaceSubspaceBox.Massless = false
-
-			-- give it velocity in the direction HRP is facing
-			local lookVector = HumanoidRootPart.CFrame.LookVector
-			local launchSpeed = 30 -- you can tweak this owo
-			workspaceSubspaceBox.AssemblyLinearVelocity = lookVector * launchSpeed
-			workspaceSubspaceBox.AssemblyAngularVelocity = Vector3.new(0,0,0)
-		end
-	end
-end
-updateTripPhysics()
 local stabvel = Instance.new("VectorForce")
 stabvel.Parent = char.HumanoidRootPart
 stabvel.Attachment0 = char.HumanoidRootPart.RootAttachment
@@ -1210,8 +1144,8 @@ elseif uis.TouchEnabled == false then
 	Controls.DesktopContainer.Charge.Clipping.Top.Image = "rbxassetid://77707049887484"
 	Controls.DesktopContainer.Punch.Image = "rbxassetid://95580729656404"
 	Controls.DesktopContainer.Punch.Clipping.Top.Image = "rbxassetid://95580729656404"
-	Controls.DesktopContainer.Block.AbilityName.Text = "Tripmine"
-	Controls.DesktopContainer.Charge.AbilityName.Text = "Tripwire"
+	Controls.DesktopContainer.Block.AbilityName.Text = "Dagger"
+	Controls.DesktopContainer.Charge.AbilityName.Text = "Crouch"
 	Controls.DesktopContainer.Punch.AbilityName.Text = "Ritual"
 	Controls.MobileContainer.Visible = false
 	Controls.SprintingButton.Visible = false
@@ -1250,18 +1184,46 @@ uis.InputBegan:Connect(function(input)
 		Anim:Play()
 	end
 	if input.KeyCode == Enum.KeyCode.Q and ability == false and crouching == false then
-		tripPhysics = true
-		updateTripPhysics()
 		stab = true
 		ability = true
-		hum.WalkSpeed = 5
-		wait(2)
-		tripPhysics = false
-		updateTripPhysics()
-		wait(0.6)
+		hum.WalkSpeed = 0
+		stabvel.Enabled = true
+		wait(.4)
+		stabvel.Enabled = false
+		wait(.5)
 		ability = false
 		stab = false
 		hum.WalkSpeed = ws
+	elseif input.KeyCode == Enum.KeyCode.Q and ability == false and crouching == true then
+		ability = true
+		hum.WalkSpeed = 3
+		Anim:Stop()
+		Anim = AnimHandler.new(char, lstart)
+		Anim:Play()
+		wait(.4)
+		hum.WalkSpeed = 0
+		lungevel.Enabled = true
+		lunging = true
+		wait(.2)
+		hum.WalkSpeed = 3
+		lungevel.Enabled = false
+		lunging = false
+		Anim:Stop()
+		Anim = AnimHandler.new(char, lend)
+		Anim:Play()
+		wait(1.2)
+		crouching = false
+		ability = false
+		hum.WalkSpeed = ws
+	end
+	if input.KeyCode == Enum.KeyCode.R and ability == false then
+		ritual = true
+		ability = true
+		hum.WalkSpeed = 0.1
+		wait(3.2)
+		hum.WalkSpeed = ws
+		ability = false
+		ritual = false
 	end
 	if input.KeyCode == Enum.KeyCode.T then
 		hurt = not hurt
@@ -1623,16 +1585,16 @@ local Gui = game.Players.LocalPlayer.PlayerGui.ControlsUI
 local SprintButton = Gui.SprintingButton
 local BlockButton = Gui.MobileContainer.Block
 BlockButton.Image = "rbxassetid://129077533212750"
-BlockButton.Clipping.Top.Image = "rbxassetid://89334370123950"
-BlockButton.AbilityName.Text = "Tripmine"
+BlockButton.Clipping.Top.Image = "rbxassetid://129077533212750"
+BlockButton.AbilityName.Text = "Dagger"
 local ChargeButton = Gui.MobileContainer.Charge
 ChargeButton.Image = "rbxassetid://77707049887484"
-ChargeButton.Clipping.Top.Image = "rbxassetid://135707604176757"
-ChargeButton.AbilityName.Text = "Tripwire"
+ChargeButton.Clipping.Top.Image = "rbxassetid://77707049887484"
+ChargeButton.AbilityName.Text = "Crouch"
 local PunchButton = Gui.MobileContainer.Punch
 PunchButton.Image = "rbxassetid://95580729656404"
 PunchButton.Clipping.Top.Image = "rbxassetid://95580729656404"
-PunchButton.AbilityName.Text = "how the hell do i get rid of this"
+PunchButton.AbilityName.Text = "Ritual"
 -- Toggle Sprint
 SprintButton.Activated:Connect(function()
 	if sprinting1 == false then
@@ -1653,17 +1615,36 @@ end)
 -- Block
 BlockButton.Activated:Connect(function()
 	if ability == false and crouching == false then
-		tripPhysics = true
-		updateTripPhysics()
 		stab = true
 		ability = true
-		hum.WalkSpeed = 5
-		wait(2)
-		tripPhysics = false
-		updateTripPhysics()
-		wait(0.6)
+		hum.WalkSpeed = 0
+		stabvel.Enabled = true
+		wait(.4)
+		stabvel.Enabled = false
+		wait(.5)
 		ability = false
 		stab = false
+		hum.WalkSpeed = ws
+	elseif ability == false and crouching == true then
+		ability = true
+		hum.WalkSpeed = 3
+		Anim:Stop()
+		Anim = AnimHandler.new(char, lstart)
+		Anim:Play()
+		wait(.4)
+		hum.WalkSpeed = 0
+		lungevel.Enabled = true
+		lunging = true
+		wait(.2)
+		hum.WalkSpeed = 3
+		lungevel.Enabled = false
+		lunging = false
+		Anim:Stop()
+		Anim = AnimHandler.new(char, lend)
+		Anim:Play()
+		wait(1.2)
+		crouching = false
+		ability = false
 		hum.WalkSpeed = ws
 	end
 end)
@@ -1689,6 +1670,18 @@ ChargeButton.Activated:Connect(function()
 		Anim:Stop()
 		Anim = AnimHandler.new(char, i)
 		Anim:Play()
+	end
+end)
+-- Punch
+PunchButton.Activated:Connect(function()
+	if ritual == false and ability == false then
+		ritual = true
+		ability = true
+		hum.WalkSpeed = 0.1
+		wait(3.2)
+		hum.WalkSpeed = ws
+		ability = false
+		ritual = false
 	end
 end)
 --[[
@@ -1931,14 +1924,4 @@ while wait() do
 			id = ritualid
 		end
 	end	
-	game:GetService("Players").LocalPlayer.PlayerGui.ControlsUI.MobileContainer.Punch.Position = UDim2.new(20.084262073, 20, 0, 0)
-local targetPart = workspace:FindFirstChild("SubspaceBox") or char.SubspaceBox
-
--- prefer SubspaceHead, fallback to MediHood
-local accessory = char:FindFirstChild("Accessory (SubspaceHead)") 
-                or char:FindFirstChild("MediHood")
-
-if accessory then
-    accessory.Handle.AccessoryWeld.Part1 = targetPart
-end
 end
