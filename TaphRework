@@ -29,7 +29,7 @@ local Controls: ScreenGui = game:GetObjects("rbxassetid://102160674504380")[1]
 Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
-Controls.Version.Text = "Version: Taph 1.0"
+Controls.Version.Text = "Version: Taph 1.1"
 do
 	local Accessories = {}
 
