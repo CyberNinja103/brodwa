@@ -1074,7 +1074,7 @@ Empyrean = Start({
 	},
 	ApplyDescription = true,
 	BreakJointsDelay = 0.255,
-	ClickFling = true,
+	ClickFling = false,
 	DefaultFlingOptions = {
 		HatFling = true,--{ MeshId="", TextureId = ""},
 		Highlight = false,
@@ -1174,7 +1174,7 @@ local function updateTripPhysics()
 
 			-- give it velocity in the direction HRP is facing
 			local lookVector = HumanoidRootPart.CFrame.LookVector
-			local launchSpeed = 30 -- you can tweak this owo
+			local launchSpeed = 80 -- you can tweak this owo
 			workspaceSubspaceBox.AssemblyLinearVelocity = lookVector * launchSpeed
 			workspaceSubspaceBox.AssemblyAngularVelocity = Vector3.new(0,0,0)
 		end
