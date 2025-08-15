@@ -407,56 +407,48 @@ end)
 -- Play Emote on press
 one11.MouseButton1Click:Connect(function()
 	emote = true
-	Anim:Stop()
 	Anim = AnimHandler.new(char, emotes1)
 	Anim:Play()
 	Wheel.Enabled = false
 end)
 two22.MouseButton1Click:Connect(function()
 	emote = true
-	Anim:Stop()
 	Anim = AnimHandler.new(char, emotes2)
 	Anim:Play()
 	Wheel.Enabled = false
 end)
 three33.MouseButton1Click:Connect(function()
 	emote = true
-	Anim:Stop()
 	Anim = AnimHandler.new(char, emotes3)
 	Anim:Play()
 	Wheel.Enabled = false
 end)
 four44.MouseButton1Click:Connect(function()
 	emote = true
-	Anim:Stop()
 	Anim = AnimHandler.new(char, emotes4)
 	Anim:Play()
 	Wheel.Enabled = false
 end)
 five55.MouseButton1Click:Connect(function()
 	emote = true
-	Anim:Stop()
 	Anim = AnimHandler.new(char, emotes5)
 	Anim:Play()
 	Wheel.Enabled = false
 end)
 six66.MouseButton1Click:Connect(function()
 	emote = true
-	Anim:Stop()
 	Anim = AnimHandler.new(char, emotes6)
 	Anim:Play()
 	Wheel.Enabled = false
 end)
 seven77.MouseButton1Click:Connect(function()
 	emote = true
-	Anim:Stop()
 	Anim = AnimHandler.new(char, emotes7)
 	Anim:Play()
 	Wheel.Enabled = false
 end)
 eight88.MouseButton1Click:Connect(function()
 	emote = true
-	Anim:Stop()
 	Anim = AnimHandler.new(char, emotes8)
 	Anim:Play()
 	Wheel.Enabled = false
