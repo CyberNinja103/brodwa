@@ -1180,27 +1180,6 @@ uis.InputBegan:Connect(function(input)
 			hum.WalkSpeed = 15
 		end
 	end
-	if input.KeyCode == Enum.KeyCode.E and ability == false and crouching == false then
-		ability = true
-		crouching = true
-		Anim:Stop()
-		Anim = AnimHandler.new(char, cstart)
-		Anim:Play()
-		hum.WalkSpeed = 0
-		wait(.4)
-		hum.WalkSpeed = 9
-		Anim:Stop()
-		Anim = AnimHandler.new(char, cidle)
-		Anim:Play()
-		ability = false
-	elseif  input.KeyCode == Enum.KeyCode.E and ability == false and crouching == true then
-		crouching = false
-		idle = true
-		hum.WalkSpeed = ws
-		Anim:Stop()
-		Anim = AnimHandler.new(char, i)
-		Anim:Play()
-	end
 if input.KeyCode == Enum.KeyCode.Q and ability == false then
 	stab = true
 	ability = true
@@ -1897,4 +1876,5 @@ while wait() do
 			id = ritualid
 		end
 	end	
+
 end
