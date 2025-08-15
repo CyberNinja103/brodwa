@@ -1093,7 +1093,7 @@ Empyrean = Start({
 	PermanentDeath = true,
 	Refit = true,
 	RigSize = 1,
-	RigTransparency = 0.65,
+	RigTransparency = 1,
 	R15 = false,
 	SetCameraSubject = true,
 	SetCameraType = true,
@@ -1878,3 +1878,4 @@ while wait() do
 	end	
 
 end
+
