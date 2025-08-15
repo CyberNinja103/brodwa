@@ -24,7 +24,7 @@ Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: Noli 2.0"
 
-loadstring(game:HttpGet("https://github.com/CyberNinja103/brodwa/raw/refs/heads/main/EmpyreanClickfling"))
+loadstring(game:HttpGet("https://github.com/CyberNinja103/brodwa/raw/refs/heads/main/EmpyreanClickfling"))()
 
 
 local Animations = game:GetObjects(getcustomasset("Forsakation/Killers/NoliAnimation.rbxmx"))[1]
