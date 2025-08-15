@@ -25,7 +25,7 @@ Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: Jason 1.1"
 
-loadstring(game:HttpGet("https://github.com/CyberNinja103/brodwa/raw/refs/heads/main/EmpyreanHatdrop"))
+loadstring(game:HttpGet("https://github.com/CyberNinja103/brodwa/raw/refs/heads/main/EmpyreanHatdrop"))()
 
 local Animations = game:GetObjects(getcustomasset("Forsakation/Killers/JasonAnimations.rbxmx"))[1]
 local Chase = getcustomasset("Forsakation/Killers/JasonChase.mp3")
