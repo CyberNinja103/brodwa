@@ -30,7 +30,7 @@ Controls.Parent = game.Players.LocalPlayer.PlayerGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: Taph 1.1"
-loadstring(game:HttpGet("https://github.com/CyberNinja103/brodwa/raw/refs/heads/main/EmpyreanClickfling"))
+loadstring(game:HttpGet("https://github.com/CyberNinja103/brodwa/raw/refs/heads/main/EmpyreanClickfling"))()
 
 local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
 local Animations = game:GetObjects(getcustomasset("Forsakation/Survivors/TaphAnimations.rbxmx"))[1]
