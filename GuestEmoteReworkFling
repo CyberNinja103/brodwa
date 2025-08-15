@@ -21,7 +21,7 @@ Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: Guest 2.0"
 
-loadstring(game:HttpGet("https://github.com/CyberNinja103/brodwa/raw/refs/heads/main/EmpyreanClickfling"))
+loadstring(game:HttpGet("https://github.com/CyberNinja103/brodwa/raw/refs/heads/main/EmpyreanClickfling"))()
 
 local uis = game:GetService("UserInputService")	
 local Players = game:GetService("Players")
