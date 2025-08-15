@@ -23,7 +23,7 @@ Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: C00lKidd 2.0"
 
-loadstring(game:HttpGet("https://github.com/CyberNinja103/brodwa/raw/refs/heads/main/EmpyreanClickfling"))
+loadstring(game:HttpGet("https://github.com/CyberNinja103/brodwa/raw/refs/heads/main/EmpyreanClickfling"))()
 
 local Animations = game:GetObjects(getcustomasset("Forsakation/Killers/C00lkiddAnimations.rbxmx"))[1]
 local AnimHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/ProudNamed/SuperLightning/refs/heads/main/AnimModule/MainModule"))()
