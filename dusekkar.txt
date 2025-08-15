@@ -549,8 +549,9 @@ ChargeButton.Activated:Connect(function()
 	if ritual == false and ability == false then
 		ritual = true
 		ability = true
-		hum.WalkSpeed = 0.1
-		wait(3.2)
+		hum.WalkSpeed = 8
+		wait(1.5)
+		wait(0.5)
 		hum.WalkSpeed = ws
 		ability = false
 		ritual = false
@@ -798,5 +799,6 @@ while wait() do
 	end	
 
 end
+
 
 
