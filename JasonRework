@@ -26,7 +26,7 @@ local Destroyed = false
 --Mobile.Parent = game.Players.LocalPlayer.PlayerGui
 --Mobile.Enabled = false
 local Controls: ScreenGui = game:GetObjects("rbxassetid://85172975543013")[1]
-Controls.Parent = game.Players.LocalPlayer.PlayerGui
+Controls.Parent = game.CoreGui
 Controls.Enabled = true
 Controls.MobileContainer.Visible = false
 Controls.Version.Text = "Version: Jason 1.3"
@@ -1195,7 +1195,6 @@ local walking = false
 local sprinting = false
 local char = game.Players.LocalPlayer.Character
 local hum: Humanoid = char:FindFirstChild("Humanoid")
-local Gui = game.Players.LocalPlayer.PlayerGui.ControlsUI
 local attackvel = Instance.new("VectorForce")
 attackvel.Parent = char.HumanoidRootPart
 attackvel.Attachment0 = char.HumanoidRootPart.RootAttachment
@@ -1714,7 +1713,7 @@ end)
 --	end
 --end)
 -- mobile Gui
-local Gui = game.Players.LocalPlayer.PlayerGui.ControlsUI
+local Gui = Controls
 local SprintButton = Gui.SprintingButton
 local AbilityOne = Gui.MobileContainer.AbilityOne
 AbilityOne.Image = "rbxassetid://96590285148227"
